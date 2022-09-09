@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="header--links">
+    <div
+      class="link"
+      *ngFor="let link of links"
+      [routerLink]="link.to"
+      routerLinkActive="link--active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      {{ link.text }}
+    </div>
+  </div>
+
+  <div [routerLink]="cartUrl" class="link">Cart</div>
+  <div class="link" [routerLink]="loginUrl">Login</div>
+</div>

@@ -1,0 +1,19 @@
+.link {
+  padding: 8px;
+  color: blueviolet;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: blue;
+}
+
+.link--active {
+  font-weight: bold;
+}
+
+.header, .header--links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
