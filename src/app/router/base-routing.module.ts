@@ -15,30 +15,24 @@ const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('@/pages/home/home.component').then(
-            (m) => m.HomeComponent
-          ),
+          import('@/pages/home/home.component').then((m) => m.HomeComponent),
       },
       {
         path: 'about',
         loadComponent: () =>
-          import('@/pages/about/about.component').then(
-            (m) => m.AboutComponent
-          ),
+          import('@/pages/about/about.component').then((m) => m.AboutComponent),
       },
       {
         path: 'products',
         loadComponent: () =>
-          import(
-            '@/pages/products/products-list/products-list.component'
-          ).then((m) => m.ProductsListComponent),
+          import('@/pages/products/products-list/products-list.component').then(
+            (m) => m.ProductsListComponent
+          ),
       },
       {
         path: 'cart',
         loadComponent: () =>
-          import('@/pages/cart/cart.component').then(
-            (m) => m.CartComponent
-          ),
+          import('@/pages/cart/cart.component').then((m) => m.CartComponent),
       },
       {
         path: 'errors/not-found',
@@ -58,6 +52,10 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forRoot(routes), AuthRouterModule],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes, { scrollPositionRestoration: "enabled" }),
+    AuthRouterModule,
+  ],
 })
 export class BaseRoutingModule {}
