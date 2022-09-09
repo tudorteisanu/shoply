@@ -1,0 +1,22 @@
+<section
+  class="flex items-center justify-center h-[585px] px-[76px] py-9 bg-gradient-to-r from-[#FCF9F6] to-white"
+>
+  <div class="max-w-7xl w-full">
+    <div class="flex items-center justify-between">
+      <div
+        *ngFor="let service of services"
+        class="flex items-center justify-center flex-col w-[331px] h-[245px]"
+      >
+        <div>
+          <img [src]="service.icon" [alt]="service.title" />
+        </div>
+        <div class="mt-7 text-primary-700 text-[32px]">
+          {{ service.title }}
+        </div>
+        <div class="text-primary-600 text-[22px] text-center mt-4">
+          {{ service.text }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
