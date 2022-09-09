@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.css'],
   standalone: true,
   imports: [CommonModule],
 })

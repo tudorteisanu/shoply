@@ -5,7 +5,6 @@ import { PageRoutes } from '@/ts/enum';
 @Component({
   selector: 'Header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
   readonly links: LinkInterface[] = [

@@ -1,10 +1,10 @@
-<div class="header">
-  <div class="header--links">
+<div class="flex items-center justify-center">
+  <div class="flex items-center justify-center">
     <div
-      class="link"
+      class="text-blue-500 cursor-pointer hover:text-red-600 "
       *ngFor="let link of links"
       [routerLink]="link.to"
-      routerLinkActive="link--active"
+      routerLinkActive="font-bold"
       [routerLinkActiveOptions]="{ exact: true }"
     >
       {{ link.text }}

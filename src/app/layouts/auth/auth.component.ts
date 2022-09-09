@@ -8,7 +8,6 @@ import { LayoutComponentsModule } from '@/components/layout-components/layout-co
   standalone: true,
   imports: [CommonModule, RouterOutlet, LayoutComponentsModule],
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
   constructor() {}
