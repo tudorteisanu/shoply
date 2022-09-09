@@ -1,0 +1,12 @@
+<section class="flex items-center justify-center h-[390px] px-[76px] py-9 bg-gradient-to-r from-[#FCF9F6] to-white">
+  <div class="flex items-center justify-between flex-col max-w-5xl w-full">
+      <div class="text-5xl font-bold">
+        Our Partners
+      </div>
+    <div class="flex justify-between items-center w-full mt-16">
+      <div *ngFor="let imageUrl of partners">
+        <img [src]="imageUrl" alt="partner image">
+      </div>
+    </div>
+  </div>
+</section>
