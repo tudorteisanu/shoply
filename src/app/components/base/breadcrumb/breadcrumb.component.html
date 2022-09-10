@@ -1,0 +1,15 @@
+<div class="w-full shadow-xl px-6 py-5 flex">
+  <div
+    *ngFor="let item of items; let itemIndex = index"
+    class="text-[32px] text-primary-600"
+  >
+    <span *ngIf="itemIndex" class="mx-4">></span>
+    <span
+      [routerLink]="item.to"
+      routerLinkActive="font-bold"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      {{ item.text }}
+    </span>
+  </div>
+</div>
