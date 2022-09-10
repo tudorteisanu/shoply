@@ -29,4 +29,8 @@ export class HeaderComponent {
   get loginUrl(): string {
     return PageRoutes.Login;
   }
+
+  get homeUrl(): string {
+    return PageRoutes.Home;
+  }
 }
