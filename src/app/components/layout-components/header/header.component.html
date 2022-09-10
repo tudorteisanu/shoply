@@ -1,23 +1,40 @@
-<div class="fixed top-0 left-0 z-30 flex items-center justify-center w-full bg-primary-300 h-[115px]">
+<div
+  class="fixed top-0 left-0 z-30 flex items-center justify-center w-full bg-primary-300 h-[115px]"
+>
   <div class="w-full flex items-center justify-between max-w-7xl">
     <div class="text-3xl leading-9 font-bold">Shoply.</div>
     <div class="flex items-center justify-between max-w-[427px] w-full">
-      <div
-        class="text-primary-600 cursor-pointer hover:text-red-600 text-base leading-5 decoration-2 underline underline-offset-8"
-        *ngFor="let link of links"
-        [routerLink]="link.to"
-        routerLinkActive="font-bold text-primary-900"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        {{ link.text }}
-      </div>
+      <ng-container *ngFor="let link of links; let linkIndex = index">
+        <div *ngIf="linkIndex">
+          <span>/</span>
+        </div>
+        <div
+          class="text-primary-600 cursor-pointer hover:text-red-600 text-base leading-5 decoration-2 underline underline-offset-8"
+          [routerLink]="link.to"
+          routerLinkActive="font-bold text-primary-900"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span>
+            {{ link.text }}
+          </span>
+        </div>
+      </ng-container>
     </div>
     <div class="flex items-center">
       <button [routerLink]="cartUrl" class="mr-16 relative">
-        <img src="assets/icons/cart.svg" alt="cart icon">
-        <div class="absolute top-0 -right-2 h-4 w-4 rounded-full bg-red-500 text-white text-sm flex items-center justify-center">0</div>
+        <img src="assets/icons/cart.svg" alt="cart icon" />
+        <div
+          class="absolute top-0 -right-2 h-4 w-4 rounded-full bg-red-500 text-white text-sm flex items-center justify-center"
+        >
+          0
+        </div>
       </button>
-      <button class="w-[113px] bg-primary-900 text-white h-10" [routerLink]="loginUrl">Login</button>
+      <button
+        class="w-[113px] bg-primary-900 text-white h-10"
+        [routerLink]="loginUrl"
+      >
+        Login
+      </button>
     </div>
   </div>
 </div>
