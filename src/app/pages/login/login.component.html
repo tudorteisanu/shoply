@@ -1,1 +1,34 @@
-<p>login works!</p>
+<section
+  class="flex items-center justify-center h-[585px] px-[76px] py-9 bg-gradient-to-r from-[#FCF9F6] to-white"
+>
+  <div class="grid grid-cols-2 items-center justify-between max-[960px] mt-9">
+    <div>
+      <img
+        class="w-[495px] h-[525px]"
+        src="assets/images/login-image-1.png"
+        alt="login image"
+      />
+    </div>
+    <div class="p-16">
+      <div class="w-full text-center text-3xl text-[#334756]">LOGIN</div>
+      <form (submit)="login()">
+        <FormInput icon="assets/icons/user.svg"></FormInput>
+        <FormInput type="password" icon="assets/icons/lock.svg"></FormInput>
+        <div class="text-base text-[#334756] text-right mr-4 mt-2">
+          <a [routerLink]="forgotPasswordUrl" class="hover:text-primary-900"
+            >lupa password?</a
+          >
+        </div>
+        <button
+          class="bg-primary-900 rounded-full text-white w-full h-[52px] mt-11"
+        >
+          Masuk
+        </button>
+        <div class="w-full text-center mt-6">
+          <span class="text-[#334756]">belum punya akun ? </span>
+          <span class="text-[#616467] underline underline-offset-4">daftar sekarang </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
