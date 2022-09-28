@@ -2,33 +2,18 @@
   <div class="flex flex-col items-center justify-center">
     <div class="text-5xl leading-[60px] font-bold">Product</div>
     <div class="grid grid-cols-4 gap-[72px] mt-[73px]">
-      <div *ngFor="let product of products" class="relative">
-        <img [src]="product.imageUrl" alt="product image" />
-        <div
-          class="absolute bottom-0 left-0 w-full flex items-center justify-center px-8 py-4"
-        >
-          <div class="w-[205px]">
-            <button
-              class="bg-primary-700 rounded-xl uppercase text-white h-9 w-[138px]"
-            >
-              detail
-            </button>
-          </div>
-          <div>
-            <button class="h-9 bg-white rounded-xl w-[52px] flex items-center justify-center">
-              <img src="assets/icons/cart.svg" class="w-[22px] h-6" alt="cart icon">
-            </button>
-          </div>
-        </div>
-      </div>
+      <ProductCard
+        *ngFor="let product of products"
+        [product]="product"
+      ></ProductCard>
     </div>
     <div class="mt-16">
-      <button class="uppercase bg-primary-700 text-white w-[218px] h-[54px] rounded-sm flex items-center justify-center">
-        <div>
-          All product
-        </div>
+      <button
+        class="uppercase bg-primary-700 text-white w-[218px] h-[54px] rounded-sm flex items-center justify-center"
+      >
+        <div>All product</div>
         <div class="ml-2">
-          <img src="assets/icons/arrow-right.svg" alt="arrow right icon">
+          <img src="assets/icons/arrow-right.svg" alt="arrow right icon" />
         </div>
       </button>
     </div>

@@ -1,0 +1,30 @@
+<div>
+  <div class="relative" *ngIf="product">
+    <img [src]="product.imageUrl" alt="product image" />
+    <div
+      class="absolute bottom-0 left-0 w-full flex items-center justify-center px-8 py-4"
+    >
+      <div class="w-[205px]">
+        <button
+          class="bg-primary-700 rounded-xl uppercase text-white h-9 w-[138px]"
+        >
+          detail
+        </button>
+      </div>
+      <div class="ml-2">
+        <button
+          class="h-9 bg-white rounded-xl w-[52px] flex items-center justify-center"
+        >
+          <img
+            src="assets/icons/cart.svg"
+            class="w-[22px] h-6"
+            alt="cart icon"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="w-[290px] px-10">
+  <div class="font-bold text-xl">Filter</div>
+  <div class="mt-14">
+    <div class="font-bold mb-5">Product Category</div>
+    <div
+      *ngFor="let productCategory of categories"
+      class="flex items-center justify-between text-primary-600 py-2"
+    >
+      <div>{{ productCategory.name }}</div>
+      <div>
+        <input [checked]="productCategory.checked" type="checkbox" />
+      </div>
+    </div>
+    <div
+      class="text-center flex items-center justify-center text-gray-500 mt-5"
+    >
+      <span>Others</span>
+      <img src="assets/icons/dropdown-icon-down.svg" alt="" />
+    </div>
+    <div class="mt-10 flex flex-col">
+      <div class="font-bold">Price Range</div>
+      <div class="flex mt-2.5">
+        <input
+          class="max-w-ful w-full p-2 border rounded-md border-gray-500 bg-gray-100 flex"
+          type="text"
+          placeholder="Min"
+        />
+        <input
+          class="max-w-ful w-full p-2 border rounded-md border-gray-500 bg-gray-100 flex ml-3"
+          type="text"
+          value="$400"
+        />
+      </div>
+      <button class="bg-black text-white rounded-md p-2 mt-2.5">Set price</button>
+      <button class="mt-16 border border-black p-2 rounded-md">
+        Clear Filter
+      </button>
+    </div>
+  </div>
+</div>
