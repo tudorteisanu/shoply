@@ -1,6 +1,6 @@
 import { PageRoutes } from '../enum';
 
 export interface LinkInterface {
-  to: PageRoutes;
+  to: PageRoutes | string;
   text: string;
 }

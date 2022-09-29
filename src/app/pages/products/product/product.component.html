@@ -1,29 +1,48 @@
 <section class="flex items-center justify-center px-[76px] py-9 mb-[125px]">
-  <div class="max-w-7xl w-full mt-9 h-full flex">
-    <div>
-      <img src="assets/images/product-single-1.png" alt="" />
+  <div class="max-w-7xl w-full mt-9 h-full">
+    <div class="w-full mb-[50px]">
+      <Breadcrumb [items]="breadcrumb"></Breadcrumb>
     </div>
-    <div class="ml-[70px] text-lg flex flex-col justify-between">
-      <div class="w-full">
-        <div class="text-[#616467] text-[40px] py-9">Razer Mouse X89</div>
-        <p class="text-lg text-gray-500 leading-9">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh
-          erat
-        </p>
-        <div >Teknology</div>
-        <div class="text-gray-600 my-10">Stock : 75</div>
-        <div class="text-gray-500">Price :</div>
-        <div class="text-black">$55</div>
-        <div class="mt-9">
-          <button class="w-[45px] h-[45px] text-xl bg-[#F5F7FB] text-gray-800">-</button>
-          <button class="w-[45px] h-[45px] text-xl bg-[#F5F7FB] text-gray-800 mx-4">1</button>
-          <button class="w-[45px] h-[45px] text-xl bg-[#F5F7FB] text-gray-800">+</button>
-          <button class="bg-primary-900 text-white h-[45px] px-4 ml-9">Add to cart</button>
-        </div>
+    <div class="flex">
+      <div>
+        <img src="assets/images/product-single-1.png" alt="" />
       </div>
-      <div class="flex w-full items-center justify-between">
-        <div *ngFor="let thumb of thumbs">
-          <img [src]="thumb.url" alt="" />
+      <div class="ml-[70px] text-lg flex flex-col justify-between">
+        <div class="w-full">
+          <div class="text-[#616467] text-[40px] py-9">Razer Mouse X89</div>
+          <p class="text-lg text-gray-500 leading-9">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            nibh erat
+          </p>
+          <div>Teknology</div>
+          <div class="text-gray-600 my-10">Stock : 75</div>
+          <div class="text-gray-500">Price :</div>
+          <div class="text-black">$55</div>
+          <div class="mt-9">
+            <button
+              class="w-[45px] h-[45px] text-xl bg-[#F5F7FB] text-gray-800"
+            >
+              -
+            </button>
+            <button
+              class="w-[45px] h-[45px] text-xl bg-[#F5F7FB] text-gray-800 mx-4"
+            >
+              1
+            </button>
+            <button
+              class="w-[45px] h-[45px] text-xl bg-[#F5F7FB] text-gray-800"
+            >
+              +
+            </button>
+            <button class="bg-primary-900 text-white h-[45px] px-4 ml-9">
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <div class="flex w-full items-center justify-between">
+          <div *ngFor="let thumb of thumbs">
+            <img [src]="thumb.url" alt="" />
+          </div>
         </div>
       </div>
     </div>

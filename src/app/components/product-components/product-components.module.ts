@@ -5,10 +5,11 @@ import { ProductSearchComponent } from './product-search/product-search.componen
 import { ListComponent } from './list/list.component';
 import { ProductSortComponent } from './product-sort/product-sort.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import {RouterLink} from "@angular/router";
 
 @NgModule({
   declarations: [ProductFilterComponent, ProductSearchComponent, ListComponent, ProductSortComponent, ProductCardComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   exports: [ProductFilterComponent, ProductSearchComponent, ListComponent, ProductSortComponent, ProductCardComponent],
 })
 export class ProductComponentsModule {}
