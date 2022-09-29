@@ -30,6 +30,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'products/:id',
+        loadComponent: () =>
+          import('@/pages/products/product/product.component').then(
+            (m) => m.ProductComponent
+          ),
+      },
+      {
         path: 'cart',
         loadComponent: () =>
           import('@/pages/cart/cart.component').then((m) => m.CartComponent),
@@ -54,7 +61,7 @@ const routes: Routes = [
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes, { scrollPositionRestoration: "enabled" }),
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
     AuthRouterModule,
   ],
 })
