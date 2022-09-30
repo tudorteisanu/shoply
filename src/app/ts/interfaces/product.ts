@@ -4,3 +4,7 @@ export interface ProductInterface {
   name?: string;
   price?: string;
 }
+
+export interface CartInterface extends ProductInterface {
+ quantity?: number;
+}

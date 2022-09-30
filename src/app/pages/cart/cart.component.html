@@ -1,1 +1,66 @@
-<p>cart works!</p>
+<section class="flex items-center justify-center px-[76px] py-9 mb-[125px]">
+  <div class="max-w-7xl w-full mt-9 h-full">
+    <div class="w-full mb-[50px]">
+      <Breadcrumb [items]="breadcrumb"></Breadcrumb>
+    </div>
+    <div class="flex w-full">
+      <div class="w-full">
+        <div class="grid grid-cols-4 text-center font-bold">
+          <div>Product</div>
+          <div>Price</div>
+          <div>Quantity</div>
+          <div>Total</div>
+        </div>
+        <div
+          *ngFor="let product of products"
+          class="grid grid-cols-4 bg-[#F8F8F8] mt-[30px]"
+        >
+          <div class="p-5">
+            <div class="flex items-center w-fit">
+              <div class="w-[123px] h-[123px]">
+                <img [src]="product.imageUrl" alt="" />
+              </div>
+              <div class="ml-4">{{ product.name }}</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <div class="w-full flex items-center justify-center">
+              {{ product.price }}
+            </div>
+          </div>
+          <div class="w-full flex items-center justify-center">
+            <button class="text-3xl">-</button>
+            <div class="border rounded-sm border-black p-1 mx-3">
+              {{ product.quantity }}
+            </div>
+            <button class="text-3xl">+</button>
+          </div>
+          <div class="w-full flex items-center justify-center">
+            <img src="assets/icons/delete.svg" alt="" />
+          </div>
+        </div>
+        <div class="flex items-center justify-end mt-[95px]">
+          <div class="px-[59px] py-7 bg-[#F8F8F8]">
+            <table class="w-[350px]">
+              <tr class="font-bold">
+                <td class="p-2">Subtotal</td>
+                <td class="p-2 text-center">:</td>
+                <td class="p-2 text-end">$90</td>
+              </tr>
+              <tr>
+                <td class="p-2">Shopping Free</td>
+                <td class="p-2 text-center">:</td>
+                <td class="p-2 text-end">$5</td>
+              </tr>
+              <tr class="font-bold border-t py-2 text-lg">
+                <td class="p-2">Total Order</td>
+                <td class="p-2 text-center">:</td>
+                <td class="p-2 text-end">$95</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

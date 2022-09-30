@@ -1,6 +1,6 @@
 export { LinkInterface } from './link';
 
-export { ProductInterface } from './product';
+export { ProductInterface, CartInterface } from './product';
 
 export { ServiceInterface } from './service';
 
