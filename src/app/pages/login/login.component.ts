@@ -5,7 +5,7 @@ import {FormInputComponent} from '@/components/base/form-input/form-input.compon
 import {Router, RouterLinkWithHref} from '@angular/router';
 import {PageRoutes} from '@/ts/enum';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "@/services/auth.service";
 import {CredentialsInterface, LoginInterface} from "@/ts/interfaces";
 
 @Component({
@@ -35,9 +35,10 @@ export class LoginComponent implements OnInit {
 
     if (!this.loginForm.invalid) {
       this.authService.login(<LoginInterface>this.loginForm.value).subscribe({
-        next: (credentials: CredentialsInterface) => {
-          this.authService.credentials = credentials;
-          localStorage.setItem('credentials', JSON.stringify(credentials))
+        next: ({token, user}: CredentialsInterface) => {
+          this.authService.token = token;
+          this.authService.user = user;
+          localStorage.setItem('token', token)
           this.router.navigateByUrl(PageRoutes.Home)
         },
         error: (err) => {

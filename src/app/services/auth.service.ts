@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {CredentialsInterface, LoginInterface} from "@/ts/interfaces";
+import {CredentialsInterface, LoginInterface, UserInterface} from "@/ts/interfaces";
 import {Observable} from "rxjs";
 import {ApiRoutes} from "@/ts/enum";
 
@@ -8,14 +8,11 @@ import {ApiRoutes} from "@/ts/enum";
   providedIn: 'root'
 })
 export class AuthService {
-  credentials: CredentialsInterface | null = null;
+  token: string | null = null;
+  user: UserInterface | null = null;
 
   constructor(private http: HttpClient) {
-    const credentials =localStorage.getItem('credentials')
-
-    if (credentials) {
-      this.credentials = JSON.parse(credentials)
-    }
+    this.token = localStorage.getItem('token')
   }
 
   login(payload: LoginInterface): Observable<CredentialsInterface> {
@@ -24,5 +21,9 @@ export class AuthService {
 
   logout(): Observable<void> {
       return this.http.post<void>(ApiRoutes.Logout, {})
+  }
+
+  getUserInfo(): Observable<UserInterface> {
+      return this.http.get<UserInterface>(ApiRoutes.UserInfo)
   }
 }

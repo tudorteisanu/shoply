@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import {AuthService} from "../../../services/auth.service";
+import {AuthService} from "@/services/auth.service";
 
 @Component({
   selector: 'Header',
@@ -39,17 +39,22 @@ export class HeaderComponent {
   }
 
   get showLoginBtn(): boolean {
-    return !this.authService.credentials
+    return !this.authService.user?.id
   }
 
   get userName(): string|undefined {
-    return this.authService.credentials?.user.firstName
+    if (!this.authService.user) {
+      return  ''
+    }
+    const {firstName, lastName} = this.authService.user
+    return `${firstName} ${lastName}`
   }
 
   logout(): void {
     // this.authService.logout().subscribe()
-    localStorage.removeItem('credentials');
-    this.authService.credentials = null;
+    localStorage.removeItem('token');
+    this.authService.token = null;
+    this.authService.user = null;
   }
 
 }
