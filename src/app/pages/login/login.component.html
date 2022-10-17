@@ -11,9 +11,9 @@
     </div>
     <div class="p-16">
       <div class="w-full text-center text-3xl text-[#334756]">LOGIN</div>
-      <form (submit)="login()">
-        <FormInput icon="assets/icons/user.svg"></FormInput>
-        <FormInput type="password" icon="assets/icons/lock.svg"></FormInput>
+      <form [formGroup]="loginForm"  (submit)="login()">
+        <FormInput [control]="loginForm.controls['email']" icon="assets/icons/user.svg"></FormInput>
+        <FormInput [control]="loginForm.controls['password']" type="password" icon="assets/icons/lock.svg"></FormInput>
         <div class="text-base text-[#334756] text-right mr-4 mt-2">
           <a [routerLink]="forgotPasswordUrl" class="hover:text-primary-900"
             >lupa password?</a
