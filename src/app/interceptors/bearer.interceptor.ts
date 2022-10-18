@@ -25,7 +25,7 @@ export class BearerInterceptor implements HttpInterceptor {
       ).pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.Unauthorized) {
-            localStorage.removeItem('token')
+            this.auth.logout()
           }
 
           return throwError(() => error);
