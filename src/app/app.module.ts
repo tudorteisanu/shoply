@@ -12,15 +12,13 @@ import {BearerInterceptor} from "./interceptors/bearer.interceptor";
 
 function initializeAppFactory(authService: AuthService): () => void {
   return () => {
-    if (!authService.token) {
-      return;
+    if (authService.token) {
+      authService.getUserInfo().subscribe({
+        next: (user: UserInterface) => {
+          authService.user = user;
+        }
+      })
     }
-
-    authService.getUserInfo().subscribe({
-      next: (user: UserInterface) => {
-        authService.user = user;
-      }
-    })
   }
 }
 

@@ -3,9 +3,9 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpErrorResponse, HttpStatusCode
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {AuthService} from "@/services/auth.service";
 
 @Injectable()
@@ -21,6 +21,14 @@ export class BearerInterceptor implements HttpInterceptor {
             'Authorization',
             `Bearer ${this.auth.token}`
           ),
+        })
+      ).pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            localStorage.removeItem('token')
+          }
+
+          return throwError(() => error);
         })
       );
     }
