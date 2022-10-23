@@ -4,7 +4,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /var/www/html
 
 COPY package.json yarn.lock* ./
-RUN yarn --frozen-lockfile
+RUN yarn
 
 
 FROM node:16-alpine AS builder
