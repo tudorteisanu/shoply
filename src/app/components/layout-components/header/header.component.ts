@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { LinkInterface } from '@/ts/interfaces';
-import { PageRoutes } from '@/ts/enum';
+import {Component} from '@angular/core';
+import {LinkInterface} from '@/ts/interfaces';
+import {PageRoutes} from '@/ts/enum';
 import {AuthService} from "@/services/auth.service";
 
 @Component({
@@ -42,19 +42,20 @@ export class HeaderComponent {
     return !this.authService.user?.id
   }
 
-  get userName(): string|undefined {
+  get userName(): string | undefined {
     if (!this.authService.user) {
-      return  ''
+      return ''
     }
     const {firstName, lastName} = this.authService.user
     return `${firstName} ${lastName}`
   }
 
-  logout(): void {
-    // this.authService.logout().subscribe()
-    localStorage.removeItem('token');
-    this.authService.token = null;
-    this.authService.user = null;
+  async logout(): Promise<void> {
+    try {
+      await this.authService.logout();
+    } catch (e) {
+      console.log(e)
+    }
   }
 
 }

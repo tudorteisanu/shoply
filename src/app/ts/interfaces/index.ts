@@ -6,6 +6,6 @@ export { ServiceInterface } from './service';
 
 export { MediaInterface } from './media';
 
-export { LoginInterface, CredentialsInterface } from './auth'
+export { LoginInterface, CredentialsInterface, TokensInterface } from './auth'
 
-export { UserInterface } from './user'
+export { UserInterface } from './user';

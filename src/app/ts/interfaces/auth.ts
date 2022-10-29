@@ -5,7 +5,11 @@ export interface LoginInterface {
   password: string;
 }
 
-export interface CredentialsInterface {
+export interface TokensInterface {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface CredentialsInterface extends TokensInterface {
   user: UserInterface;
-  token: string;
 }
