@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
-import {LinkInterface} from '@/ts/interfaces';
-import {PageRoutes} from '@/ts/enum';
-import {AuthService} from "@/services/auth.service";
+import { Component } from '@angular/core';
+import { LinkInterface } from '@/ts/interfaces';
+import { PageRoutes } from '@/ts/enum';
+import { AuthService } from '../../../plugins/auth/auth.service';
+import { AuthStoreService } from '../../../plugins/auth/auth-store.service';
 
 @Component({
   selector: 'Header',
@@ -23,8 +24,10 @@ export class HeaderComponent {
     },
   ];
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(
+    private authService: AuthService,
+    private authStore: AuthStoreService
+  ) {}
 
   get cartUrl(): string {
     return PageRoutes.Cart;
@@ -39,23 +42,18 @@ export class HeaderComponent {
   }
 
   get showLoginBtn(): boolean {
-    return !this.authService.user?.id
+    return !this.authStore.user?.id;
   }
 
   get userName(): string | undefined {
-    if (!this.authService.user) {
-      return ''
+    if (!this.authStore.user) {
+      return '';
     }
-    const {firstName, lastName} = this.authService.user
-    return `${firstName} ${lastName}`
+    const { firstName, lastName } = this.authStore.user;
+    return `${firstName} ${lastName}`;
   }
 
-  async logout(): Promise<void> {
-    try {
-      await this.authService.logout();
-    } catch (e) {
-      console.log(e)
-    }
+  logout(): void {
+    this.authService.logout().subscribe();
   }
-
 }
