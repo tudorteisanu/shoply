@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../plugins/auth/auth.service';
+import { AuthService } from '../../modules/auth/services/auth.service';
 import { LoginInterface } from '@/ts/interfaces';
 
 @Component({

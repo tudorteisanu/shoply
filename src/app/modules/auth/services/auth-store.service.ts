@@ -35,16 +35,32 @@ export class AuthStoreService {
   }
 
   updateTokens({ accessToken, refreshToken }: TokensInterface): void {
-    this.accessToken = accessToken;
-    this.refreshToken = refreshToken;
-    localStorage.setItem(LocalstorageKeys.AccessToken, accessToken);
-    localStorage.setItem(LocalstorageKeys.RefreshToken, refreshToken);
+    this.setAccessToken(accessToken);
+    this.setRefreshToken(refreshToken);
   }
 
   private removeTokens(): void {
-    this.accessToken = null;
-    this.refreshToken = null;
-    localStorage.removeItem(LocalstorageKeys.AccessToken);
-    localStorage.removeItem(LocalstorageKeys.RefreshToken);
+    this.setAccessToken(null);
+    this.setRefreshToken(null);
+  }
+
+  public setAccessToken(token: string | null): void {
+    this.accessToken = token;
+    if (!token) {
+      localStorage.removeItem(LocalstorageKeys.AccessToken);
+      return;
+    }
+
+    localStorage.setItem(LocalstorageKeys.AccessToken, token);
+  }
+
+  public setRefreshToken(token: string | null): void {
+    this.refreshToken = token;
+    if (!token) {
+      localStorage.removeItem(LocalstorageKeys.RefreshToken);
+      return;
+    }
+
+    localStorage.setItem(LocalstorageKeys.RefreshToken, token);
   }
 }

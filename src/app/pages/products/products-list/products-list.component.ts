@@ -4,6 +4,7 @@ import { LinkInterface, ProductInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { BaseModule } from '@/components/base/base.module';
 import { ProductComponentsModule } from '@/components/product-components/product-components.module';
+import { ProductsStoreService } from '@/app/store';
 
 @Component({
   selector: 'app-products-list',
@@ -74,7 +75,9 @@ export class ProductsListComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private productStore: ProductsStoreService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productStore.fetchProducts().subscribe();
+  }
 }

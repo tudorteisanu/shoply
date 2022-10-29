@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { AuthService } from '../../../plugins/auth/auth.service';
-import { AuthStoreService } from '../../../plugins/auth/auth-store.service';
+import { AuthService } from '@/app/modules/auth/services/auth.service';
+import { AuthStoreService } from '@/app/modules/auth/services/auth-store.service';
 
 @Component({
   selector: 'Header',

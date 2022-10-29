@@ -6,18 +6,18 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
   HttpStatusCode,
+  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 import { TokensInterface } from '@/ts/interfaces';
 import { ApiRoutes } from '@/ts/enum';
-import { environment } from '../../../environments/environment';
-import { AuthStoreService } from './auth-store.service';
+import { AuthStoreService } from '../services/auth-store.service';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class RefreshTokenInterceptor implements HttpInterceptor {
   isRefreshing: boolean = false;
 
   constructor(private auth: AuthService, private authStore: AuthStoreService) {}
@@ -26,23 +26,15 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    let authReq = request;
-
-    if (!authReq.url.startsWith('http')) {
-      authReq = authReq.clone({
-        url: `${environment.apiUrl}${authReq.url}`,
-      });
-    }
-
-    if (this.authStore.accessToken && !this.isRefreshing) {
-      authReq = this.addTokenHeader(authReq, this.authStore.accessToken);
+    if (!this.authStore.refreshToken) {
+      return next.handle(request);
     }
 
     return next
-      .handle(authReq)
+      .handle(request)
       .pipe(
         catchError((err: HttpErrorResponse) =>
-          this.catchHttpError(err, authReq, next)
+          this.catchHttpError(err, request, next)
         )
       );
   }
@@ -64,6 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
       !this.isRefreshing
     ) {
       this.isRefreshing = true;
+      this.authStore.setAccessToken(null);
 
       return this.auth.refresh().pipe(
         switchMap(({ accessToken }: TokensInterface) => {
@@ -76,3 +69,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return throwError(() => err);
   }
 }
+
+export const REFRESH_TOKEN_INTERCEPTOR_PROVIDER = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: RefreshTokenInterceptor,
+  multi: true,
+};
