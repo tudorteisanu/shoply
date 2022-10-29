@@ -8,7 +8,7 @@
     >
       Shoply.
     </div>
-    <div class="flex items-center justify-between max-w-[427px] w-full">
+    <nav class="flex items-center justify-between max-w-[427px] w-full">
       <ng-container *ngFor="let link of links; let linkIndex = index">
         <div *ngIf="linkIndex">
           <span>/</span>
@@ -24,7 +24,7 @@
           </span>
         </div>
       </ng-container>
-    </div>
+    </nav>
     <div class="flex items-center">
       <button [routerLink]="cartUrl" class="mr-16 relative">
         <img src="assets/icons/cart.svg" alt="cart icon" />
