@@ -1,14 +1,14 @@
-<section class="flex items-center justify-center px-[76px] py-9 mb-[125px]">
-  <div class="max-w-7xl w-full mt-9 h-full">
-    <div class="w-full mb-[50px]">
+<section class="flex items-center justify-center p-4 lg:px-[76px] lg:py-9 mb-[125px]">
+  <div class="max-w-7xl w-full lg:mt-9 h-full">
+    <div class="w-full mb-4 md:mb-[50px]">
       <Breadcrumb [items]="breadcrumb"></Breadcrumb>
     </div>
     <div class="flex w-full">
-      <ProductFilter></ProductFilter>
-      <div class="w-full pl-10">
+      <ProductFilter class="hidden sm:block"></ProductFilter>
+      <div class="w-full lg:pl-10">
         <ProductSearch></ProductSearch>
         <ProductSort></ProductSort>
-        <div class="grid grid-cols-4 gap-9 mt-5">
+        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-9 mt-5">
           <ProductCard *ngFor="let product of products" [product]="product">
             <div class="flex items-center justify-between mt-5 text-gray-600">
               <div class="font-bold">
