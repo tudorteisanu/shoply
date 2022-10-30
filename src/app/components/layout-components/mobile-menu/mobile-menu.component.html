@@ -1,0 +1,14 @@
+<nav *ngIf="show" class="fixed top-16 left-0 bottom-0 bg-white w-screen md:hidden">
+  <ul>
+    <li
+      class="py-4 text-center border-b-2 border-gray-100"
+      *ngFor="let item of items"
+      (click)="hide()"
+      routerLinkActive="font-bold"
+      [routerLink]="item.to"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      {{ item.text }}
+    </li>
+  </ul>
+</nav>

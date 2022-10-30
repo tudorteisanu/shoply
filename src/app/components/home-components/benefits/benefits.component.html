@@ -1,11 +1,11 @@
 <section
-  class="flex items-center justify-center h-[585px] px-[76px] py-9 bg-gradient-to-r from-[#FCF9F6] to-white"
+  class="flex items-center justify-center min-h-[585px] p-4 lg:px-[76px] lg:py-9 bg-gradient-to-r from-[#FCF9F6] to-white"
 >
   <div class="max-w-7xl w-full">
-    <div class="flex items-center justify-between">
+    <div class="grid grid-cols-1 lg:grid-cols-3">
       <div
         *ngFor="let service of services"
-        class="flex items-center justify-center flex-col w-[331px] h-[245px]"
+        class="flex items-center justify-center flex-col min-w-[331px] min-h-[245px]"
       >
         <div>
           <img [src]="service.icon" [alt]="service.title" />

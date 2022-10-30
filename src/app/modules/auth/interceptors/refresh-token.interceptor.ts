@@ -13,8 +13,10 @@ import { AuthService } from '../services/auth.service';
 import { TokensInterface } from '@/ts/interfaces';
 import { ApiRoutes } from '@/ts/enum';
 import { AuthStoreService } from '../services/auth-store.service';
-
-const TOKEN_HEADER_KEY = 'Authorization';
+import {
+  AUTHORIZATION_HEADER_KEY,
+  AUTHORIZATION_HEADER_PREFIX,
+} from '@/ts/consts';
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {
@@ -39,12 +41,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
       );
   }
 
-  private addTokenHeader(request: HttpRequest<any>, token: string) {
-    return request.clone({
-      headers: request.headers.set(TOKEN_HEADER_KEY, `Bearer ${token}`),
-    });
-  }
-
   private catchHttpError(
     err: HttpErrorResponse,
     request: HttpRequest<unknown>,
@@ -61,7 +57,14 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
       return this.auth.refresh().pipe(
         switchMap(({ accessToken }: TokensInterface) => {
           this.isRefreshing = false;
-          return next.handle(this.addTokenHeader(request, accessToken));
+          return next.handle(
+            request.clone({
+              headers: request.headers.set(
+                AUTHORIZATION_HEADER_KEY,
+                `${AUTHORIZATION_HEADER_PREFIX} ${accessToken}`
+              ),
+            })
+          );
         })
       );
     }

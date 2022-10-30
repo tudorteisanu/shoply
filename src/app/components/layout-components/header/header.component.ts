@@ -3,6 +3,7 @@ import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { AuthService } from '@/app/modules/auth/services/auth.service';
 import { AuthStoreService } from '@/app/modules/auth/services/auth-store.service';
+import { MenuService } from '@/services/menu.service';
 
 @Component({
   selector: 'Header',
@@ -23,10 +24,12 @@ export class HeaderComponent {
       text: 'About',
     },
   ];
+  isMenuShown: boolean = false;
 
   constructor(
     private authService: AuthService,
-    private authStore: AuthStoreService
+    private authStore: AuthStoreService,
+    private menu: MenuService
   ) {}
 
   get cartUrl(): string {
@@ -53,7 +56,18 @@ export class HeaderComponent {
     return `${firstName} ${lastName}`;
   }
 
+  get burgerClass(): string {
+    if (this.isMenuShown) {
+      return 'rotate-90';
+    }
+    return '';
+  }
+
   logout(): void {
     this.authService.logout().subscribe();
+  }
+
+  toggleMenu(): void {
+    this.menu.toggleMenu();
   }
 }

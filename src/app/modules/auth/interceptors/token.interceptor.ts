@@ -11,8 +11,10 @@ import {
 import { catchError, Observable, throwError } from 'rxjs';
 import { AuthStoreService } from '../services/auth-store.service';
 import { ApiRoutes } from '@/ts/enum';
-
-const TOKEN_HEADER_KEY = 'Authorization';
+import {
+  AUTHORIZATION_HEADER_KEY,
+  AUTHORIZATION_HEADER_PREFIX,
+} from '@/ts/consts';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -27,8 +29,8 @@ export class TokenInterceptor implements HttpInterceptor {
         .handle(
           request.clone({
             headers: request.headers.set(
-              TOKEN_HEADER_KEY,
-              `Bearer ${this.authStore.accessToken}`
+              AUTHORIZATION_HEADER_KEY,
+              `${AUTHORIZATION_HEADER_PREFIX} ${this.authStore.accessToken}`
             ),
           })
         )
