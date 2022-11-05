@@ -6,11 +6,21 @@ import { BaseRoutingModule } from './router/base-routing.module';
 import { RouterOutlet } from '@angular/router';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthService } from './modules/auth/services/auth.service';
+import { ErrorHandlerProvider } from '@/services/error-handler.service';
+import { AlertComponent } from '@/components/layout-components/alert/alert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BaseRoutingModule, RouterOutlet, AuthModule],
-  providers: [AuthService],
+  imports: [
+    BrowserModule,
+    BaseRoutingModule,
+    BrowserAnimationsModule,
+    RouterOutlet,
+    AuthModule,
+    AlertComponent,
+  ],
+  providers: [AuthService, ErrorHandlerProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

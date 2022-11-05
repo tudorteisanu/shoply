@@ -1,0 +1,15 @@
+<div class="fixed z-50 top-4 right-4" @alertAnimation>
+  <div
+    [ngClass]="message.type"
+    class="alert"
+    @alertAnimation
+    *ngFor="let message of items"
+  >
+    <div class="alert--title">
+      {{ message.title }}
+    </div>
+    <div class="alert--message">
+      {{ message.message }}
+    </div>
+  </div>
+</div>

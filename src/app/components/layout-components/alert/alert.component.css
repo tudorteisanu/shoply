@@ -1,0 +1,21 @@
+.alert {
+  @apply bg-white p-4 mt-2 max-w-md shadow-2xl;
+}
+
+.alert--message {
+  @apply text-gray-500;
+}
+
+.alert--title {
+  @apply font-bold;
+}
+
+
+.error .alert--title {
+  @apply text-red-500 font-bold;
+}
+
+.success .alert--title {
+  @apply text-green-500;
+}
+

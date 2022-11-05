@@ -49,9 +49,6 @@ export class LoginComponent {
       next: () => {
         this.router.navigateByUrl(PageRoutes.Home);
       },
-      error: (err) => {
-        console.log(err);
-      },
     });
   }
 }
