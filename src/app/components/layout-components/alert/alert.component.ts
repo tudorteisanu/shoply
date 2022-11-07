@@ -60,19 +60,15 @@ export class AlertComponent implements OnInit {
     this.destroy$.complete();
   }
 
-  //TODO fix hide alert
-
   private hide(alert: AlertInterface): void {
-    const index = this.items.findIndex(
-      (item: AlertInterface) => item.id === alert.id
-    );
-
-    if (index !== -1) {
-      timer(alert.timeout).subscribe(() => {
-        this.changeDetectionRef.markForCheck();
+    timer(alert.timeout).subscribe(() => {
+      const index = this.items.findIndex(
+        (item: AlertInterface) => item.id === alert.id
+      );
+      if (index !== -1) {
         this.items.splice(index, 1);
         this.changeDetectionRef.detectChanges();
-      });
-    }
+      }
+    });
   }
 }
