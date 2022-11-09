@@ -14,16 +14,19 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        title: 'Home',
         loadComponent: () =>
           import('@/pages/home/home.component').then((m) => m.HomeComponent),
       },
       {
         path: 'about',
+        title: 'About',
         loadComponent: () =>
           import('@/pages/about/about.component').then((m) => m.AboutComponent),
       },
       {
         path: 'products',
+        title: 'Product List',
         loadComponent: () =>
           import('@/pages/products/products-list/products-list.component').then(
             (m) => m.ProductsListComponent

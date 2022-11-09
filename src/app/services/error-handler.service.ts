@@ -2,6 +2,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AlertService } from '@/services/alert.service';
+import { environment } from '@/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,15 @@ export class ErrorHandlerService implements ErrorHandler {
   }
 
   handleClientError(error: Error) {
-    this.alertService.show({ message: error.message });
+    if (!environment.production) {
+      console.error(error);
+    }
+
+    this.alertService.show({
+      message: error.message,
+      type: 'error',
+      title: 'Error',
+    });
   }
 }
 

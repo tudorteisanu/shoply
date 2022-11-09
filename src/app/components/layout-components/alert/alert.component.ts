@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { alertAnimation } from '@/components/layout-components/alert/animation';
 
 @Component({
-  selector: 'app-alert',
+  selector: 'Alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css'],
   standalone: true,

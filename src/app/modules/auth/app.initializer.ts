@@ -4,7 +4,11 @@ import { APP_INITIALIZER } from '@angular/core';
 export function initializeAppFactory(authService: AuthService): () => void {
   return () => {
     if (authService.hasAccessToken) {
-      authService.getUserInfo().subscribe();
+      try {
+        authService.getUserInfo().subscribe();
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 }

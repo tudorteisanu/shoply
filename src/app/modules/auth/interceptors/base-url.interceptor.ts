@@ -5,8 +5,9 @@ import {
   HttpEvent,
   HttpInterceptor,
   HTTP_INTERCEPTORS,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '@/environments/environment';
 
 @Injectable()
@@ -15,15 +16,19 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (!request.url.startsWith('http')) {
-      return next.handle(
-        request.clone({
-          url: `${environment.apiUrl}${request.url}`,
-        })
-      );
+    let req = request;
+
+    if (!req.url.startsWith('http')) {
+      req = request.clone({
+        url: `${environment.apiUrl}${request.url}`,
+      });
     }
 
-    return next.handle(request);
+    return next
+      .handle(req)
+      .pipe(
+        catchError((err: HttpErrorResponse) => throwError(() => err.error))
+      );
   }
 }
 
