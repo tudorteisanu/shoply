@@ -30,14 +30,14 @@ export class CartComponent {
   total: Observable<number>;
   subtotal: Observable<number>;
   discount: Observable<number>;
-  showCartItems: Observable<boolean>;
+  count: Observable<number>;
 
   constructor(private cartService: CartService, private alert: AlertService) {
     this.cart = cartService.items;
     this.total = cartService.total;
     this.subtotal = cartService.subtotal;
     this.discount = cartService.discount;
-    this.showCartItems = cartService.showCartItems;
+    this.count = cartService.count;
   }
 
   increaseQuantity(cartItemId: number): void {

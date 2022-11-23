@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { CartInterface, PaginationInterface } from '@/ts/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { ApiRoutes } from '@/ts/enum';
@@ -33,10 +33,6 @@ export class CartService {
 
   get total(): Observable<number> {
     return this.subtotal.pipe(map((value) => value - this.discount.getValue()));
-  }
-
-  get showCartItems(): Observable<boolean> {
-    return of(!!this.items.getValue().length);
   }
 
   fetchCart(): Observable<PaginationInterface<CartInterface>> {

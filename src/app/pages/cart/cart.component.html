@@ -5,7 +5,7 @@
     </div>
     <div class="flex w-full">
       <div class="w-full">
-        <ng-container *ngIf="showCartItems | async; else EmptyPageContent">
+        <ng-container *ngIf="count | async; else EmptyPageContent">
         <div class="grid grid-cols-4 text-center font-bold">
           <div>Product</div>
           <div>Price</div>
