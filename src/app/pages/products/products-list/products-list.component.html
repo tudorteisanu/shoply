@@ -9,7 +9,7 @@
         <ProductSearch></ProductSearch>
         <ProductSort></ProductSort>
         <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-9 mt-5">
-          <ProductCard *ngFor="let product of products" [product]="product">
+          <ProductCard *ngFor="let product of products | async" [product]="product">
             <div class="flex items-center justify-between mt-5 text-gray-600">
               <div class="font-bold">
                 {{ product.name }}

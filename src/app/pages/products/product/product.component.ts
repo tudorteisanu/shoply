@@ -1,31 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LinkInterface, MediaInterface } from '@/ts/interfaces';
-import { BaseModule } from '@/components/base/base.module';
+import {
+  LinkInterface,
+  MediaInterface,
+  ProductInterface,
+} from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ProductsStoreService } from '@/app/store/products-store.service';
 
 @Component({
   selector: 'app-product',
-  standalone: true,
-  imports: [CommonModule, BaseModule],
   templateUrl: './product.component.html',
 })
 export class ProductComponent implements OnInit {
-  thumbs: MediaInterface[] = [
-    {
-      url: 'assets/images/product-thumb-5.png',
-    },
-    {
-      url: 'assets/images/product-thumb-2.png',
-    },
-    {
-      url: 'assets/images/product-thumb-3.png',
-    },
-    {
-      url: 'assets/images/product-thumb-4.png',
-    },
-  ];
+  product: Observable<ProductInterface | undefined>;
+  thumbs: Observable<MediaInterface[]>;
 
   breadcrumb: LinkInterface[] = [
     {
@@ -42,7 +32,13 @@ export class ProductComponent implements OnInit {
     },
   ];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private productsService: ProductsStoreService
+  ) {
+    this.product = this.productsService.getById(this.productId);
+    this.thumbs = this.productsService.getThumbsById(this.productId);
+  }
 
   get productId(): number {
     return Number(this.route.snapshot.params['id']);

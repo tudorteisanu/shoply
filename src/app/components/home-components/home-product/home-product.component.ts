@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductInterface } from '@/ts/interfaces';
 
 @Component({
   selector: 'HomeProduct',
@@ -7,7 +6,7 @@ import { ProductInterface } from '@/ts/interfaces';
   styles: [],
 })
 export class HomeProductComponent implements OnInit {
-  products: ProductInterface[] = [
+  products: any[] = [
     {
       id: 1,
       imageUrl: 'assets/images/product-1.png',

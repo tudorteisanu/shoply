@@ -27,16 +27,9 @@ const routes: Routes = [
       {
         path: 'products',
         title: 'Product List',
-        loadComponent: () =>
-          import('@/pages/products/products-list/products-list.component').then(
-            (m) => m.ProductsListComponent
-          ),
-      },
-      {
-        path: 'products/:id',
-        loadComponent: () =>
-          import('@/pages/products/product/product.component').then(
-            (m) => m.ProductComponent
+        loadChildren: () =>
+          import('@/pages/products/products.module').then(
+            (m) => m.ProductsModule
           ),
       },
       {

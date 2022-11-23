@@ -31,9 +31,9 @@
       <button [routerLink]="cartUrl" class="mr-4 md:mr-16 relative">
         <img src="assets/icons/cart.svg" alt="cart icon" />
         <div
-          class="absolute top-0 -right-2 h-4 w-4 rounded-full bg-red-500 text-white text-sm flex items-center justify-center"
+          class="absolute top-0 -right-2 h-4 min-w-fit px-1 rounded-full bg-red-500 text-white text-sm flex items-center justify-center"
         >
-          0
+          {{cartLength | async}}
         </div>
       </button>
       <button

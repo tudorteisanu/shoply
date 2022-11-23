@@ -1,10 +1,15 @@
+import { MediaInterface } from '@/ts/interfaces/media';
+
 export interface ProductInterface {
   id: number;
   imageUrl: string;
   name?: string;
-  price?: string;
+  price: number;
+  thumbs?: MediaInterface[];
 }
 
-export interface CartInterface extends ProductInterface {
- quantity?: number;
+export interface CartInterface {
+  id: number;
+  quantity: number;
+  product: ProductInterface;
 }

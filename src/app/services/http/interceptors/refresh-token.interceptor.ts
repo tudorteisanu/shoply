@@ -9,10 +9,10 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../auth.service';
 import { TokensInterface } from '@/ts/interfaces';
 import { ApiRoutes } from '@/ts/enum';
-import { AuthStoreService } from '../services/auth-store.service';
+import { AuthStoreService } from '@/app/store/auth-store.service';
 import {
   AUTHORIZATION_HEADER_KEY,
   AUTHORIZATION_HEADER_PREFIX,

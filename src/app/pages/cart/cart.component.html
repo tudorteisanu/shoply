@@ -5,6 +5,7 @@
     </div>
     <div class="flex w-full">
       <div class="w-full">
+        <ng-container *ngIf="showCartItems | async; else EmptyPageContent">
         <div class="grid grid-cols-4 text-center font-bold">
           <div>Product</div>
           <div>Price</div>
@@ -12,50 +13,51 @@
           <div>Total</div>
         </div>
         <div
-          *ngFor="let product of products"
+          *ngFor="let item of cart  | async; trackBy: trackById"
           class="grid grid-cols-4 bg-[#F8F8F8] mt-[30px]"
         >
           <div class="p-5">
             <div class="flex items-center w-fit">
               <div class="w-[123px] h-[123px]">
-                <img [src]="product.imageUrl" alt="" />
+                <img [src]="item.product.imageUrl" alt="" />
               </div>
-              <div class="ml-4">{{ product.name }}</div>
+              <div class="ml-4">{{ item.product.name }}</div>
             </div>
           </div>
           <div class="flex items-center justify-center">
             <div class="w-full flex items-center justify-center">
-              {{ product.price }}
+              {{ item.product.price }}
             </div>
           </div>
           <div class="w-full flex items-center justify-center">
-            <button class="text-3xl">-</button>
-            <div class="border rounded-sm border-black p-1 mx-3">
-              {{ product.quantity }}
-            </div>
-            <button class="text-3xl">+</button>
+            <button class="text-3xl disabled:text-gray-300 select-none" (click)="reduceQuantity(item.id)" [disabled]="item.quantity<=1">-</button>
+            <input  (blur)="updateItem(item)" inputmode="numeric" pattern="\d*"  class="border rounded-sm border-black p-1 mx-3 w-10 select-none w-fit max-w-fit flex" type="text" [(ngModel)]="item.quantity">
+            <button class="text-3xl disabled:text-gray-300 select-none" (click)="increaseQuantity(item.id)">+</button>
           </div>
-          <div class="w-full flex items-center justify-center">
+          <div class="w-full flex items-center justify-center" (click)="removeItem(item.id)">
             <img src="assets/icons/delete.svg" alt="" />
           </div>
         </div>
+        </ng-container>
+        <ng-template #EmptyPageContent>There are no items. </ng-template>
+        <ng-container *ngIf="subtotal | async">
         <div class="flex items-center justify-end mt-[95px]">
           <div class="px-[59px] py-7 bg-[#F8F8F8]">
             <table class="w-[350px]">
               <tr class="font-bold">
                 <td class="p-2">Subtotal</td>
                 <td class="p-2 text-center">:</td>
-                <td class="p-2 text-end">$90</td>
+                <td class="p-2 text-end">${{subtotal | async}}</td>
               </tr>
               <tr>
                 <td class="p-2">Shopping Free</td>
                 <td class="p-2 text-center">:</td>
-                <td class="p-2 text-end">$5</td>
+                <td class="p-2 text-end">${{discount | async}}</td>
               </tr>
               <tr class="font-bold border-t py-2 text-lg">
                 <td class="p-2">Total Order</td>
                 <td class="p-2 text-center">:</td>
-                <td class="p-2 text-end">$95</td>
+                <td class="p-2 text-end">${{total | async}}</td>
               </tr>
             </table>
           </div>
@@ -64,6 +66,7 @@
           <button class="w-[131px] h-[50px] border border-[#393D45]">Close</button>
           <button class="w-[131px] h-[50px] bg-[#393D45] text-gray-100 ml-6">Check Out</button>
         </div>
+        </ng-container>
       </div>
     </div>
   </div>

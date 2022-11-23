@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { AuthService } from '@/app/modules/auth/services/auth.service';
-import { AuthStoreService } from '@/app/modules/auth/services/auth-store.service';
+import { AuthService } from '@/services/auth.service';
+import { AuthStoreService } from '@/app/store/auth-store.service';
 import { MenuService } from '@/services/menu.service';
+import { Observable } from 'rxjs';
+import { CartService } from '@/app/store/cart.service';
 
 @Component({
   selector: 'Header',
@@ -25,12 +27,16 @@ export class HeaderComponent {
     },
   ];
   isMenuShown: boolean = false;
+  cartLength: Observable<number>;
 
   constructor(
     private authService: AuthService,
     private authStore: AuthStoreService,
+    private cartService: CartService,
     private menu: MenuService
-  ) {}
+  ) {
+    this.cartLength = cartService.count;
+  }
 
   get cartUrl(): string {
     return PageRoutes.Cart;

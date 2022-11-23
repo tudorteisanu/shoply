@@ -8,7 +8,7 @@ import {
 } from '@/ts/interfaces';
 import { catchError, map, Observable } from 'rxjs';
 import { ApiRoutes } from '@/ts/enum';
-import { AuthStoreService } from './auth-store.service';
+import { AuthStoreService } from '@/app/store/auth-store.service';
 
 @Injectable({
   providedIn: 'root',

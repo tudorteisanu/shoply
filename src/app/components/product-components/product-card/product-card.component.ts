@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
+import { CartService } from '@/app/store/cart.service';
 
 @Component({
   selector: 'ProductCard',
@@ -9,11 +10,19 @@ import { PageRoutes } from '@/ts/enum';
 export class ProductCardComponent implements OnInit {
   @Input() product: ProductInterface | null = null;
 
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
   get productUrl(): string {
     return `${PageRoutes.Products}/${this.product?.id}`;
   }
 
   ngOnInit(): void {}
+
+  addToCart(): void {
+    if (!this.product) {
+      return;
+    }
+
+    this.cartService.add(this.product?.id).subscribe();
+  }
 }

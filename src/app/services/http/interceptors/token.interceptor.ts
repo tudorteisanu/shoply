@@ -9,7 +9,7 @@ import {
   HttpStatusCode,
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AuthStoreService } from '../services/auth-store.service';
+import { AuthStoreService } from '@/app/store/auth-store.service';
 import { ApiRoutes } from '@/ts/enum';
 import {
   AUTHORIZATION_HEADER_KEY,
