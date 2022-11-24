@@ -7,7 +7,7 @@ import {
 import { PageRoutes } from '@/ts/enum';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProductsStoreService } from '@/app/store/products-store.service';
+import { ProductsService } from '@/services/products.service';
 
 @Component({
   selector: 'app-product',
@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productsService: ProductsStoreService
+    private productsService: ProductsService
   ) {
     this.product = this.productsService.getById(this.productId);
     this.thumbs = this.productsService.getThumbsById(this.productId);

@@ -9,28 +9,28 @@ import {
   HttpStatusCode,
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AuthStoreService } from '@/app/store/auth-store.service';
 import { ApiRoutes } from '@/ts/enum';
 import {
   AUTHORIZATION_HEADER_KEY,
   AUTHORIZATION_HEADER_PREFIX,
 } from '@/ts/consts';
+import { AuthService } from '@/services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authStore: AuthStoreService) {}
+  constructor(private authService: AuthService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (this.authStore.accessToken) {
+    if (this.authService.accessToken) {
       return next
         .handle(
           request.clone({
             headers: request.headers.set(
               AUTHORIZATION_HEADER_KEY,
-              `${AUTHORIZATION_HEADER_PREFIX} ${this.authStore.accessToken}`
+              `${AUTHORIZATION_HEADER_PREFIX} ${this.authService.accessToken}`
             ),
           })
         )
@@ -40,8 +40,8 @@ export class TokenInterceptor implements HttpInterceptor {
               err.status === HttpStatusCode.Unauthorized &&
               request.url !== ApiRoutes.Login
             ) {
-              this.authStore.setUserInfo(null);
-              this.authStore.setAccessToken(null);
+              this.authService.setUserInfo(null);
+              this.authService.setAccessToken(null);
             }
             return throwError(() => err);
           })

@@ -11,7 +11,7 @@ import { ApiRoutes } from '@/ts/enum';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsStoreService {
+export class ProductsService {
   items: BehaviorSubject<ProductInterface[]> = new BehaviorSubject<
     ProductInterface[]
   >([]);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LinkInterface, ProductInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { Observable } from 'rxjs';
-import { ProductsStoreService } from '@/app/store/products-store.service';
+import { ProductsService } from '@/services/products.service';
 
 @Component({
   selector: 'app-products-list',
@@ -22,7 +22,7 @@ export class ProductsListComponent implements OnInit {
 
   products: Observable<ProductInterface[]>;
 
-  constructor(private productsService: ProductsStoreService) {
+  constructor(private productsService: ProductsService) {
     this.products = productsService.items;
   }
 

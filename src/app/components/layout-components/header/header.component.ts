@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { AuthService } from '@/services/auth.service';
-import { AuthStoreService } from '@/app/store/auth-store.service';
 import { MenuService } from '@/services/menu.service';
 import { Observable } from 'rxjs';
-import { CartService } from '@/app/store/cart.service';
+import { CartService } from '@/services/cart.service';
 
 @Component({
   selector: 'Header',
@@ -31,7 +30,6 @@ export class HeaderComponent {
 
   constructor(
     private authService: AuthService,
-    private authStore: AuthStoreService,
     private cartService: CartService,
     private menu: MenuService
   ) {
@@ -51,14 +49,14 @@ export class HeaderComponent {
   }
 
   get showLoginBtn(): boolean {
-    return !this.authStore.user?.id;
+    return !this.authService.user?.id;
   }
 
   get userName(): string | undefined {
-    if (!this.authStore.user) {
+    if (!this.authService.user) {
       return '';
     }
-    const { firstName, lastName } = this.authStore.user;
+    const { firstName, lastName } = this.authService.user;
     return `${firstName} ${lastName}`;
   }
 
@@ -70,7 +68,7 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.authService.logout().subscribe();
+    this.authService.fetchLogout().subscribe();
   }
 
   toggleMenu(): void {

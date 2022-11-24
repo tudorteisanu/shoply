@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { CartService } from '@/app/store/cart.service';
+import { CartService } from '@/services/cart.service';
 
 @Component({
   selector: 'ProductCard',

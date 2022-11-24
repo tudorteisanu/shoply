@@ -45,10 +45,12 @@ export class LoginComponent {
   }
 
   async login(): Promise<void> {
-    this.authService.login(<LoginInterface>this.loginForm.value).subscribe({
-      next: () => {
-        this.router.navigateByUrl(PageRoutes.Home);
-      },
-    });
+    this.authService
+      .fetchLogin(<LoginInterface>this.loginForm.value)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl(PageRoutes.Home);
+        },
+      });
   }
 }

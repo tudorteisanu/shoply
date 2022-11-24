@@ -4,7 +4,7 @@ import { BaseModule } from '@/components/base/base.module';
 import { CartInterface, LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CartService } from '@/app/store/cart.service';
+import { CartService } from '@/services/cart.service';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from '@/services/alert.service';
 

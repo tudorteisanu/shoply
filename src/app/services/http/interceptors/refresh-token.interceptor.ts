@@ -12,7 +12,6 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../../auth.service';
 import { TokensInterface } from '@/ts/interfaces';
 import { ApiRoutes } from '@/ts/enum';
-import { AuthStoreService } from '@/app/store/auth-store.service';
 import {
   AUTHORIZATION_HEADER_KEY,
   AUTHORIZATION_HEADER_PREFIX,
@@ -22,13 +21,13 @@ import {
 export class RefreshTokenInterceptor implements HttpInterceptor {
   isRefreshing: boolean = false;
 
-  constructor(private auth: AuthService, private authStore: AuthStoreService) {}
+  constructor(private auth: AuthService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (!this.authStore.refreshToken) {
+    if (!this.auth.refreshToken) {
       return next.handle(request);
     }
 
@@ -52,7 +51,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
       !this.isRefreshing
     ) {
       this.isRefreshing = true;
-      this.authStore.setAccessToken(null);
+      this.auth.setAccessToken(null);
 
       return this.auth.refresh().pipe(
         switchMap(({ accessToken }: TokensInterface) => {
