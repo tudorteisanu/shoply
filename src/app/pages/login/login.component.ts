@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseModule } from '@/components/base/base.module';
 import { FormInputComponent } from '@/components/base/form-input/form-input.component';
-import { Router, RouterLinkWithHref } from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
 import { PageRoutes } from '@/ts/enum';
 import {
   FormControl,
@@ -38,19 +38,13 @@ export class LoginComponent {
     ]),
   });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   get forgotPasswordUrl(): string {
     return PageRoutes.ForgotPassword;
   }
 
   async login(): Promise<void> {
-    this.authService
-      .fetchLogin(<LoginInterface>this.loginForm.value)
-      .subscribe({
-        next: () => {
-          this.router.navigateByUrl(PageRoutes.Home);
-        },
-      });
+    this.authService.login(<LoginInterface>this.loginForm.value).subscribe();
   }
 }

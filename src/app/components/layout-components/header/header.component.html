@@ -28,39 +28,10 @@
       </ng-container>
     </nav>
     <div class="flex items-center hidden md:flex">
-      <button [routerLink]="cartUrl" class="mr-4 md:mr-16 relative">
-        <img src="assets/icons/cart.svg" alt="cart icon" />
-        <div
-          class="absolute top-0 -right-2 h-4 min-w-fit px-1 rounded-full bg-red-500 text-white text-sm flex items-center justify-center"
-        >
-          {{cartLength | async}}
-        </div>
-      </button>
-      <button
-        class="w-[113px] bg-primary-900 text-white h-10"
-        [routerLink]="loginUrl"
-        *ngIf="showLoginBtn; else user"
-      >
-        Login
-      </button>
-      <ng-template #user>
-        <span>{{ userName }}</span>
-
-        <button
-          class="ml-4 w-[113px] bg-primary-900 text-white h-10"
-          (click)="logout()"
-        >
-          Logout
-        </button>
-      </ng-template>
+      <CartBtn></CartBtn>
+      <AuthButtons></AuthButtons>
     </div>
-    <button
-      class="bg-primary-700 absolute top-0 bottom-0 right-0 flex items-center justify-center p-2 w-16 cursor-pointer md:hidden"
-      (click)="toggleMenu()"
-      [ngClass]="burgerClass"
-    >
-      <img src="assets/icons/burger.svg" alt="" />
-    </button>
+    <ToggleMenuButton></ToggleMenuButton>
     <MobileMenu [items]="links"></MobileMenu>
   </div>
 </div>

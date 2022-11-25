@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { LoadingComponent } from './loading/loading.component';
+import { BaseModule } from '@/components/base/base.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { LoadingComponent } from './loading/loading.component';
     MobileMenuComponent,
     LoadingComponent,
   ],
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, BaseModule],
   exports: [HeaderComponent, FooterComponent, LoadingComponent],
 })
 export class LayoutComponentsModule {}

@@ -1,0 +1,10 @@
+
+<button
+  class="bg-primary-700 absolute top-0 bottom-0 right-0 flex items-center justify-center p-2 w-16 cursor-pointer md:hidden"
+  (click)="toggleMenu()"
+  [ngClass]="{
+  'rotate-90': isMenuShown
+  }"
+>
+  <img src="assets/icons/burger.svg" alt="" />
+</button>

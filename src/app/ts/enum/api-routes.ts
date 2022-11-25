@@ -4,5 +4,6 @@ export enum ApiRoutes {
   UserInfo = '/auth/user-info',
   Refresh = '/auth/refresh',
   Products = '/products',
+  Categories = '/categories',
   Cart = '/cart',
 }

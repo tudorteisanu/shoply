@@ -7,9 +7,3 @@ export interface ProductInterface {
   price: number;
   thumbs?: MediaInterface[];
 }
-
-export interface CartInterface {
-  id: number;
-  quantity: number;
-  product: ProductInterface;
-}

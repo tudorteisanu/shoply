@@ -1,5 +1,5 @@
-<nav *ngIf="show" class="fixed top-16 left-0 bottom-0 bg-white w-screen md:hidden">
-  <ul>
+<nav *ngIf="show" class="fixed top-16 left-0 bottom-0 bg-white w-screen md:hidden flex items-center justify-between flex-col ">
+  <ul class="w-full">
     <li
       class="py-4 text-center border-b-2 border-gray-100"
       *ngFor="let item of items"
@@ -11,4 +11,10 @@
       {{ item.text }}
     </li>
   </ul>
+  <div class="py-2">
+    <AuthButtons
+      (onLoginBtnClick)="hide()"
+      (onLogoutBtnClick)="hide()"
+    ></AuthButtons>
+  </div>
 </nav>

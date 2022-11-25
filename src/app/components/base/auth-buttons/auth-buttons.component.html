@@ -1,0 +1,19 @@
+<ng-container *ngIf="!isLoginPage">
+  <button
+    class="w-[113px] bg-primary-900 text-white h-10"
+    (click)="goToLogin()"
+    *ngIf="showLoginBtn; else user"
+  >
+    Login
+  </button>
+  <ng-template #user>
+    <span>{{ userName }}</span>
+
+    <button
+      class="ml-4 w-[113px] bg-primary-900 text-white h-10"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </ng-template>
+</ng-container>

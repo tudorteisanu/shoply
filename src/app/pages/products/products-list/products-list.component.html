@@ -4,7 +4,7 @@
       <Breadcrumb [items]="breadcrumb"></Breadcrumb>
     </div>
     <div class="flex w-full">
-      <ProductFilter class="hidden sm:block"></ProductFilter>
+      <ProductFilter class="hidden sm:block" [categories]="categories" (filter)="setFilters($event)" [(filters)]="filters"></ProductFilter>
       <div class="w-full lg:pl-10">
         <ProductSearch></ProductSearch>
         <ProductSort></ProductSort>

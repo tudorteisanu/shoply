@@ -1,6 +1,6 @@
 export { LinkInterface } from './link';
 
-export { ProductInterface, CartInterface } from './product';
+export { ProductInterface } from './product';
 
 export { ServiceInterface } from './service';
 
@@ -13,3 +13,7 @@ export { UserInterface } from './user';
 export { PaginationInterface, PaginationMetaInterface } from './pagination';
 
 export { AlertInterface } from './alert';
+
+export { CartInterface } from './cart';
+
+export { CategoryInterface } from './category';

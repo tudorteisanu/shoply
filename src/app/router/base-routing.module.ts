@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PageErrors } from '@/ts/enum';
 import { AuthRouterModule } from './auth-router.module';
-import { AuthGuard } from '@/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -37,7 +36,6 @@ const routes: Routes = [
         path: 'cart',
         loadComponent: () =>
           import('@/pages/cart/cart.component').then((m) => m.CartComponent),
-        canActivate: [AuthGuard],
       },
       {
         path: 'errors/not-found',

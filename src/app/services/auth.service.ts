@@ -6,7 +6,7 @@ import {
   TokensInterface,
   UserInterface,
 } from '@/ts/interfaces';
-import { catchError, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { ApiRoutes, LocalstorageKeys } from '@/ts/enum';
 
 @Injectable({
@@ -15,7 +15,9 @@ import { ApiRoutes, LocalstorageKeys } from '@/ts/enum';
 export class AuthService {
   accessToken: string | null = null;
   refreshToken: string | null = null;
-  user: UserInterface | null = null;
+  user: BehaviorSubject<UserInterface | null> =
+    new BehaviorSubject<UserInterface | null>(null);
+  loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
     this.accessToken = localStorage.getItem(LocalstorageKeys.AccessToken);
@@ -26,23 +28,19 @@ export class AuthService {
     return !!this.accessToken;
   }
 
-  get loggedIn(): boolean {
-    return this.hasAccessToken && !!this.user;
-  }
-
-  fetchLogin(payload: LoginInterface): Observable<CredentialsInterface> {
+  login(payload: LoginInterface): Observable<CredentialsInterface> {
     return this.http.post<CredentialsInterface>(ApiRoutes.Login, payload).pipe(
       map((credentials: CredentialsInterface) => {
-        this.login(credentials);
+        this.setCredentials(credentials);
         return credentials;
       })
     );
   }
 
-  fetchLogout(): Observable<void> {
+  logout(): Observable<void> {
     return this.http.post<void>(ApiRoutes.Logout, {}).pipe(
       map(() => {
-        this.logout();
+        this.removeCredentials();
       })
     );
   }
@@ -60,7 +58,7 @@ export class AuthService {
           return tokens;
         }),
         catchError((error) => {
-          this.logout();
+          this.removeCredentials();
           return error;
         })
       );
@@ -75,19 +73,22 @@ export class AuthService {
     );
   }
 
-  public login(credentials: CredentialsInterface): void {
+  public setCredentials(credentials: CredentialsInterface): void {
     const { user, ...tokens } = credentials;
     this.updateTokens(tokens);
     this.setUserInfo(user);
+    window.location.href = '/';
   }
 
-  public logout(): void {
+  public removeCredentials(): void {
     this.removeTokens();
     this.setUserInfo(null);
+    window.location.href = '/';
   }
 
   public setUserInfo(user: UserInterface | null): void {
-    this.user = user;
+    this.user.next(user);
+    this.loggedIn.next(!!user);
   }
 
   updateTokens({ accessToken, refreshToken }: TokensInterface): void {

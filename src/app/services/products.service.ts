@@ -18,9 +18,11 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
-  fetchProducts(): Observable<ProductInterface[]> {
+  fetchProducts(params: any = {}): Observable<ProductInterface[]> {
     return this.http
-      .get<PaginationInterface<ProductInterface>>(ApiRoutes.Products)
+      .get<PaginationInterface<ProductInterface>>(ApiRoutes.Products, {
+        params,
+      })
       .pipe(
         map(({ data }: PaginationInterface<ProductInterface>) => {
           this.items.next(
