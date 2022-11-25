@@ -11,7 +11,7 @@
     </div>
     <div class="p-16">
       <div class="w-full text-center text-3xl text-[#334756]">LOGIN</div>
-      <form [formGroup]="loginForm"  (submit)="login()">
+      <form [formGroup]="loginForm"  (ngSubmit)="login()">
         <FormInput [control]="loginForm.controls['email']" icon="assets/icons/user.svg"></FormInput>
         <FormInput [control]="loginForm.controls['password']" type="password" icon="assets/icons/lock.svg"></FormInput>
         <div class="text-base text-[#334756] text-right mr-4 mt-2">
