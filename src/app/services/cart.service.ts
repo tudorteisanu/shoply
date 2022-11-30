@@ -13,9 +13,7 @@ export class CartService {
   >([]);
   discount: BehaviorSubject<number> = new BehaviorSubject<number>(5);
 
-  constructor(private http: HttpClient) {
-    this.fetchCart().subscribe();
-  }
+  constructor(private http: HttpClient) {}
 
   get count(): Observable<number> {
     return this.items.pipe(map((items) => items.length));

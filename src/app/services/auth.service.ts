@@ -6,27 +6,21 @@ import {
   TokensInterface,
   UserInterface,
 } from '@/ts/interfaces';
-import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
-import { ApiRoutes, LocalstorageKeys } from '@/ts/enum';
+import { catchError, map, Observable } from 'rxjs';
+import { ApiRoutes } from '@/ts/enum';
+import { Store } from '@ngxs/store';
+import {
+  SetAccessToken,
+  SetRefreshToken,
+  SetUser,
+} from '@/app/store/auth/auth.action';
+import { AUTHORIZATION_HEADER_PREFIX } from '@/ts/consts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  accessToken: string | null = null;
-  refreshToken: string | null = null;
-  user: BehaviorSubject<UserInterface | null> =
-    new BehaviorSubject<UserInterface | null>(null);
-  loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  constructor(private http: HttpClient) {
-    this.accessToken = localStorage.getItem(LocalstorageKeys.AccessToken);
-    this.refreshToken = localStorage.getItem(LocalstorageKeys.RefreshToken);
-  }
-
-  get hasAccessToken(): boolean {
-    return !!this.accessToken;
-  }
+  constructor(private http: HttpClient, private store: Store) {}
 
   login(payload: LoginInterface): Observable<CredentialsInterface> {
     return this.http.post<CredentialsInterface>(ApiRoutes.Login, payload).pipe(
@@ -46,10 +40,13 @@ export class AuthService {
   }
 
   refresh(): Observable<any> {
+    const token = this.store.selectSnapshot<string>(
+      (state) => state.auth.refreshToken
+    );
     return this.http
       .get<TokensInterface>(ApiRoutes.Refresh, {
         headers: {
-          Authorization: `Bearer ${this.refreshToken}`,
+          Authorization: `${AUTHORIZATION_HEADER_PREFIX} ${token}`,
         },
       })
       .pipe(
@@ -87,8 +84,7 @@ export class AuthService {
   }
 
   public setUserInfo(user: UserInterface | null): void {
-    this.user.next(user);
-    this.loggedIn.next(!!user);
+    this.store.dispatch(new SetUser(user));
   }
 
   updateTokens({ accessToken, refreshToken }: TokensInterface): void {
@@ -102,22 +98,10 @@ export class AuthService {
   }
 
   public setAccessToken(token: string | null): void {
-    this.accessToken = token;
-    if (!token) {
-      localStorage.removeItem(LocalstorageKeys.AccessToken);
-      return;
-    }
-
-    localStorage.setItem(LocalstorageKeys.AccessToken, token);
+    this.store.dispatch(new SetAccessToken(token));
   }
 
   public setRefreshToken(token: string | null): void {
-    this.refreshToken = token;
-    if (!token) {
-      localStorage.removeItem(LocalstorageKeys.RefreshToken);
-      return;
-    }
-
-    localStorage.setItem(LocalstorageKeys.RefreshToken, token);
+    this.store.dispatch(new SetRefreshToken(token));
   }
 }
