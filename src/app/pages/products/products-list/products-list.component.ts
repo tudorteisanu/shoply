@@ -9,6 +9,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductsService } from '@/services/products.service';
 import { CategoriesService } from '@/services/categories.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Select } from '@ngxs/store';
+import { ProductState } from '@/app/store/product/product.state';
+import { CategoryState } from '@/app/store/category/category.state';
 
 @Component({
   selector: 'app-products-list',
@@ -26,19 +29,19 @@ export class ProductsListComponent implements OnInit {
     },
   ];
 
-  products: Observable<ProductInterface[]>;
-  categories: BehaviorSubject<CategoryInterface[]>;
+  @Select(CategoryState.getCategories)
+  categories!: BehaviorSubject<CategoryInterface[]>;
   filters: any = {};
+
+  @Select(ProductState.getProducts)
+  products!: Observable<ProductInterface[]>;
 
   constructor(
     private productsService: ProductsService,
     private categoriesService: CategoriesService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {
-    this.products = productsService.items;
-    this.categories = this.categoriesService.items;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.parseQueryParams();

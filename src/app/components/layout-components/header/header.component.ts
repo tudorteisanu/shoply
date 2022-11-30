@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@/app/store/auth/auth.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'Header',
@@ -21,6 +24,8 @@ export class HeaderComponent {
       text: 'About',
     },
   ];
+
+  @Select(AuthState.loggedIn) loggedIn$: Observable<any> | undefined;
 
   get homeUrl(): string {
     return PageRoutes.Home;

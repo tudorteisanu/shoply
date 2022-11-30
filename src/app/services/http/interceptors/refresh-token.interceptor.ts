@@ -16,18 +16,26 @@ import {
   AUTHORIZATION_HEADER_KEY,
   AUTHORIZATION_HEADER_PREFIX,
 } from '@/ts/consts';
+import { Store } from '@ngxs/store';
+import { SetAccessToken } from '@/app/store/auth/auth.action';
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {
   isRefreshing: boolean = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(private store: Store, private auth: AuthService) {}
+
+  get refreshToken(): string | null {
+    return this.store.selectSnapshot<string>(
+      (state) => state.auth.refreshToken
+    );
+  }
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (!this.auth.refreshToken) {
+    if (!this.refreshToken) {
       return next.handle(request);
     }
 
@@ -51,7 +59,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
       !this.isRefreshing
     ) {
       this.isRefreshing = true;
-      this.auth.setAccessToken(null);
+      this.store.dispatch(new SetAccessToken(null));
 
       return this.auth.refresh().pipe(
         switchMap(({ accessToken }: TokensInterface) => {

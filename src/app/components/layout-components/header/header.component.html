@@ -28,7 +28,7 @@
       </ng-container>
     </nav>
     <div class="flex items-center hidden md:flex">
-      <CartBtn></CartBtn>
+      <CartBtn *ngIf="loggedIn$ | async"></CartBtn>
       <AuthButtons></AuthButtons>
     </div>
     <ToggleMenuButton></ToggleMenuButton>

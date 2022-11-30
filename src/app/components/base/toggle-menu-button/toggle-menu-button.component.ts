@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { MenuService } from '@/services/menu.service';
+import { Observable } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { MenuState } from '@/app/store/menu/menu.state';
+import { ToggleMenu } from '@/app/store/menu/menu.action';
 
 @Component({
   selector: 'ToggleMenuButton',
@@ -7,13 +10,12 @@ import { MenuService } from '@/services/menu.service';
   styleUrls: ['./toggle-menu-button.component.css'],
 })
 export class ToggleMenuButtonComponent {
-  constructor(private menu: MenuService) {}
+  constructor(private store: Store) {}
 
-  get isMenuShown(): boolean {
-    return this.menu.show;
-  }
+  @Select(MenuState.getState)
+  isMenuShown!: Observable<boolean>;
 
   toggleMenu(): void {
-    this.menu.toggleMenu();
+    this.store.dispatch(new ToggleMenu());
   }
 }

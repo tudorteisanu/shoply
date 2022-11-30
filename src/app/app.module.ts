@@ -14,6 +14,7 @@ import { APP_INITIALIZER_PROVIDER } from '@/app/app.initializer';
 import { REFRESH_TOKEN_INTERCEPTOR_PROVIDER } from '@/services/http/interceptors/refresh-token.interceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutComponentsModule } from '@/components/layout-components/layout-components.module';
+import { StoreModule } from '@/app/store/store.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { LayoutComponentsModule } from '@/components/layout-components/layout-co
     AlertComponent,
     HttpClientModule,
     LayoutComponentsModule,
+    StoreModule,
   ],
   providers: [
     AuthService,
