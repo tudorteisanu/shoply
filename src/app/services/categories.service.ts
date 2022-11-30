@@ -17,7 +17,6 @@ export class CategoriesService {
   fetch(): Observable<CategoryInterface[]> {
     return this.http.get<CategoryInterface[]>(ApiRoutes.Categories).pipe(
       map((data: CategoryInterface[]) => {
-        console.log(data);
         this.items.next(data);
         return data;
       })

@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -19,7 +20,7 @@ interface FilterParamsInterface {
   selector: 'ProductFilter',
   templateUrl: './product-filter.component.html',
 })
-export class ProductFilterComponent {
+export class ProductFilterComponent implements AfterViewInit {
   @ViewChild('minPrice') minPriceRef!: ElementRef;
   @ViewChild('maxPrice') maxPriceRef!: ElementRef;
 
