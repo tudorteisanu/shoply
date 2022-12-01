@@ -6,12 +6,11 @@ import {
 } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ProductsService } from '@/services/products.service';
-import { CategoriesService } from '@/services/categories.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Select } from '@ngxs/store';
 import { ProductState } from '@/app/store/product/product.state';
 import { CategoryState } from '@/app/store/category/category.state';
+import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 
 @Component({
   selector: 'app-products-list',
@@ -37,15 +36,14 @@ export class ProductsListComponent implements OnInit {
   products!: Observable<ProductInterface[]>;
 
   constructor(
-    private productsService: ProductsService,
-    private categoriesService: CategoriesService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dispatchService: StoreDispatchService
   ) {}
 
   ngOnInit(): void {
     this.parseQueryParams();
-    this.categoriesService.fetch().subscribe();
+    this.dispatchService.category.fetch().subscribe();
     this.loadData();
   }
 
@@ -59,7 +57,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   loadData(): void {
-    this.productsService.fetchProducts(this.filters).subscribe(async () => {
+    this.dispatchService.product.fetch(this.filters).subscribe(async () => {
       await this.setFiltersToQuery(this.filters);
     });
   }

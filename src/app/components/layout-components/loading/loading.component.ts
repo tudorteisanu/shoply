@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingService } from '@/services/loading.service';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
   styles: [],
 })
-export class LoadingComponent implements OnInit {
-  show: Observable<boolean>;
+export class LoadingComponent {
+  constructor(private store: Store) {}
 
-  constructor(private loading: LoadingService) {
-    this.show = loading.state;
+  get show(): Observable<boolean> {
+    return this.store.select((state) => state.loading.state);
   }
-
-  ngOnInit(): void {}
 }

@@ -2,6 +2,7 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { ShowAlert, HideAlert } from './alert.action';
 import { AlertInterface } from '@/ts/interfaces';
+import { timer } from 'rxjs';
 
 export class AlertStateModel {
   items!: AlertInterface[];
@@ -21,7 +22,7 @@ export class AlertState {
   }
 
   @Action(ShowAlert)
-  add(
+  show(
     { getState, patchState, setState }: StateContext<AlertStateModel>,
     { payload }: ShowAlert
   ): void {
@@ -35,18 +36,26 @@ export class AlertState {
         items: [payload],
       });
     }
+
+    if (payload.withoutClosing) {
+      return;
+    }
+
+    timer(payload.timeout).subscribe(() => {
+      setState({
+        items: state.items.filter((u) => u.id !== payload.id),
+      });
+    });
   }
 
   @Action(HideAlert)
-  remove(
-    { getState, setState }: StateContext<AlertStateModel>,
-    { payload }: HideAlert
+  hide(
+    { setState, getState }: StateContext<AlertStateModel>,
+    { payload: alert }: HideAlert
   ): void {
     const state = getState();
-    if (state?.items) {
-      setState({
-        items: state.items.filter((u) => !(u.id === payload.id)),
-      });
-    }
+    setState({
+      items: state.items.filter((u) => u.id !== alert.id),
+    });
   }
 }

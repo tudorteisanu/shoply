@@ -1,16 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
-import { AlertService } from '@/services/alert.service';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject, takeUntil, timer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AlertInterface } from '@/ts/interfaces';
-import { randomInteger } from '@/app/utils';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { alertAnimation } from '@/components/layout-components/alert/animation';
+import { Select } from '@ngxs/store';
+import { AlertState } from '@/app/store/alert/alert.state';
+import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 
 @Component({
   selector: 'Alert',
@@ -19,56 +15,14 @@ import { alertAnimation } from '@/components/layout-components/alert/animation';
   standalone: true,
   imports: [CommonModule, BrowserAnimationsModule],
   animations: [alertAnimation],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AlertComponent implements OnInit {
-  public items: Array<AlertInterface> = [];
+export class AlertComponent {
+  @Select(AlertState.getItems)
+  public items!: Observable<Array<AlertInterface>>;
 
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private storeDispatch: StoreDispatchService) {}
 
-  constructor(
-    private alertService: AlertService,
-    private changeDetectionRef: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    this.subscribeNewMessage();
-  }
-
-  subscribeNewMessage(): void {
-    this.alertService.alertEvent
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((alert: AlertInterface) => {
-        this.addMessage(alert);
-      });
-  }
-
-  addMessage(payload: AlertInterface): void {
-    this.changeDetectionRef.markForCheck();
-    const id = randomInteger(999, 10000);
-    const alert = { ...payload, id };
-    this.items.push(alert);
-    this.changeDetectionRef.detectChanges();
-
-    if (!alert.withoutClosing) {
-      this.hide(alert);
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
-
-  private hide(alert: AlertInterface): void {
-    timer(alert.timeout).subscribe(() => {
-      const index = this.items.findIndex(
-        (item: AlertInterface) => item.id === alert.id
-      );
-      if (index !== -1) {
-        this.items.splice(index, 1);
-        this.changeDetectionRef.detectChanges();
-      }
-    });
+  public hide(alert: AlertInterface): void {
+    this.storeDispatch.alert.hide(alert);
   }
 }

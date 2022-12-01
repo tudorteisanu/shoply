@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { PageRoutes } from '@/ts/enum';
-import { AuthService } from '@/services/auth.service';
 import { Router } from '@angular/router';
 import { UserInterface } from '@/ts/interfaces';
 import { Select, Store } from '@ngxs/store';
 import { AuthState } from '@/app/store/auth/auth.state';
 import { Observable } from 'rxjs';
+import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 
 @Component({
   selector: 'AuthButtons',
@@ -18,9 +18,9 @@ export class AuthButtonsComponent {
   @Select(AuthState.loggedIn) loggedIn$: Observable<any> | undefined;
 
   constructor(
-    private authService: AuthService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private storeDispatch: StoreDispatchService
   ) {}
 
   get loginUrl(): string {
@@ -44,7 +44,7 @@ export class AuthButtonsComponent {
   }
 
   logout(): void {
-    this.authService.logout().subscribe(() => {
+    this.storeDispatch.auth.logout().subscribe(() => {
       this.onLogoutBtnClick.emit();
     });
   }

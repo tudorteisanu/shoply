@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { BaseModule } from '@/components/base/base.module';
 import { CartInterface, LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { CartService } from '@/services/cart.service';
+import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { AlertService } from '@/services/alert.service';
+import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { Select } from '@ngxs/store';
+import { CartState } from '@/app/store/cart/cart.state';
 
 @Component({
   selector: 'app-cart',
@@ -26,26 +27,33 @@ export class CartComponent {
     },
   ];
 
-  cart: BehaviorSubject<CartInterface[]>;
-  total: Observable<number>;
-  subtotal: Observable<number>;
-  discount: Observable<number>;
-  count: Observable<number>;
+  @Select(CartState.getItems)
+  cart!: Observable<CartInterface[]>;
 
-  constructor(private cartService: CartService, private alert: AlertService) {
-    this.cart = cartService.items;
-    this.total = cartService.total;
-    this.subtotal = cartService.subtotal;
-    this.discount = cartService.discount;
-    this.count = cartService.count;
+  @Select(CartState.total)
+  total!: Observable<number>;
+
+  @Select(CartState.subtotal)
+  subtotal!: Observable<number>;
+
+  @Select(CartState.discount)
+  discount!: Observable<number>;
+
+  @Select(CartState.count)
+  count!: Observable<number>;
+
+  constructor(private storeDispatch: StoreDispatchService) {}
+
+  ngOnInit(): void {
+    this.storeDispatch.cart.fetch();
   }
 
   increaseQuantity(cartItemId: number): void {
-    this.cartService.increaseQuantity(cartItemId).subscribe();
+    this.storeDispatch.cart.increaseQuantity(cartItemId);
   }
 
   reduceQuantity(cartItemId: number): void {
-    this.cartService.reduceQuantity(cartItemId).subscribe();
+    this.storeDispatch.cart.reduceQuantity(cartItemId);
   }
 
   trackById(index: number, cart: CartInterface) {
@@ -53,18 +61,15 @@ export class CartComponent {
   }
 
   updateItem(cart: CartInterface) {
-    this.cartService
-      .updateItem(cart.id, { ...cart, quantity: Number(cart.quantity) })
-      .subscribe(() => {
-        this.alert.show({
-          type: 'success',
-        });
-      });
+    this.storeDispatch.cart.update({
+      ...cart,
+      quantity: Number(cart.quantity),
+    });
   }
 
   removeItem(cartId: number) {
-    this.cartService.remove(cartId).subscribe(() => {
-      this.alert.show({
+    this.storeDispatch.cart.remove(cartId).subscribe(() => {
+      this.storeDispatch.alert.show({
         type: 'success',
       });
     });
