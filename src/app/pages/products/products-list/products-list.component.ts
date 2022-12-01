@@ -5,12 +5,8 @@ import {
   ProductInterface,
 } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Select } from '@ngxs/store';
-import { ProductState } from '@/app/store/product/product.state';
-import { CategoryState } from '@/app/store/category/category.state';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { StoreService } from '@/app/store2/store.service';
 
 @Component({
   selector: 'app-products-list',
@@ -28,23 +24,25 @@ export class ProductsListComponent implements OnInit {
     },
   ];
 
-  @Select(CategoryState.getCategories)
-  categories!: BehaviorSubject<CategoryInterface[]>;
   filters: any = {};
-
-  @Select(ProductState.getProducts)
-  products!: Observable<ProductInterface[]>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private dispatchService: StoreDispatchService
+    private store: StoreService
   ) {}
 
   ngOnInit(): void {
     this.parseQueryParams();
-    this.dispatchService.category.fetch().subscribe();
+    this.store.categories.fetch().subscribe();
     this.loadData();
+  }
+
+  get categories(): CategoryInterface[] {
+    return this.store.categories.items;
+  }
+  get products(): ProductInterface[] {
+    return this.store.product.items;
   }
 
   async setFilters(filter: any): Promise<void> {
@@ -57,7 +55,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   loadData(): void {
-    this.dispatchService.product.fetch(this.filters).subscribe(async () => {
+    this.store.product.fetch(this.filters).subscribe(async () => {
       await this.setFiltersToQuery(this.filters);
     });
   }

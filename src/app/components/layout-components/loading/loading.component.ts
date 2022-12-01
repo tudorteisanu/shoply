@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store } from '@ngxs/store';
+import { StoreService } from '@/app/store2/store.service';
 
 @Component({
   selector: 'app-loading',
@@ -8,9 +7,9 @@ import { Store } from '@ngxs/store';
   styles: [],
 })
 export class LoadingComponent {
-  constructor(private store: Store) {}
+  constructor(private store: StoreService) {}
 
-  get show(): Observable<boolean> {
-    return this.store.select((state) => state.loading.state);
+  get show(): boolean {
+    return this.store.loading.show;
   }
 }

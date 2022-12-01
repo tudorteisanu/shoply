@@ -5,7 +5,7 @@
     </div>
     <div class="flex w-full">
       <div class="w-full">
-        <ng-container *ngIf="count | async; else EmptyPageContent">
+        <ng-container *ngIf="count ; else EmptyPageContent">
         <div class="grid grid-cols-4 text-center font-bold">
           <div>Product</div>
           <div>Price</div>
@@ -13,7 +13,7 @@
           <div>Total</div>
         </div>
         <div
-          *ngFor="let item of cart  | async; trackBy: trackById"
+          *ngFor="let item of cart  ; trackBy: trackById"
           class="grid grid-cols-4 bg-[#F8F8F8] mt-[30px]"
         >
           <div class="p-5">
@@ -40,24 +40,24 @@
         </div>
         </ng-container>
         <ng-template #EmptyPageContent>There are no items. </ng-template>
-        <ng-container *ngIf="subtotal | async">
+        <ng-container *ngIf="subtotal ">
         <div class="flex items-center justify-end mt-[95px]">
           <div class="px-[59px] py-7 bg-[#F8F8F8]">
             <table class="w-[350px]">
               <tr class="font-bold">
                 <td class="p-2">Subtotal</td>
                 <td class="p-2 text-center">:</td>
-                <td class="p-2 text-end">${{subtotal | async}}</td>
+                <td class="p-2 text-end">${{subtotal}}</td>
               </tr>
               <tr>
                 <td class="p-2">Shopping Free</td>
                 <td class="p-2 text-center">:</td>
-                <td class="p-2 text-end">${{discount | async}}</td>
+                <td class="p-2 text-end">${{discount }}</td>
               </tr>
               <tr class="font-bold border-t py-2 text-lg">
                 <td class="p-2">Total Order</td>
                 <td class="p-2 text-center">:</td>
-                <td class="p-2 text-end">${{total | async}}</td>
+                <td class="p-2 text-end">${{total }}</td>
               </tr>
             </table>
           </div>

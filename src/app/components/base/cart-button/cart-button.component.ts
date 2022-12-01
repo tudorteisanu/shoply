@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PageRoutes } from '@/ts/enum';
-import { Observable } from 'rxjs';
-import { Select } from '@ngxs/store';
-import { CartState } from '@/app/store/cart/cart.state';
+import { StoreService } from '@/app/store2/store.service';
 
 @Component({
   selector: 'CartBtn',
   templateUrl: './cart-button.component.html',
 })
-export class CartButtonComponent implements OnInit {
-  @Select(CartState.count)
-  cartLength!: Observable<number>;
-
-  ngOnInit(): void {}
+export class CartButtonComponent {
+  constructor(private store: StoreService) {}
 
   get cartUrl(): string {
     return PageRoutes.Cart;
+  }
+
+  get cartLength(): number {
+    return this.store.cart.cartLength;
   }
 }

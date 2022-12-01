@@ -11,8 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { LoginInterface } from '@/ts/interfaces';
-import { Store } from '@ngxs/store';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { StoreService } from '@/app/store2/store.service';
 
 @Component({
   selector: 'app-login',
@@ -39,25 +38,22 @@ export class LoginComponent {
     ]),
   });
 
-  constructor(
-    private store: Store,
-    private storeDispatch: StoreDispatchService
-  ) {}
+  constructor(private store: StoreService) {}
 
   get forgotPasswordUrl(): string {
     return PageRoutes.ForgotPassword;
   }
 
   async login(): Promise<void> {
-    this.storeDispatch.auth
-      .login(<LoginInterface>this.loginForm.value)
-      .subscribe({
-        next: () => {
-          window.location.href = '/';
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+    this.store.loading.start();
+    this.store.auth.login(<LoginInterface>this.loginForm.value).subscribe({
+      next: () => {
+        window.location.href = '/';
+      },
+      error: (err) => {
+        console.log(err);
+        this.store.loading.finish();
+      },
+    });
   }
 }

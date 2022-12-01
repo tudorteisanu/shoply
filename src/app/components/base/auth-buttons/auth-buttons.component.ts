@@ -2,10 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { PageRoutes } from '@/ts/enum';
 import { Router } from '@angular/router';
 import { UserInterface } from '@/ts/interfaces';
-import { Select, Store } from '@ngxs/store';
-import { AuthState } from '@/app/store/auth/auth.state';
-import { Observable } from 'rxjs';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { StoreService } from '@/app/store2/store.service';
 
 @Component({
   selector: 'AuthButtons',
@@ -15,13 +12,7 @@ export class AuthButtonsComponent {
   @Output() onLoginBtnClick: EventEmitter<void> = new EventEmitter<void>();
   @Output() onLogoutBtnClick: EventEmitter<void> = new EventEmitter<void>();
 
-  @Select(AuthState.loggedIn) loggedIn$: Observable<any> | undefined;
-
-  constructor(
-    private router: Router,
-    private store: Store,
-    private storeDispatch: StoreDispatchService
-  ) {}
+  constructor(private router: Router, private store: StoreService) {}
 
   get loginUrl(): string {
     return PageRoutes.Login;
@@ -32,7 +23,7 @@ export class AuthButtonsComponent {
   }
 
   get user(): UserInterface | null {
-    return this.store.selectSnapshot(AuthState.getUser);
+    return this.store.auth.user;
   }
 
   get userName(): string | undefined {
@@ -43,9 +34,20 @@ export class AuthButtonsComponent {
     return `${firstName} ${lastName}`;
   }
 
+  get loggedIn(): boolean {
+    return this.store.auth.loggedIn;
+  }
+
   logout(): void {
-    this.storeDispatch.auth.logout().subscribe(() => {
-      this.onLogoutBtnClick.emit();
+    this.store.loading.start();
+    this.store.auth.logout().subscribe({
+      next: () => {
+        this.onLogoutBtnClick.emit();
+        window.location.href = '/';
+      },
+      error: () => {
+        this.store.loading.finish();
+      },
     });
   }
 

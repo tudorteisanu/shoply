@@ -1,5 +1,5 @@
 export interface AlertInterface {
-  id?: number;
+  id: number;
   type: string;
   title: string;
   message: string;

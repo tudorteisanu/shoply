@@ -29,7 +29,7 @@ export class ProductState {
   }: StateContext<ProductStateModel>): Observable<
     PaginationInterface<ProductInterface>
   > {
-    return this.productsService.fetchProducts().pipe(
+    return this.productsService.fetch().pipe(
       tap(({ data: items }: PaginationInterface<ProductInterface>) => {
         setState({
           items: items.map((item) => ({

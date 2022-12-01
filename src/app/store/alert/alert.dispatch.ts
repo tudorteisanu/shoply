@@ -5,6 +5,7 @@ import { AlertInterface } from '@/ts/interfaces';
 import { randomInteger } from '@/app/utils';
 
 const DEFAULT_ALERT_CONFIG: AlertInterface = {
+  id: 0,
   withoutClosing: false,
   message: 'Operation successful',
   title: 'Success',

@@ -11,7 +11,7 @@
           <img src="assets/images/product-single-1.png" alt="" />
         </div>
         <div class="flex w-full items-center justify-between mt-2">
-          <div *ngFor="let thumb of thumbs | async">
+          <div *ngFor="let thumb of thumbs">
             <img [src]="thumb.url" alt="" />
           </div>
         </div>

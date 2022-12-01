@@ -6,7 +6,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { StoreService } from '@/app/store2/store.service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +16,10 @@ import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 export class AppComponent {
   title = 'shoply';
 
-  constructor(
-    private router: Router,
-    private storeDispatch: StoreDispatchService
-  ) {
+  constructor(private router: Router, private store: StoreService) {
     this.router.events.subscribe((events) => {
       if (events instanceof NavigationStart) {
-        this.storeDispatch.loading.start();
+        this.store.loading.start();
       }
 
       if (
@@ -30,7 +27,7 @@ export class AppComponent {
         events instanceof NavigationError ||
         events instanceof NavigationCancel
       ) {
-        this.storeDispatch.loading.finish();
+        this.store.loading.finish();
       }
     });
   }

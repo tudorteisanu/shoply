@@ -7,7 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, fromEvent } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { CategoryInterface } from '@/ts/interfaces';
 
 interface FilterParamsInterface {
@@ -28,7 +28,7 @@ export class ProductFilterComponent implements AfterViewInit {
   @Output() filtersChange: EventEmitter<FilterParamsInterface> =
     new EventEmitter<FilterParamsInterface>();
 
-  @Input() categories!: BehaviorSubject<CategoryInterface[]>;
+  @Input() categories: CategoryInterface[] = [];
   @Output() filter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
