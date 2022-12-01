@@ -1,8 +1,17 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { SetUser, SetAccessToken, SetRefreshToken } from './auth.action';
-import { UserInterface } from '@/ts/interfaces';
+import {
+  SetUser,
+  SetAccessToken,
+  SetRefreshToken,
+  Login,
+  Logout,
+  FetchUser,
+} from './auth.action';
+import { CredentialsInterface, UserInterface } from '@/ts/interfaces';
 import { LocalstorageKeys } from '@/ts/enum';
+import { AuthService } from '@/services/auth.service';
+import { tap } from 'rxjs';
 
 export class AuthStateModel {
   user!: UserInterface | null;
@@ -20,6 +29,7 @@ export class AuthStateModel {
 })
 @Injectable()
 export class AuthState {
+  constructor(private authService: AuthService) {}
   @Selector()
   static getUser(state: AuthStateModel): UserInterface | null {
     return state.user;
@@ -80,5 +90,50 @@ export class AuthState {
       return;
     }
     localStorage.setItem(LocalstorageKeys.RefreshToken, refreshToken);
+  }
+
+  @Action(Login)
+  login(ctx: StateContext<AuthStateModel>, action: Login) {
+    return this.authService.login(action.payload).pipe(
+      tap(({ accessToken, refreshToken, user }: CredentialsInterface) => {
+        ctx.patchState({
+          accessToken,
+          refreshToken,
+          user,
+        });
+
+        localStorage.setItem(LocalstorageKeys.AccessToken, accessToken);
+        localStorage.setItem(LocalstorageKeys.RefreshToken, refreshToken);
+      })
+    );
+  }
+
+  @Action(Logout)
+  logout(ctx: StateContext<AuthStateModel>) {
+    return this.authService.logout().pipe(
+      tap(() => {
+        ctx.setState({
+          accessToken: null,
+          refreshToken: null,
+          user: null,
+        });
+
+        localStorage.removeItem(LocalstorageKeys.AccessToken);
+        localStorage.removeItem(LocalstorageKeys.RefreshToken);
+      })
+    );
+  }
+
+  @Action(FetchUser)
+  fetchUser(ctx: StateContext<AuthStateModel>) {
+    return this.authService.getUserInfo().pipe(
+      tap((user) => {
+        ctx.patchState({
+          user,
+        });
+
+        return user;
+      })
+    );
   }
 }

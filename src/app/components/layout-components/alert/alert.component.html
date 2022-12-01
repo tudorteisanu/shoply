@@ -3,7 +3,7 @@
     [ngClass]="message.type"
     class="alert"
     @alertAnimation
-    *ngFor="let message of items"
+    *ngFor="let message of items | async"
   >
     <div class="alert--title">
       {{ message.title }}

@@ -10,8 +10,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '@/services/auth.service';
 import { LoginInterface } from '@/ts/interfaces';
+import { Store } from '@ngxs/store';
+import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 
 @Component({
   selector: 'app-login',
@@ -38,13 +39,25 @@ export class LoginComponent {
     ]),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private store: Store,
+    private storeDispatch: StoreDispatchService
+  ) {}
 
   get forgotPasswordUrl(): string {
     return PageRoutes.ForgotPassword;
   }
 
   async login(): Promise<void> {
-    this.authService.login(<LoginInterface>this.loginForm.value).subscribe();
+    this.storeDispatch.auth
+      .login(<LoginInterface>this.loginForm.value)
+      .subscribe({
+        next: () => {
+          window.location.href = '/';
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 }

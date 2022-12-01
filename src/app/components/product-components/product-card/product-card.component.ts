@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { CartService } from '@/services/cart.service';
+import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 
 @Component({
   selector: 'ProductCard',
@@ -10,7 +10,7 @@ import { CartService } from '@/services/cart.service';
 export class ProductCardComponent implements OnInit {
   @Input() product: ProductInterface | null = null;
 
-  constructor(private cartService: CartService) {}
+  constructor(private storeDispatch: StoreDispatchService) {}
 
   get productUrl(): string {
     return `${PageRoutes.Products}/${this.product?.id}`;
@@ -23,6 +23,6 @@ export class ProductCardComponent implements OnInit {
       return;
     }
 
-    this.cartService.add(this.product?.id).subscribe();
+    this.storeDispatch.cart.add(this.product?.id).subscribe();
   }
 }

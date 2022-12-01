@@ -1,12 +1,9 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import {
-  SetCategories,
-  AddCategory,
-  RemoveCategory,
-  UpdateCategory,
-} from './category.action';
+import { Fetch } from './category.action';
 import { CategoryInterface } from '@/ts/interfaces';
+import { CategoriesService } from '@/services/categories.service';
+import { Observable, tap } from 'rxjs';
 
 export class CategoryStateModel {
   items!: CategoryInterface[];
@@ -20,64 +17,22 @@ export class CategoryStateModel {
 })
 @Injectable()
 export class CategoryState {
+  constructor(private categoriesService: CategoriesService) {}
   @Selector()
   static getCategories(state: CategoryStateModel): CategoryInterface[] {
     return state.items;
   }
 
-  @Action(AddCategory)
-  add(
-    { getState, patchState, setState }: StateContext<CategoryStateModel>,
-    { payload }: AddCategory
-  ): void {
-    const state = getState();
-    if (state?.items) {
-      patchState({
-        items: [...state.items, payload],
-      });
-    } else {
-      setState({
-        items: [payload],
-      });
-    }
-  }
-  @Action(UpdateCategory)
-  update(
-    { getState, patchState, setState }: StateContext<CategoryStateModel>,
-    { payload }: UpdateCategory
-  ): void {
-    const state = getState();
-    if (state?.items) {
-      patchState({
-        items: [...state.items, payload],
-      });
-    } else {
-      setState({
-        items: [payload],
-      });
-    }
-  }
-
-  @Action(SetCategories)
-  set(
-    { patchState }: StateContext<CategoryStateModel>,
-    { payload: items }: SetCategories
-  ): void {
-    patchState({
-      items,
-    });
-  }
-
-  @Action(RemoveCategory)
-  remove(
-    { getState, setState }: StateContext<CategoryStateModel>,
-    { payload }: RemoveCategory
-  ): void {
-    const state = getState();
-    if (state?.items) {
-      setState({
-        items: state.items.filter((u) => !(u.id === payload.id)),
-      });
-    }
+  @Action(Fetch)
+  set({
+    patchState,
+  }: StateContext<CategoryStateModel>): Observable<CategoryInterface[]> {
+    return this.categoriesService.fetch().pipe(
+      tap((items: CategoryInterface[]) => {
+        patchState({
+          items,
+        });
+      })
+    );
   }
 }
