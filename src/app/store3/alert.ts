@@ -1,5 +1,5 @@
 import { AlertInterface } from '@/ts/interfaces';
-import { StoreType } from '@/app/store3/base-store';
+import { ActionThree, GetterThree, StoreType } from '@/app/store3/base-store';
 
 const state = {
   items: [] as AlertInterface[],
@@ -9,11 +9,11 @@ type AlertStateStoreType = typeof state;
 
 type AlertStoreType = StoreType<AlertStateStoreType>;
 
-const getters: any = {
+const getters: GetterThree<AlertStateStoreType> = {
   items: (state: AlertStateStoreType) => state.items,
 };
 
-const actions: any = {
+const actions: ActionThree<AlertStoreType> = {
   show: ({ state }: AlertStoreType, payload: AlertInterface) => {
     state.items.push(payload);
   },

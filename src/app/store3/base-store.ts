@@ -1,11 +1,11 @@
 import { BehaviorSubject } from 'rxjs';
 
-type Action<T> = {
-  [key: string]: { state: T; getters: any; actions: any };
+export type GetterThree<T> = {
+  [key: string]: (state: T) => any;
 };
 
-type ActionThree<T> = {
-  [key: string]: (action: Action<T>, payload: string) => any;
+export type ActionThree<T> = {
+  [key: string]: (context: T, payload: any) => any;
 };
 
 export type StoreType<T> = {

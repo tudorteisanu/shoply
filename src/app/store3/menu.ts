@@ -1,4 +1,4 @@
-import { StoreType } from '@/app/store3/base-store';
+import { ActionThree, GetterThree, StoreType } from '@/app/store3/base-store';
 
 const state = {
   show: false as boolean,
@@ -8,12 +8,12 @@ type MenuStateStoreType = typeof state;
 
 type MenuStoreType = StoreType<MenuStateStoreType>;
 
-const getters: any = {
+const getters: GetterThree<MenuStateStoreType> = {
   show: (state: MenuStateStoreType) => state.show,
 };
 
-const actions = {
-  show: ({ state }: any) => {
+const actions: ActionThree<MenuStoreType> = {
+  show: ({ state }: MenuStoreType) => {
     state.show = true;
   },
 
@@ -21,8 +21,7 @@ const actions = {
     state.show = false;
   },
 
-  toggle: ({ state, rootState }: any) => {
-    console.log(rootState);
+  toggle: ({ state }: MenuStoreType) => {
     state.show = !state.show;
   },
 };
