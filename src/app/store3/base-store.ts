@@ -61,7 +61,7 @@ export abstract class BaseStore<T> {
     const [moduleKey] = action.split('.');
     const module = this.state[<keyof StoreType<any>>moduleKey];
 
-    foundedAction.call(null, module, payload);
+    foundedAction.call(null, { ...module, rootState: this.state }, payload);
 
     this._store.next({
       ...this._store.getValue(),

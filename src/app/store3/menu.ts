@@ -13,7 +13,7 @@ const getters: any = {
 };
 
 const actions = {
-  show: ({ state }: MenuStoreType) => {
+  show: ({ state }: any) => {
     state.show = true;
   },
 
@@ -21,7 +21,8 @@ const actions = {
     state.show = false;
   },
 
-  toggle: ({ state }: MenuStoreType) => {
+  toggle: ({ state, rootState }: any) => {
+    console.log(rootState);
     state.show = !state.show;
   },
 };
