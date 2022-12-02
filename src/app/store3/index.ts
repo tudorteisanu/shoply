@@ -1,14 +1,12 @@
-import * as menu from '@/app/store3/menu';
-import * as alert from '@/app/store3/alert';
+import * as menu from '@/app/store3/modules/menu';
+import * as alert from '@/app/store3/modules/alert';
 import { Injectable } from '@angular/core';
-import { BaseStore } from '@/app/store3/base-store';
+import { Store } from '@/app/store3/simple-store';
 
 const modules = { menu, alert };
 
-type BaseStoreType = typeof modules;
-
 @Injectable({ providedIn: 'root' })
-export class Store3 extends BaseStore<BaseStoreType> {
+export class StoreAdapter extends Store {
   constructor() {
     super(modules);
   }

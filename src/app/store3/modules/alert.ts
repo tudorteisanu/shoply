@@ -4,7 +4,7 @@ import {
   GetterThree,
   MutationThree,
   StoreType,
-} from '@/app/store3/base-store';
+} from '@/app/store3/simple-store';
 
 const state = {
   items: [] as AlertInterface[],
