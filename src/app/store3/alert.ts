@@ -1,5 +1,10 @@
 import { AlertInterface } from '@/ts/interfaces';
-import { ActionThree, GetterThree, StoreType } from '@/app/store3/base-store';
+import {
+  ActionThree,
+  GetterThree,
+  MutationThree,
+  StoreType,
+} from '@/app/store3/base-store';
 
 const state = {
   items: [] as AlertInterface[],
@@ -13,9 +18,15 @@ const getters: GetterThree<AlertStateStoreType> = {
   items: (state: AlertStateStoreType) => state.items,
 };
 
+const mutations: MutationThree<AlertStateStoreType> = {
+  SET_ITEMS: (state: AlertStateStoreType, items: AlertInterface[]) => {
+    state.items = items;
+  },
+};
+
 const actions: ActionThree<AlertStoreType> = {
-  show: ({ state }: AlertStoreType, payload: AlertInterface) => {
-    state.items.push(payload);
+  show: ({ commit }: AlertStoreType, payload: AlertInterface) => {
+    commit('SET_ITEMS', payload);
   },
 
   hide: ({ state }: AlertStoreType, alert: AlertInterface) => {
@@ -29,4 +40,4 @@ const actions: ActionThree<AlertStoreType> = {
   },
 };
 
-export { state, getters, actions, AlertStoreType };
+export { state, getters, mutations, actions, AlertStoreType };

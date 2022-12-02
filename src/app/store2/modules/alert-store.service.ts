@@ -35,7 +35,6 @@ export class AlertStoreService extends StoreModel<AlertStateType> {
   show(payload: Partial<AlertInterface>): void {
     const id = randomInteger(999, 10000);
     const alert = { ...DEFAULT_ALERT_CONFIG, ...payload, id };
-    console.log(alert);
     this.patchState({ items: [...this.items, alert] });
 
     if (alert.withoutClosing) {

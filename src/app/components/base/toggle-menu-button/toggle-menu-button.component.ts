@@ -11,10 +11,9 @@ export class ToggleMenuButtonComponent {
   constructor(private store: StoreService, private store3: Store3) {}
 
   get isMenuShown(): boolean {
-    return this.store.menu.menuState;
+    return this.store3.getters.menu.show;
   }
   toggleMenu(): void {
-    // this.store.menu.toggle();
-    this.store3.dispatch('menu.toggle');
+    this.store3.commit('menu.TOGGLE');
   }
 }

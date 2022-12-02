@@ -4,20 +4,26 @@ export type GetterThree<T> = {
   [key: string]: (state: T) => any;
 };
 
+export type MutationThree<T> = {
+  [key: string]: (state: T, payload?: any) => any;
+};
+
 export type ActionThree<T> = {
   [key: string]: (context: T, payload: any) => any;
 };
 
 export type StoreType<T> = {
   getters: (state: any) => any;
+  mutations: MutationThree<T>;
   actions: ActionThree<T>;
   state: any;
+  commit: (key: keyof MutationThree<T>, payload?: any) => void;
 };
 
-export abstract class BaseStore<T> {
+export class BaseStore<T> {
   private readonly _store: any;
 
-  protected constructor(initialData: T) {
+  constructor(initialData: T) {
     this._store = new BehaviorSubject<T>(initialData);
   }
 
@@ -26,19 +32,18 @@ export abstract class BaseStore<T> {
   }
 
   public get getters(): any {
-    const getters = {} as any;
+    const newGetters = {} as any;
 
     for (const key in this.state) {
-      const state = this.getState(key);
-      getters[key] = {};
+      newGetters[key] = {};
 
-      for (const item in this.state[<keyof StoreType<any>>key].getters) {
-        const module = this.state[<keyof StoreType<any>>key].getters;
-        getters[key][item] = module[item].call(null, state);
+      const { getters, state } = this.getState(key);
+      for (const item in getters) {
+        newGetters[key][item] = getters[item].call(null, state);
       }
     }
 
-    return getters;
+    return newGetters;
   }
 
   private get actions(): any {
@@ -51,6 +56,30 @@ export abstract class BaseStore<T> {
     return actions;
   }
 
+  private get mutations(): any {
+    const mutations = {} as any;
+
+    for (const key in this.state) {
+      mutations[key] = this.state[<keyof StoreType<any>>key].mutations;
+    }
+
+    return mutations;
+  }
+
+  public commit(key: string, payload?: any): void {
+    const foundedAction = this.getActionByKey(key, this.mutations);
+
+    if (!foundedAction) {
+      return;
+    }
+
+    const [moduleKey] = key.split('.');
+    const module = this.state[<keyof StoreType<any>>moduleKey];
+    foundedAction.call(null, module.state, payload);
+
+    this.emitUpdate();
+  }
+
   public dispatch(action: string, payload?: any) {
     const foundedAction = this.getActionByKey(action, this.actions);
 
@@ -61,8 +90,20 @@ export abstract class BaseStore<T> {
     const [moduleKey] = action.split('.');
     const module = this.state[<keyof StoreType<any>>moduleKey];
 
-    foundedAction.call(null, { ...module, rootState: this.state }, payload);
+    const commit = (commitKey: keyof typeof module.mutations, payload: any) => {
+      module.mutations[commitKey](module.state, payload);
+    };
 
+    foundedAction.call(
+      null,
+      { ...module, rootState: this.state, commit },
+      payload
+    );
+
+    this.emitUpdate();
+  }
+
+  private emitUpdate(): void {
     this._store.next({
       ...this._store.getValue(),
     });

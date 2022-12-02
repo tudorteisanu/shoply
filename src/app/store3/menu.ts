@@ -1,4 +1,9 @@
-import { ActionThree, GetterThree, StoreType } from '@/app/store3/base-store';
+import {
+  ActionThree,
+  GetterThree,
+  MutationThree,
+  StoreType,
+} from '@/app/store3/base-store';
 
 const state = {
   show: false as boolean,
@@ -12,18 +17,27 @@ const getters: GetterThree<MenuStateStoreType> = {
   show: (state: MenuStateStoreType) => state.show,
 };
 
-const actions: ActionThree<MenuStoreType> = {
-  show: ({ state }: MenuStoreType) => {
-    state.show = true;
+const mutations: MutationThree<MenuStateStoreType> = {
+  SET: (state: MenuStateStoreType, payload: boolean) => {
+    state.show = payload;
   },
-
-  hide: ({ state }: MenuStoreType) => {
-    state.show = false;
-  },
-
-  toggle: ({ state }: MenuStoreType) => {
+  TOGGLE: (state: MenuStateStoreType) => {
     state.show = !state.show;
   },
 };
 
-export { state, getters, actions, MenuStoreType };
+const actions: ActionThree<MenuStoreType> = {
+  show: ({ commit }: MenuStoreType) => {
+    commit('SET', true);
+  },
+
+  hide: ({ commit }: MenuStoreType) => {
+    commit('SET', false);
+  },
+
+  toggle: ({ commit }: MenuStoreType) => {
+    commit('TOGGLE');
+  },
+};
+
+export { state, getters, actions, mutations, MenuStoreType };
