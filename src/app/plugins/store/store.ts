@@ -1,15 +1,17 @@
+import {BehaviorSubject} from "rxjs";
+
 type BaseStoreType = {
   [key: string]: any;
 };
 
 export class Store {
-  modules: BaseStoreType;
+  modules: BehaviorSubject<BaseStoreType>;
   constructor(modules: BaseStoreType) {
-    this.modules = modules;
+    this.modules = new BehaviorSubject<BaseStoreType>(modules);
   }
 
   public get state() {
-    return this.modules;
+    return this.modules.getValue();
   }
 
   public get getters(): any {
@@ -18,7 +20,7 @@ export class Store {
     for (const key in this.state) {
       newGetters[key] = {};
 
-      const { getters, state } = this.modules[key];
+      const { getters, state } = this.state[key];
 
       for (const item in getters) {
         newGetters[key][item] = getters[item].call(null, state);
@@ -48,7 +50,7 @@ export class Store {
   public dispatch(action: string, payload?: any) {
     try {
       const [moduleKey] = (action as string).split('.');
-      const module = this.modules[<keyof BaseStoreType>moduleKey];
+      const module = this.state[<keyof BaseStoreType>moduleKey];
 
       const foundedAction = this.getActionByKey(action, module.actions);
 
