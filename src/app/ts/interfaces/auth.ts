@@ -1,4 +1,4 @@
-import {UserInterface} from "@/ts/interfaces/user";
+import { UserInterface } from '@/ts/interfaces/user';
 
 export interface LoginInterface {
   email: string;

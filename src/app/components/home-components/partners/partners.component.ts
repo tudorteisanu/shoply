@@ -1,21 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'Partners',
   templateUrl: './partners.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class PartnersComponent implements OnInit {
+export class PartnersComponent {
   readonly partners = [
     'assets/images/jp-morgan-1.png',
     'assets/images/oysho-1.png',
     'assets/images/pull-bear-2.png',
     'assets/images/rose-wood.png',
-  ]
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ];
 }

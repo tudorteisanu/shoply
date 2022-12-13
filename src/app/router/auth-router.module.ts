@@ -6,16 +6,12 @@ const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () =>
-      import('@/layouts/auth/auth.component').then(
-        (m) => m.AuthComponent
-      ),
+      import('@/layouts/auth/auth.component').then((m) => m.AuthComponent),
     children: [
       {
         path: 'login',
         loadComponent: () =>
-          import('@/pages/login/login.component').then(
-            (m) => m.LoginComponent
-          ),
+          import('@/pages/login/login.component').then((m) => m.LoginComponent),
       },
     ],
   },

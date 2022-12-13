@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseModule } from '@/components/base/base.module';
 import { CartInterface, LinkInterface } from '@/ts/interfaces';
@@ -15,7 +15,7 @@ import { CartState } from '@/app/store/cart/cart.state';
   imports: [CommonModule, BaseModule, FormsModule],
   templateUrl: './cart.component.html',
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
   breadcrumb: LinkInterface[] = [
     {
       to: PageRoutes.Home,

@@ -1,16 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'HomeFeedback',
   templateUrl: './home-feedback.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class HomeFeedbackComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class HomeFeedbackComponent {}

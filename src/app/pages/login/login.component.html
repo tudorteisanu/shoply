@@ -1,7 +1,9 @@
 <section
   class="flex items-center justify-center min-h-[585px] p-4 md:px-[76px] md:py-9 bg-gradient-to-r from-[#FCF9F6] to-white"
 >
-  <div class="grid grid-cols-1 md:grid-cols-2 items-center justify-between max-[960px] mt-9">
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 items-center justify-between max-[960px] mt-9"
+  >
     <div class="hidden md:flex">
       <img
         class="w-24 h-24 md:w-[495px] md:h-[525px]"
@@ -11,9 +13,16 @@
     </div>
     <div class="p-16">
       <div class="w-full text-center text-3xl text-[#334756]">LOGIN</div>
-      <form [formGroup]="loginForm"  (ngSubmit)="login()">
-        <FormInput [control]="loginForm.controls['email']" icon="assets/icons/user.svg"></FormInput>
-        <FormInput [control]="loginForm.controls['password']" type="password" icon="assets/icons/lock.svg"></FormInput>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <FormInput
+          [control]="loginForm.controls['email']"
+          icon="assets/icons/user.svg"
+        ></FormInput>
+        <FormInput
+          [control]="loginForm.controls['password']"
+          type="password"
+          icon="assets/icons/lock.svg"
+        ></FormInput>
         <div class="text-base text-[#334756] text-right mr-4 mt-2">
           <a [routerLink]="forgotPasswordUrl" class="hover:text-primary-900"
             >lupa password?</a
@@ -26,7 +35,9 @@
         </button>
         <div class="w-full text-center mt-6">
           <span class="text-[#334756]">belum punya akun ? </span>
-          <span class="text-[#616467] underline underline-offset-4">daftar sekarang </span>
+          <span class="text-[#616467] underline underline-offset-4"
+            >daftar sekarang
+          </span>
         </div>
       </form>
     </div>

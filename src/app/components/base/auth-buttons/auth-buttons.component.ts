@@ -12,8 +12,8 @@ import { StoreDispatchService } from '@/app/store/store-dispatch.service';
   templateUrl: './auth-buttons.component.html',
 })
 export class AuthButtonsComponent {
-  @Output() onLoginBtnClick: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onLogoutBtnClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() loginBtnClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() logoutBtnClick: EventEmitter<void> = new EventEmitter<void>();
 
   @Select(AuthState.loggedIn) loggedIn$: Observable<any> | undefined;
 
@@ -45,12 +45,12 @@ export class AuthButtonsComponent {
 
   logout(): void {
     this.storeDispatch.auth.logout().subscribe(() => {
-      this.onLogoutBtnClick.emit();
+      this.logoutBtnClick.emit();
     });
   }
 
   async goToLogin(): Promise<void> {
-    this.onLoginBtnClick.emit();
+    this.loginBtnClick.emit();
     await this.router.navigateByUrl(this.loginUrl);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponentsModule } from '@/components/layout-components/layout-components.module';
 import { RouterOutlet } from '@angular/router';
@@ -9,8 +9,4 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [CommonModule, LayoutComponentsModule, RouterOutlet],
 })
-export class DefaultComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class DefaultComponent {}

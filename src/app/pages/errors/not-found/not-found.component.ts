@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,8 +7,4 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './not-found.component.html',
 })
-export class NotFoundComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class NotFoundComponent {}

@@ -1,10 +1,16 @@
 <div class="w-full mt-10">
-  <div class="flex items-center justify-between rounded-full bg-[#F3F6FF] h-[52px] px-[18px]">
+  <div
+    class="flex items-center justify-between rounded-full bg-[#F3F6FF] h-[52px] px-[18px]"
+  >
     <div *ngIf="icon">
-      <img [src]="icon" alt="icon">
+      <img [src]="icon" alt="icon" />
     </div>
     <div class="w-full ml-2 h-full">
-      <input [type]="type" [formControl]="control" class="w-full h-full bg-[#F3F6FF] outline-none">
+      <input
+        [type]="type"
+        [formControl]="control"
+        class="w-full h-full bg-[#F3F6FF] outline-none"
+      />
     </div>
   </div>
   <div class="text-red-500 ml-4 text-sm mt-1" *ngIf="areMessageShown">

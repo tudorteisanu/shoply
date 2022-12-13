@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponentsModule } from '@/components/home-components/home-components.module';
 
@@ -8,8 +8,4 @@ import { HomeComponentsModule } from '@/components/home-components/home-componen
   imports: [CommonModule, HomeComponentsModule],
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class HomeComponent {}

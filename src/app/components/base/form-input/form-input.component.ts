@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'FormInput',
@@ -8,7 +8,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './form-input.component.html',
 })
-export class FormInputComponent implements OnInit {
+export class FormInputComponent {
   @Input() icon: string | undefined = undefined;
   @Input() type: string = 'text';
   @Input() control: FormControl = new FormControl('');
@@ -16,38 +16,40 @@ export class FormInputComponent implements OnInit {
   constructor() {}
 
   get errors(): any {
-    return this.control.errors
+    return this.control.errors;
   }
 
   get errorMessage(): string {
     const messages = [];
 
     if (!this.errors) {
-      return ''
+      return '';
     }
 
     if (this.errors.hasOwnProperty('required')) {
-      messages.push('This is required field')
+      messages.push('This is required field');
     }
 
     if (this.errors.hasOwnProperty('email')) {
-      messages.push('Invalid email format')
+      messages.push('Invalid email format');
     }
 
     if (this.errors.hasOwnProperty('minlength')) {
-      messages.push(`Minimal length is ${this.errors.minlength.requiredLength} (${this.errors.minlength.actualLength})`)
+      messages.push(
+        `Minimal length is ${this.errors.minlength.requiredLength} (${this.errors.minlength.actualLength})`
+      );
     }
 
     if (this.errors.hasOwnProperty('maxlength')) {
-      messages.push(`Minimal length is ${this.errors.maxlength.requiredLength} (${this.errors.maxlength.actualLength})`)
+      messages.push(
+        `Minimal length is ${this.errors.maxlength.requiredLength} (${this.errors.maxlength.actualLength})`
+      );
     }
 
-      return messages.join(', ')
+    return messages.join(', ');
   }
 
   get areMessageShown(): boolean {
-    return  this.control.touched || this.control.dirty
+    return this.control.touched || this.control.dirty;
   }
-
-  ngOnInit(): void {}
 }

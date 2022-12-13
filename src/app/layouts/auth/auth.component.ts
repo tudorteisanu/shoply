@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { LayoutComponentsModule } from '@/components/layout-components/layout-components.module';
@@ -9,8 +9,4 @@ import { LayoutComponentsModule } from '@/components/layout-components/layout-co
   imports: [CommonModule, RouterOutlet, LayoutComponentsModule],
   templateUrl: './auth.component.html',
 })
-export class AuthComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class AuthComponent {}
