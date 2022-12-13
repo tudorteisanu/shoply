@@ -28,19 +28,19 @@ export class CartComponent implements OnInit {
   ];
 
   @Select(CartState.getItems)
-  cart!: Observable<CartInterface[]>;
+  cart: Observable<CartInterface[]>;
 
   @Select(CartState.total)
-  total!: Observable<number>;
+  total: Observable<number>;
 
   @Select(CartState.subtotal)
-  subtotal!: Observable<number>;
+  subtotal: Observable<number>;
 
   @Select(CartState.discount)
-  discount!: Observable<number>;
+  discount: Observable<number>;
 
   @Select(CartState.count)
-  count!: Observable<number>;
+  count: Observable<number>;
 
   constructor(private storeDispatch: StoreDispatchService) {}
 

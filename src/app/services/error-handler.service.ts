@@ -43,7 +43,7 @@ export class ErrorHandlerService implements ErrorHandler {
   }
 }
 
-export const ErrorHandlerProvider = {
+export const ERROR_HANDLER_PROVIDER = {
   provide: ErrorHandler,
   useClass: ErrorHandlerService,
 };
