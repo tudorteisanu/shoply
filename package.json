@@ -6,7 +6,10 @@
     "dev": "ng serve -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prepare": "husky install",
+    "lint": "ng lint && yarn lint:styles",
+    "lint:styles": "stylelint \"**/*.css\""
   },
   "private": true,
   "dependencies": {
@@ -18,20 +21,32 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@ngxs/devtools-plugin": "^3.7.6",
     "@ngxs/store": "^3.7.6",
     "@types/node": "^18.11.3",
     "rxjs": "~7.5.0",
+    "stylelint-config-prettier": "^9.0.4",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "@ngxs/devtools-plugin": "^3.7.6"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.2",
+    "@angular-eslint/builder": "14.4.0",
+    "@angular-eslint/eslint-plugin": "14.4.0",
+    "@angular-eslint/eslint-plugin-template": "14.4.0",
+    "@angular-eslint/schematics": "14.4.0",
+    "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "~14.2.2",
     "@angular/compiler-cli": "^14.2.0",
     "@ngxs/devtools-plugin": "^3.7.6",
     "@types/jasmine": "~4.0.0",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
     "autoprefixer": "^10.4.8",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.0",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -40,6 +55,8 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
+    "stylelint": "^14.16.0",
+    "stylelint-config-standard": "^29.0.0",
     "tailwindcss": "^3.1.8",
     "typescript": "~4.7.2"
   }

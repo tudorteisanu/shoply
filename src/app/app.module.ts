@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BaseRoutingModule } from './router/base-routing.module';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from '@/services/auth.service';
-import { ErrorHandlerProvider } from '@/services/error-handler.service';
+import { ERROR_HANDLER_PROVIDER } from '@/services/error-handler.service';
 import { AlertComponent } from '@/components/layout-components/alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TOKEN_INTERCEPTOR_PROVIDER } from '@/services/http/interceptors/token.interceptor';
@@ -30,7 +30,7 @@ import { StoreModule } from '@/app/store/store.module';
   ],
   providers: [
     AuthService,
-    ErrorHandlerProvider,
+    ERROR_HANDLER_PROVIDER,
     TOKEN_INTERCEPTOR_PROVIDER,
     BASE_URL_INTERCEPTOR_PROVIDER,
     APP_INITIALIZER_PROVIDER,

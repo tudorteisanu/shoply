@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseModule } from '@/components/base/base.module';
 import { LinkInterface } from '@/ts/interfaces';
@@ -10,7 +10,7 @@ import { PageRoutes } from '@/ts/enum';
   imports: [CommonModule, BaseModule],
   templateUrl: './about.component.html',
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent {
   breadcrumb: LinkInterface[] = [
     {
       to: PageRoutes.Home,
@@ -21,7 +21,4 @@ export class AboutComponent implements OnInit {
       text: 'About',
     },
   ];
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'HomeProduct',
   templateUrl: './home-product.component.html',
   styles: [],
 })
-export class HomeProductComponent implements OnInit {
+export class HomeProductComponent {
   products: any[] = [
     {
       id: 1,
@@ -40,7 +40,4 @@ export class HomeProductComponent implements OnInit {
       imageUrl: 'assets/images/product-8.png',
     },
   ];
-  constructor() {}
-
-  ngOnInit(): void {}
 }

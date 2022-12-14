@@ -235,21 +235,46 @@ export class AuthService {
 ```ts
 // login.component.ts
 @Component({
-  selector: 'Login',
-  templateUrl: './login.component.html',
+  selector: "Login",
+  templateUrl: "./login.component.html",
 })
 export class LoginComponent {
-  constructor(private authService: AuthService) {  }
+  constructor(private authService: AuthService) {}
 
   login(): void {
-      this.authService.login({}).subscribe({
-        next: (response) => {
-            // do something with response
-        },
-        error: (error) => {
-            // do something with error
-        },
-      })
+    this.authService.login({}).subscribe({
+      next: (response) => {
+        // do something with response
+      },
+      error: (error) => {
+        // do something with error
+      },
+    });
+  }
+}
+```
+
+### Parallel requests
+
+```ts
+import { HttpClient } from "@angular/common/http";
+
+class HomeComponent {
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(): void {
+    forkJoin([this.http.get("<urlOne>"), this.http.get("<urlTwo>"), ,]).subscribe({
+      next: ([responseOne, responseTwo]) => {
+        console.log(responseOne, responseTwo);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
 ```

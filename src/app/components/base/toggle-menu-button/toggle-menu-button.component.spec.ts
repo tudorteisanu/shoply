@@ -8,9 +8,8 @@ describe('ToggleMenuButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ToggleMenuButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [ToggleMenuButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ToggleMenuButtonComponent);
     component = fixture.componentInstance;

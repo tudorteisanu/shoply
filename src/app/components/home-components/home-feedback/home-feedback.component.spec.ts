@@ -8,9 +8,8 @@ describe('HomeFeedbackComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeFeedbackComponent ]
-    })
-    .compileComponents();
+      declarations: [HomeFeedbackComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HomeFeedbackComponent);
     component = fixture.componentInstance;

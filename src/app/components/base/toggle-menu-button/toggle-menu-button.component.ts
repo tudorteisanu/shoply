@@ -7,7 +7,6 @@ import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 @Component({
   selector: 'ToggleMenuButton',
   templateUrl: './toggle-menu-button.component.html',
-  styleUrls: ['./toggle-menu-button.component.css'],
 })
 export class ToggleMenuButtonComponent {
   constructor(private storeDispatch: StoreDispatchService) {}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   NavigationCancel,
   NavigationEnd,
@@ -11,15 +11,20 @@ import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy, OnInit {
   title = 'shoply';
 
   constructor(
     private router: Router,
     private storeDispatch: StoreDispatchService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.loaderSubscriber();
+  }
+
+  loaderSubscriber(): void {
     this.router.events.subscribe((events) => {
       if (events instanceof NavigationStart) {
         this.storeDispatch.loading.start();
@@ -33,5 +38,9 @@ export class AppComponent {
         this.storeDispatch.loading.finish();
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.router.events.subscribe();
   }
 }

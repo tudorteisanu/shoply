@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ServiceInterface } from '@/ts/interfaces';
 
 @Component({
@@ -6,7 +6,7 @@ import { ServiceInterface } from '@/ts/interfaces';
   templateUrl: './benefits.component.html',
   styles: [],
 })
-export class BenefitsComponent implements OnInit {
+export class BenefitsComponent {
   services: ServiceInterface[] = [
     {
       icon: 'assets/icons/service-1.svg',
@@ -24,7 +24,4 @@ export class BenefitsComponent implements OnInit {
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, purus id ',
     },
   ];
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -1,21 +1,17 @@
-/* width */
 ::-webkit-scrollbar {
   @apply w-2;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   @apply bg-primary-300;
   @apply rounded-lg;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   @apply bg-primary-500;
   @apply rounded-lg;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary-600;
 }

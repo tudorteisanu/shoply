@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthComponent } from './auth.component';
-import {RouterTestingModule} from "@angular/router/testing";
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;

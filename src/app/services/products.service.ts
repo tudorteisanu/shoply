@@ -10,9 +10,7 @@ import { ApiRoutes } from '@/ts/enum';
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
-  fetchProducts(
-    params: any = {}
-  ): Observable<PaginationInterface<ProductInterface>> {
+  fetch(params: any = {}): Observable<PaginationInterface<ProductInterface>> {
     return this.http.get<PaginationInterface<ProductInterface>>(
       ApiRoutes.Products,
       {

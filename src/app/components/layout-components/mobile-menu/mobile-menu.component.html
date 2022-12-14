@@ -1,4 +1,7 @@
-<nav *ngIf="show | async" class="fixed top-16 left-0 bottom-0 bg-white w-screen md:hidden flex items-center justify-between flex-col ">
+<nav
+  *ngIf="show | async"
+  class="fixed top-16 left-0 bottom-0 bg-white w-screen md:hidden flex items-center justify-between flex-col"
+>
   <ul class="w-full">
     <li
       class="py-4 text-center border-b-2 border-gray-100"
@@ -13,8 +16,8 @@
   </ul>
   <div class="py-2">
     <AuthButtons
-      (onLoginBtnClick)="hide()"
-      (onLogoutBtnClick)="hide()"
+      (loginBtnClick)="hide()"
+      (logoutBtnClick)="hide()"
     ></AuthButtons>
   </div>
 </nav>

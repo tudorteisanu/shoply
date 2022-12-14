@@ -10,7 +10,6 @@
   @apply font-bold;
 }
 
-
 .error .alert--title {
   @apply text-red-500 font-bold;
 }
@@ -18,4 +17,3 @@
 .success .alert--title {
   @apply text-green-500;
 }
-
