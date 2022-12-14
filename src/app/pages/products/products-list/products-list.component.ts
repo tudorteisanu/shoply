@@ -75,4 +75,8 @@ export class ProductsListComponent implements OnInit {
       relativeTo: this.activatedRoute,
     });
   }
+
+  trackById(index: number, item: ProductInterface): number {
+    return item.id;
+  }
 }
