@@ -7,8 +7,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, fromEvent } from 'rxjs';
-import { CategoryInterface } from '@/ts/interfaces';
+import {BehaviorSubject, fromEvent} from 'rxjs';
+import {CategoryInterface} from '@/ts/interfaces';
 
 interface FilterParamsInterface {
   categories?: number[];
@@ -31,25 +31,12 @@ export class ProductFilterComponent implements AfterViewInit {
   @Input() categories!: BehaviorSubject<CategoryInterface[]>;
   @Output() filter: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {}
+  constructor() {
+  }
 
   async ngAfterViewInit(): Promise<void> {
-    fromEvent(this.minPriceRef.nativeElement, 'input').subscribe(
-      ({ target: { value } }: any) => {
-        if (Number.isInteger(value)) {
-          this.filters.minPrice = Number(value);
-          this.emitFilter();
-        }
-      }
-    );
-    fromEvent(this.maxPriceRef.nativeElement, 'input').subscribe(
-      ({ target: { value } }: any) => {
-        if (Number.isInteger(value)) {
-          this.filters.maxPrice = Number(value);
-          this.emitFilter();
-        }
-      }
-    );
+    await this.subscribeMinPrice()
+    await this.subscribeMaxPrice()
   }
 
   isChecked(categoryId: number): boolean {
@@ -62,7 +49,7 @@ export class ProductFilterComponent implements AfterViewInit {
 
   async toggleCategory(categoryId: number): Promise<void> {
     if (!this.filters.hasOwnProperty('categories')) {
-      this.filters = { categories: [] };
+      this.filters = {categories: []};
     }
 
     if (this.filters.categories) {
@@ -81,5 +68,27 @@ export class ProductFilterComponent implements AfterViewInit {
 
   async emitFilter(): Promise<void> {
     this.filter.emit(this.filters);
+  }
+
+  async subscribeMaxPrice(): Promise<void> {
+    fromEvent(this.maxPriceRef.nativeElement, 'input').subscribe(
+      ({target: {value}}: any) => {
+        if (Number.isInteger(value)) {
+          this.filters.maxPrice = Number(value);
+          this.emitFilter();
+        }
+      }
+    );
+  }
+
+  async subscribeMinPrice(): Promise<void> {
+    fromEvent(this.minPriceRef.nativeElement, 'input').subscribe(
+      ({target: {value}}: any) => {
+        if (Number.isInteger(value)) {
+          this.filters.minPrice = Number(value);
+          this.emitFilter();
+        }
+      }
+    );
   }
 }
