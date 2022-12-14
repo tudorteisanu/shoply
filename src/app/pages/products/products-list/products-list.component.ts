@@ -30,7 +30,7 @@ export class ProductsListComponent implements OnInit {
 
   @Select(CategoryState.getCategories)
   categories!: BehaviorSubject<CategoryInterface[]>;
-  filters: any = {};
+  _filters: any = {};
 
   @Select(ProductState.getProducts)
   products!: Observable<ProductInterface[]>;
@@ -42,31 +42,37 @@ export class ProductsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.parseQueryParams();
     this.dispatchService.category.fetch().subscribe();
+    this.parseQueryParams();
+  }
+
+  set filters(value: any) {
+    this._filters = value;
     this.loadData();
   }
 
-  async setFilters(filter: any): Promise<void> {
-    this.filters = filter;
-    this.loadData();
+  get filters() {
+    return this._filters;
   }
 
   parseQueryParams(): void {
-    this.filters = this.activatedRoute.snapshot.queryParams;
+    this.filters = { ...this.activatedRoute.snapshot.queryParams };
+
+    if (this.filters.hasOwnProperty('categories')) {
+      this.filters.categories = this.filters.categories.map(Number);
+    }
   }
 
   loadData(): void {
     this.dispatchService.product.fetch(this.filters).subscribe(async () => {
-      await this.setFiltersToQuery(this.filters);
+      await this.setFiltersToQuery();
     });
   }
 
-  async setFiltersToQuery(queryParams: any): Promise<void> {
+  async setFiltersToQuery(): Promise<void> {
     await this.router.navigate([], {
-      queryParams,
+      queryParams: this.filters,
       relativeTo: this.activatedRoute,
-      queryParamsHandling: 'merge',
     });
   }
 }

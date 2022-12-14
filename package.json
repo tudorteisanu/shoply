@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prepare": "husky install",
-    "lint": "ng lint && yarn lint:styles",
+    "lint": "ng lint",
     "lint:styles": "stylelint \"**/*.css\""
   },
   "private": true,

@@ -24,12 +24,11 @@ export class ProductState {
   }
 
   @Action(Fetch)
-  set({
-    setState,
-  }: StateContext<ProductStateModel>): Observable<
-    PaginationInterface<ProductInterface>
-  > {
-    return this.productsService.fetch().pipe(
+  set(
+    { setState }: StateContext<ProductStateModel>,
+    { payload }: Fetch
+  ): Observable<PaginationInterface<ProductInterface>> {
+    return this.productsService.fetch(payload).pipe(
       tap(({ data: items }: PaginationInterface<ProductInterface>) => {
         setState({
           items: items.map((item) => ({
