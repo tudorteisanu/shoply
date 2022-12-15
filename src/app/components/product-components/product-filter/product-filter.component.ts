@@ -47,7 +47,7 @@ export class ProductFilterComponent implements AfterViewInit {
 
   async toggleCategory(categoryId: number): Promise<void> {
     if (!this.filters.hasOwnProperty('categories')) {
-      this.filters = { categories: [] };
+      this.filters = { ...this.filters, categories: [] };
     }
 
     if (this.filters.categories) {
@@ -71,7 +71,7 @@ export class ProductFilterComponent implements AfterViewInit {
   async subscribeMaxPrice(): Promise<void> {
     fromEvent(this.maxPriceRef.nativeElement, 'input').subscribe(
       ({ target: { value } }: any) => {
-        if (Number.isInteger(value)) {
+        if (!Number.isNaN(value)) {
           this.filters.maxPrice = Number(value);
           this.emitFilter();
         }
@@ -82,7 +82,7 @@ export class ProductFilterComponent implements AfterViewInit {
   async subscribeMinPrice(): Promise<void> {
     fromEvent(this.minPriceRef.nativeElement, 'input').subscribe(
       ({ target: { value } }: any) => {
-        if (Number.isInteger(value)) {
+        if (Number.isNaN(value)) {
           this.filters.minPrice = Number(value);
           this.emitFilter();
         }
