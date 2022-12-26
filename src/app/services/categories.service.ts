@@ -13,4 +13,8 @@ export class CategoriesService {
   fetch(): Observable<CategoryInterface[]> {
     return this.http.get<CategoryInterface[]>(ApiRoutes.Categories);
   }
+
+  fetchForCategories(): Observable<CategoryInterface[]> {
+    return this.http.get<CategoryInterface[]>(ApiRoutes.CategoriesForFilter);
+  }
 }

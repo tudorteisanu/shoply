@@ -3,12 +3,19 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   Output,
   ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, fromEvent } from 'rxjs';
+import { BehaviorSubject, fromEvent, map } from 'rxjs';
 import { CategoryInterface } from '@/ts/interfaces';
+import {
+  FetchProducts,
+  SetFilters,
+  SetProductCategoryFilter,
+} from '@/app/store/product/product.action';
+import { Select, Store } from '@ngxs/store';
+import { CategoryState } from '@/app/store/category/category.state';
+import { ProductState } from '@/app/store/product/product.state';
 
 interface FilterParamsInterface {
   categories?: number[];
@@ -24,56 +31,36 @@ export class ProductFilterComponent implements AfterViewInit {
   @ViewChild('minPrice') minPriceRef!: ElementRef;
   @ViewChild('maxPrice') maxPriceRef!: ElementRef;
 
-  @Input() filters: FilterParamsInterface = {};
   @Output() filtersChange: EventEmitter<FilterParamsInterface> =
     new EventEmitter<FilterParamsInterface>();
 
-  @Input() categories!: BehaviorSubject<CategoryInterface[]>;
+  @Select(CategoryState.getCategories)
+  categories!: BehaviorSubject<CategoryInterface[]>;
 
-  constructor() {}
+  @Select(ProductState.getFilters)
+  filters: BehaviorSubject<CategoryInterface[]>;
+
+  constructor(private store: Store) {}
 
   async ngAfterViewInit(): Promise<void> {
     await this.subscribeMinPrice();
     await this.subscribeMaxPrice();
   }
 
-  isChecked(categoryId: number): boolean {
-    if (!this.filters.categories) {
-      return false;
-    }
-
-    return this.filters.categories.some((item) => Number(item) === categoryId);
-  }
-
   async toggleCategory(categoryId: number): Promise<void> {
-    if (!this.filters.hasOwnProperty('categories')) {
-      this.filters = { ...this.filters, categories: [] };
-    }
-
-    if (this.filters.categories) {
-      const categoryIndex = this.filters.categories.findIndex(
-        (item) => item === categoryId
-      );
-      if (categoryIndex === -1) {
-        this.filters.categories.push(categoryId);
-      } else {
-        this.filters.categories.splice(categoryIndex, 1);
-      }
-
-      await this.emitFilter();
-    }
-  }
-
-  async emitFilter(): Promise<void> {
-    this.filtersChange.emit(this.filters);
+    this.store.dispatch(new SetProductCategoryFilter(categoryId));
+    this.store.dispatch(FetchProducts);
   }
 
   async subscribeMaxPrice(): Promise<void> {
     fromEvent(this.maxPriceRef.nativeElement, 'input').subscribe(
       ({ target: { value } }: any) => {
         if (!Number.isNaN(value)) {
-          this.filters.maxPrice = Number(value);
-          this.emitFilter();
+          this.store.dispatch(
+            new SetFilters({
+              maxPrice: Number(value),
+            })
+          );
         }
       }
     );
@@ -83,10 +70,19 @@ export class ProductFilterComponent implements AfterViewInit {
     fromEvent(this.minPriceRef.nativeElement, 'input').subscribe(
       ({ target: { value } }: any) => {
         if (Number.isNaN(value)) {
-          this.filters.minPrice = Number(value);
-          this.emitFilter();
+          this.store.dispatch(
+            new SetFilters({
+              maxPrice: Number(value),
+            })
+          );
         }
       }
     );
+  }
+
+  isChecked(categoryId: number) {
+    return this.store
+      .select(ProductState.isCategoryInFilters)
+      .pipe(map((mapById) => mapById(categoryId)));
   }
 }

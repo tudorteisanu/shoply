@@ -5,6 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthButtonsComponent } from './auth-buttons/auth-buttons.component';
 import { CartButtonComponent } from './cart-button/cart-button.component';
 import { ToggleMenuButtonComponent } from './toggle-menu-button/toggle-menu-button.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { ToggleMenuButtonComponent } from './toggle-menu-button/toggle-menu-butt
     AuthButtonsComponent,
     CartButtonComponent,
     ToggleMenuButtonComponent,
+    PaginationComponent,
   ],
   imports: [CommonModule, RouterLink, RouterLinkActive],
   exports: [
@@ -20,6 +22,7 @@ import { ToggleMenuButtonComponent } from './toggle-menu-button/toggle-menu-butt
     CartButtonComponent,
     AuthButtonsComponent,
     ToggleMenuButtonComponent,
+    PaginationComponent,
   ],
 })
 export class BaseModule {}

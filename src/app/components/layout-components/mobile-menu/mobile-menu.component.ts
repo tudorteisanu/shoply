@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { LinkInterface } from '@/ts/interfaces';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
 import { MenuState } from '@/app/store/menu/menu.state';
+import { HideMenu } from '@/app/store/menu/menu.action';
 
 @Component({
   selector: 'MobileMenu',
@@ -12,12 +12,12 @@ import { MenuState } from '@/app/store/menu/menu.state';
 export class MobileMenuComponent {
   @Input() items: LinkInterface[] = [];
 
-  constructor(private storeDispatch: StoreDispatchService) {}
+  constructor(private store: Store) {}
 
   @Select(MenuState.getState)
   show!: Observable<boolean>;
 
   async hide(): Promise<void> {
-    this.storeDispatch.menu.hide();
+    this.store.dispatch(HideMenu);
   }
 }

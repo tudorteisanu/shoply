@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { AlertInterface } from '@/ts/interfaces';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { alertAnimation } from '@/components/layout-components/alert/animation';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { AlertState } from '@/app/store/alert/alert.state';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { HideAlert } from '@/app/store/alert/alert.action';
 
 @Component({
   selector: 'Alert',
@@ -20,9 +20,9 @@ export class AlertComponent {
   @Select(AlertState.getItems)
   public items!: Observable<Array<AlertInterface>>;
 
-  constructor(private storeDispatch: StoreDispatchService) {}
+  constructor(private store: Store) {}
 
   public hide(alert: AlertInterface): void {
-    this.storeDispatch.alert.hide(alert);
+    this.store.dispatch(new HideAlert(alert));
   }
 }

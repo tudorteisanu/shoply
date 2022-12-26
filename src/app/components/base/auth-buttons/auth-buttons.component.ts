@@ -5,7 +5,7 @@ import { UserInterface } from '@/ts/interfaces';
 import { Select, Store } from '@ngxs/store';
 import { AuthState } from '@/app/store/auth/auth.state';
 import { Observable } from 'rxjs';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { Logout } from '@/app/store/auth/auth.action';
 
 @Component({
   selector: 'AuthButtons',
@@ -17,11 +17,7 @@ export class AuthButtonsComponent {
 
   @Select(AuthState.loggedIn) loggedIn$: Observable<any> | undefined;
 
-  constructor(
-    private router: Router,
-    private store: Store,
-    private storeDispatch: StoreDispatchService
-  ) {}
+  constructor(private router: Router, private store: Store) {}
 
   get loginUrl(): string {
     return PageRoutes.Login;
@@ -44,7 +40,7 @@ export class AuthButtonsComponent {
   }
 
   logout(): void {
-    this.storeDispatch.auth.logout().subscribe(() => {
+    this.store.dispatch(Logout).subscribe(() => {
       this.logoutBtnClick.emit();
     });
   }

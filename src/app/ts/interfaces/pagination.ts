@@ -1,6 +1,6 @@
 export interface PaginationMetaInterface {
   page: number;
-  itemsPerPage: number;
+  pageSize: number;
   total: number;
 }
 

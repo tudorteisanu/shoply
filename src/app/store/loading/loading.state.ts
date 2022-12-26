@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { Start, Finish } from './loading.action';
+import { LoadingStart, LoadingFinish } from './loading.action';
 
 export class LoadingStateModel {
   state!: boolean;
@@ -19,14 +19,14 @@ export class LoadingState {
     return state.state;
   }
 
-  @Action(Start)
+  @Action(LoadingStart)
   start({ setState }: StateContext<LoadingStateModel>): void {
     setState({
       state: true,
     });
   }
 
-  @Action(Finish)
+  @Action(LoadingFinish)
   finish({ setState }: StateContext<LoadingStateModel>): void {
     setState({
       state: false,

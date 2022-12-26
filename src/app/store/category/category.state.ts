@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { Fetch } from './category.action';
+import { FetchCategories } from './category.action';
 import { CategoryInterface } from '@/ts/interfaces';
 import { CategoriesService } from '@/services/categories.service';
 import { Observable, tap } from 'rxjs';
@@ -23,11 +23,11 @@ export class CategoryState {
     return state.items;
   }
 
-  @Action(Fetch)
+  @Action(FetchCategories)
   set({
     patchState,
   }: StateContext<CategoryStateModel>): Observable<CategoryInterface[]> {
-    return this.categoriesService.fetch().pipe(
+    return this.categoriesService.fetchForCategories().pipe(
       tap((items: CategoryInterface[]) => {
         patchState({
           items,

@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { LoginInterface } from '@/ts/interfaces';
 import { Store } from '@ngxs/store';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { Login } from '@/app/store/auth/auth.action';
 
 @Component({
   selector: 'app-login',
@@ -39,23 +39,20 @@ export class LoginComponent {
     ]),
   });
 
-  constructor(
-    private store: Store,
-    private storeDispatch: StoreDispatchService
-  ) {}
+  constructor(private store: Store) {}
 
   get forgotPasswordUrl(): string {
     return PageRoutes.ForgotPassword;
   }
 
   async login(): Promise<void> {
-    this.storeDispatch.auth
-      .login(<LoginInterface>this.loginForm.value)
+    this.store
+      .dispatch(new Login(<LoginInterface>this.loginForm.value))
       .subscribe({
         next: () => {
           window.location.href = '/';
         },
-        error: (err) => {
+        error: (err: any) => {
           console.log(err);
         },
       });

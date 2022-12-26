@@ -5,9 +5,16 @@ import { CartInterface, LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { CartState } from '@/app/store/cart/cart.state';
+import {
+  FetchCart,
+  IncreaseQuantity,
+  ReduceQuantity,
+  RemoveProductFromCart,
+  UpdateCartProduct,
+} from '@/app/store/cart/cart.action';
+import { ShowAlert } from '@/app/store/alert/alert.action';
 
 @Component({
   selector: 'app-cart',
@@ -42,18 +49,18 @@ export class CartComponent implements OnInit {
   @Select(CartState.count)
   count: Observable<number>;
 
-  constructor(private storeDispatch: StoreDispatchService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.storeDispatch.cart.fetch();
+    this.store.dispatch(FetchCart);
   }
 
   increaseQuantity(cartItemId: number): void {
-    this.storeDispatch.cart.increaseQuantity(cartItemId);
+    this.store.dispatch(new IncreaseQuantity(cartItemId));
   }
 
   reduceQuantity(cartItemId: number): void {
-    this.storeDispatch.cart.reduceQuantity(cartItemId);
+    this.store.dispatch(new ReduceQuantity(cartItemId));
   }
 
   trackById(index: number, cart: CartInterface) {
@@ -61,17 +68,21 @@ export class CartComponent implements OnInit {
   }
 
   updateItem(cart: CartInterface) {
-    this.storeDispatch.cart.update({
-      ...cart,
-      quantity: Number(cart.quantity),
-    });
+    this.store.dispatch(
+      new UpdateCartProduct({
+        ...cart,
+        quantity: Number(cart.quantity),
+      })
+    );
   }
 
   removeItem(cartId: number) {
-    this.storeDispatch.cart.remove(cartId).subscribe(() => {
-      this.storeDispatch.alert.show({
-        type: 'success',
-      });
+    this.store.dispatch(new RemoveProductFromCart(cartId)).subscribe(() => {
+      this.store.dispatch(
+        new ShowAlert({
+          type: 'success',
+        })
+      );
     });
   }
 }

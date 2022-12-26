@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  CategoryInterface,
-  LinkInterface,
-  ProductInterface,
-} from '@/ts/interfaces';
+import { LinkInterface, ProductInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { ProductState } from '@/app/store/product/product.state';
-import { CategoryState } from '@/app/store/category/category.state';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { FetchProducts, SetFilters } from '@/app/store/product/product.action';
+import { FetchCategories } from '@/app/store/category/category.action';
 
 @Component({
   selector: 'app-products-list',
@@ -28,55 +24,31 @@ export class ProductsListComponent implements OnInit {
     },
   ];
 
-  @Select(CategoryState.getCategories)
-  categories!: BehaviorSubject<CategoryInterface[]>;
-  _filters: any = {};
-
   @Select(ProductState.getProducts)
-  products!: Observable<ProductInterface[]>;
+  products!: BehaviorSubject<ProductInterface[]>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private dispatchService: StoreDispatchService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.dispatchService.category.fetch().subscribe();
+    this.store.dispatch(FetchCategories);
+    this.store.dispatch(FetchProducts);
     this.parseQueryParams();
   }
 
-  set filters(value: any) {
-    this._filters = value;
-    this.loadData();
-  }
-
-  get filters() {
-    return this._filters;
-  }
-
   parseQueryParams(): void {
-    this.filters = { ...this.activatedRoute.snapshot.queryParams };
+    let filters: any = { ...this.activatedRoute.snapshot.queryParams };
 
-    if (this.filters.hasOwnProperty('categories')) {
-      this.filters.categories = this.filters.categories.map(Number);
+    if (filters.hasOwnProperty('categories')) {
+      filters = {
+        ...filters,
+        categories: filters.categories.map(Number),
+      };
     }
-  }
 
-  loadData(): void {
-    this.dispatchService.product.fetch(this.filters).subscribe(async () => {
-      await this.setFiltersToQuery();
-    });
-  }
-
-  async setFiltersToQuery(): Promise<void> {
-    await this.router.navigate([], {
-      queryParams: this.filters,
-      relativeTo: this.activatedRoute,
-    });
-  }
-
-  trackById(index: number, item: ProductInterface): number {
-    return item.id;
+    this.store.dispatch(new SetFilters(filters));
   }
 }

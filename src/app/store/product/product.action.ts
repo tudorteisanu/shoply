@@ -1,5 +1,23 @@
-export class Fetch {
-  static readonly type = '[Product] Set';
+import { PaginationMetaInterface } from '@/ts/interfaces';
 
-  constructor(public payload?: any) {}
+export class FetchProducts {
+  static readonly type = '[Product] Set';
+}
+
+export class UpdatePagination {
+  static readonly type = '[Product] UpdatePagination';
+
+  constructor(public payload: Partial<PaginationMetaInterface>) {}
+}
+
+export class SetFilters {
+  static readonly type = '[Product] SetFilters';
+
+  constructor(public payload: Record<string, any>) {}
+}
+
+export class SetProductCategoryFilter {
+  static readonly type = '[Product] SetProductCategoryFilter';
+
+  constructor(public payload: number) {}
 }

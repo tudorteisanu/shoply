@@ -1,6 +1,6 @@
-export class Start {
+export class LoadingStart {
   static readonly type = '[Loading] Start';
 }
-export class Finish {
+export class LoadingFinish {
   static readonly type = '[Loading] Finish';
 }

@@ -6,27 +6,11 @@
       <Breadcrumb [items]="breadcrumb"></Breadcrumb>
     </div>
     <div class="flex w-full">
-      <ProductFilter
-        class="hidden sm:block"
-        [categories]="categories"
-        [(filters)]="filters"
-      ></ProductFilter>
+      <ProductFilter class="hidden sm:block"></ProductFilter>
       <div class="w-full lg:pl-10">
         <ProductSearch></ProductSearch>
         <ProductSort></ProductSort>
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-9 mt-5">
-          <ProductCard
-            *ngFor="let product of products | async; trackBy: trackById"
-            [product]="product"
-          >
-            <div class="flex items-center justify-between mt-5 text-gray-600">
-              <div class="font-bold">
-                {{ product.name }}
-              </div>
-              <div>{{ product.price }}</div>
-            </div>
-          </ProductCard>
-        </div>
+        <ProductList></ProductList>
       </div>
     </div>
   </div>

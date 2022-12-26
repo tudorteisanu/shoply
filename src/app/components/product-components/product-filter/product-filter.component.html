@@ -10,7 +10,7 @@
       <div>
         <input
           (change)="toggleCategory(category.id)"
-          [checked]="isChecked(category.id)"
+          [checked]="isChecked(category.id) | async"
           type="checkbox"
         />
       </div>

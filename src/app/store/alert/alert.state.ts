@@ -3,10 +3,19 @@ import { Injectable } from '@angular/core';
 import { ShowAlert, HideAlert } from './alert.action';
 import { AlertInterface } from '@/ts/interfaces';
 import { timer } from 'rxjs';
+import { randomInteger } from '@/app/utils';
 
 export class AlertStateModel {
   items!: AlertInterface[];
 }
+
+const DEFAULT_ALERT_CONFIG: AlertInterface = {
+  withoutClosing: false,
+  message: 'Operation successful',
+  title: 'Success',
+  type: 'success',
+  timeout: 3000,
+};
 
 @State<AlertStateModel>({
   name: 'alert',
@@ -27,13 +36,16 @@ export class AlertState {
     { payload }: ShowAlert
   ): void {
     const state = getState();
+    const id = randomInteger(999, 9999);
+    const alert: AlertInterface = { ...DEFAULT_ALERT_CONFIG, ...payload, id };
+
     if (state?.items) {
       patchState({
-        items: [...state.items, payload],
+        items: [...state.items, alert],
       });
     } else {
       setState({
-        items: [payload],
+        items: [alert],
       });
     }
 
@@ -41,7 +53,7 @@ export class AlertState {
       return;
     }
 
-    timer(payload.timeout).subscribe(() => {
+    timer(alert.timeout).subscribe(() => {
       setState({
         items: state.items.filter((u) => u.id !== payload.id),
       });

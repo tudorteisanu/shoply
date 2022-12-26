@@ -2,16 +2,14 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
-import { StoreDispatchService } from '@/app/store/store-dispatch.service';
+import { Store } from '@ngxs/store';
+import { ShowAlert } from '@/app/store/alert/alert.action';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorHandlerService implements ErrorHandler {
-  constructor(
-    private router: Router,
-    private storeDispatch: StoreDispatchService
-  ) {}
+  constructor(private router: Router, private store: Store) {}
 
   handleError(error: Error) {
     if (error instanceof HttpErrorResponse) {
@@ -23,11 +21,13 @@ export class ErrorHandlerService implements ErrorHandler {
   }
 
   handleHttpError(error: HttpErrorResponse) {
-    this.storeDispatch.alert.show({
-      message: error.message,
-      title: 'Error',
-      type: 'error',
-    });
+    this.store.dispatch(
+      new ShowAlert({
+        message: error.message,
+        title: 'Error',
+        type: 'error',
+      })
+    );
   }
 
   handleClientError(error: Error) {
@@ -35,11 +35,13 @@ export class ErrorHandlerService implements ErrorHandler {
       console.error(error);
     }
 
-    this.storeDispatch.alert.show({
-      message: error.message,
-      type: 'error',
-      title: 'Error',
-    });
+    this.store.dispatch(
+      new ShowAlert({
+        message: error.message,
+        type: 'error',
+        title: 'Error',
+      })
+    );
   }
 }
 

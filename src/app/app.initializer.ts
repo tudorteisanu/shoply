@@ -1,16 +1,13 @@
 import { APP_INITIALIZER } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AuthState } from '@/app/store/auth/auth.state';
-import { AuthDispatch } from '@/app/store/auth/auth.dispatch';
+import { FetchUser } from '@/app/store/auth/auth.action';
 
-export function initializeAppFactory(
-  store: Store,
-  authDispatch: AuthDispatch
-): () => void {
+export function initializeAppFactory(store: Store): () => void {
   return () => {
     if (store.selectSnapshot(AuthState.accessToken)) {
       try {
-        authDispatch.fetchUser().subscribe();
+        store.dispatch(FetchUser);
       } catch (e) {
         console.log(e);
       }
@@ -21,6 +18,6 @@ export function initializeAppFactory(
 export const APP_INITIALIZER_PROVIDER = {
   provide: APP_INITIALIZER,
   useFactory: initializeAppFactory,
-  deps: [Store, AuthDispatch],
+  deps: [Store],
   multi: true,
 };

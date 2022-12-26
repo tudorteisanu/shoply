@@ -30,6 +30,7 @@ export class AuthStateModel {
 @Injectable()
 export class AuthState {
   constructor(private authService: AuthService) {}
+
   @Selector()
   static getUser(state: AuthStateModel): UserInterface | null {
     return state.user;

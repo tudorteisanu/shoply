@@ -1,12 +1,12 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import {
-  Fetch,
-  AddProduct,
-  Remove,
-  Update,
+  AddProductToCart,
+  RemoveProductFromCart,
+  UpdateCartProduct,
   IncreaseQuantity,
   ReduceQuantity,
+  FetchCart,
 } from './cart.action';
 import { CartInterface, PaginationInterface } from '@/ts/interfaces';
 import { Observable, tap } from 'rxjs';
@@ -60,7 +60,7 @@ export class CartState {
     return state.discount;
   }
 
-  @Action(Fetch)
+  @Action(FetchCart)
   set({
     patchState,
   }: StateContext<CartStateModel>): Observable<
@@ -73,10 +73,10 @@ export class CartState {
     );
   }
 
-  @Action(AddProduct)
+  @Action(AddProductToCart)
   add(
     { patchState, getState }: StateContext<CartStateModel>,
-    { payload }: AddProduct
+    { payload }: AddProductToCart
   ): Observable<CartInterface> {
     const state = getState();
     return this.cartService.add(payload).pipe(
@@ -86,10 +86,10 @@ export class CartState {
     );
   }
 
-  @Action(Update)
+  @Action(UpdateCartProduct)
   update(
     { patchState, getState }: StateContext<CartStateModel>,
-    { payload }: Update
+    { payload }: UpdateCartProduct
   ): Observable<CartInterface> {
     const state = getState();
     return this.cartService.update(payload.id, payload).pipe(
@@ -121,7 +121,7 @@ export class CartState {
       })
     );
   }
-  @Action(Remove)
+  @Action(RemoveProductFromCart)
   remove(
     { patchState, getState }: StateContext<CartStateModel>,
     { payload }: IncreaseQuantity

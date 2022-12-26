@@ -1,0 +1,24 @@
+<div class="pagination" *ngIf="total">
+  <button
+    class="pagination--item"
+    (click)="prevPage()"
+    [disabled]="isPrevDisabled"
+  >
+    prev
+  </button>
+  <button
+    class="pagination--item"
+    [ngClass]="getPageClass(page)"
+    *ngFor="let page of pages"
+    (click)="onChangePage(page)"
+  >
+    {{ page }}
+  </button>
+  <button
+    class="pagination--item"
+    (click)="nextPage()"
+    [disabled]="isNextDisabled"
+  >
+    next
+  </button>
+</div>
