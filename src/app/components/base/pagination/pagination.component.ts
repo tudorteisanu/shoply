@@ -72,7 +72,9 @@ export class PaginationComponent implements OnInit {
   }
 
   onChangePage(page: number): void {
-    this.changePage.emit(page);
+    if (!this.isActive(page)) {
+      this.changePage.emit(page);
+    }
   }
 
   nextPage(): void {

@@ -13,6 +13,7 @@ import {
 } from '@/ts/interfaces';
 import { ProductsService } from '@/services/products.service';
 import { Observable, tap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export class ProductStateModel {
   items!: ProductInterface[];
@@ -34,7 +35,11 @@ export class ProductStateModel {
 })
 @Injectable()
 export class ProductState {
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
   @Selector()
   static getProducts(state: ProductStateModel): ProductInterface[] {
     return state.items;
@@ -49,7 +54,7 @@ export class ProductState {
   static isCategoryInFilters(state: ProductStateModel): Function {
     return (payload: number) => {
       if (state.filters.categories && Array.isArray(state.filters.categories)) {
-        state.filters?.categories.some((item: number) => {
+        return state.filters?.categories.some((item: number) => {
           return item === payload;
         });
       }
@@ -71,31 +76,37 @@ export class ProductState {
     PaginationInterface<ProductInterface>
   > {
     const { meta, filters } = getState();
-    console.log(filters);
+
     return this.productsService.fetch({ ...filters, ...meta }).pipe(
-      tap(({ data: items, meta }: PaginationInterface<ProductInterface>) => {
-        patchState({
+      tap(
+        async ({
+          data: items,
           meta,
-          items: items.map((item) => ({
-            ...item,
-            imageUrl: 'assets/images/product-1.png',
-            thumbs: [
-              {
-                url: 'assets/images/product-thumb-5.png',
-              },
-              {
-                url: 'assets/images/product-thumb-2.png',
-              },
-              {
-                url: 'assets/images/product-thumb-3.png',
-              },
-              {
-                url: 'assets/images/product-thumb-4.png',
-              },
-            ],
-          })),
-        });
-      })
+        }: PaginationInterface<ProductInterface>) => {
+          await this.setFiltersToQuery(filters);
+          patchState({
+            meta,
+            items: items.map((item) => ({
+              ...item,
+              imageUrl: 'assets/images/product-1.png',
+              thumbs: [
+                {
+                  url: 'assets/images/product-thumb-5.png',
+                },
+                {
+                  url: 'assets/images/product-thumb-2.png',
+                },
+                {
+                  url: 'assets/images/product-thumb-3.png',
+                },
+                {
+                  url: 'assets/images/product-thumb-4.png',
+                },
+              ],
+            })),
+          });
+        }
+      )
     );
   }
 
@@ -132,8 +143,7 @@ export class ProductState {
     { patchState, getState }: StateContext<ProductStateModel>,
     { payload }: SetProductCategoryFilter
   ): void {
-    const state = getState();
-    let filters = state.filters;
+    let { filters } = getState();
 
     if (!filters.hasOwnProperty('categories')) {
       filters = { ...filters, categories: [] };
@@ -152,9 +162,15 @@ export class ProductState {
 
     patchState({
       filters: {
-        ...state.filters,
         ...filters,
       },
+    });
+  }
+
+  private async setFiltersToQuery(queryParams: any): Promise<void> {
+    await this.router.navigate([], {
+      queryParams,
+      relativeTo: this.activatedRoute,
     });
   }
 }

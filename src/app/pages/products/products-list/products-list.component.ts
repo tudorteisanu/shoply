@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LinkInterface, ProductInterface } from '@/ts/interfaces';
+import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Select, Store } from '@ngxs/store';
-import { ProductState } from '@/app/store/product/product.state';
+import { Store } from '@ngxs/store';
 import { FetchProducts, SetFilters } from '@/app/store/product/product.action';
 import { FetchCategories } from '@/app/store/category/category.action';
 
@@ -24,9 +22,6 @@ export class ProductsListComponent implements OnInit {
     },
   ];
 
-  @Select(ProductState.getProducts)
-  products!: BehaviorSubject<ProductInterface[]>;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -35,8 +30,8 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(FetchCategories);
-    this.store.dispatch(FetchProducts);
     this.parseQueryParams();
+    this.store.dispatch(FetchProducts);
   }
 
   parseQueryParams(): void {
