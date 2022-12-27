@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LinkInterface } from '@/ts/interfaces';
 import { PageRoutes } from '@/ts/enum';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { FetchProducts, SetFilters } from '@/app/store/product/product.action';
 import { FetchCategories } from '@/app/store/category/category.action';
@@ -22,15 +22,11 @@ export class ProductsListComponent implements OnInit {
     },
   ];
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private store: Store
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute, private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(FetchCategories);
     this.parseQueryParams();
+    this.store.dispatch(FetchCategories);
     this.store.dispatch(FetchProducts);
   }
 
