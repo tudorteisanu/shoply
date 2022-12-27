@@ -6,6 +6,8 @@ import { AuthButtonsComponent } from './auth-buttons/auth-buttons.component';
 import { CartButtonComponent } from './cart-button/cart-button.component';
 import { ToggleMenuButtonComponent } from './toggle-menu-button/toggle-menu-button.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { FormSelectComponent } from './form-select/form-select.component';
+import { ClickOutsideModule } from '@/app/directives/click-outside/click-outside.module';
 
 @NgModule({
   declarations: [
@@ -14,8 +16,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     CartButtonComponent,
     ToggleMenuButtonComponent,
     PaginationComponent,
+    FormSelectComponent,
   ],
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, ClickOutsideModule],
   exports: [
     BreadcrumbComponent,
     AuthButtonsComponent,
@@ -23,6 +26,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     AuthButtonsComponent,
     ToggleMenuButtonComponent,
     PaginationComponent,
+    FormSelectComponent,
   ],
 })
 export class BaseModule {}

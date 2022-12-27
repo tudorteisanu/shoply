@@ -1,0 +1,26 @@
+<div class="p-2">
+  <div *ngIf="value" class="text-gray-500">
+    {{ label }}
+  </div>
+  <div class="relative max-w-2xl w-full" (clickOutside)="hideItems()">
+    <input
+      type="text"
+      class="w-full border-b border-b-gray-200 p-2 focus:outline-none cursor-pointer"
+      readonly
+      [value]="inputText"
+      (click)="showItems()"
+    />
+    <div
+      class="absolute mt-2 shadow-md border border-gray-100 w-full"
+      *ngIf="areItemsVisible"
+    >
+      <div
+        *ngFor="let option of items"
+        class="p-2 hover:bg-gray-200 cursor-pointer"
+        (click)="selectItem(option)"
+      >
+        {{ option.text }}
+      </div>
+    </div>
+  </div>
+</div>
