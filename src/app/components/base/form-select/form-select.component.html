@@ -8,15 +8,20 @@
       class="w-full border-b border-b-gray-200 p-2 focus:outline-none cursor-pointer"
       readonly
       [value]="inputText"
-      (click)="showItems()"
+      (click)="toggleShowItems()"
+      (keyup.arrowDown)="selectNextItem()"
+      (keyup.arrowUp)="selectPrevItem()"
+      (keyup.enter)="selectCurrentItem()"
     />
     <div
-      class="absolute mt-2 shadow-md border border-gray-100 w-full"
+      class="absolute mt-2 shadow-md border border-gray-100 w-full max-h-60 overflow-y-auto"
       *ngIf="areItemsVisible"
     >
       <div
         *ngFor="let option of items"
+        [id]="option.value"
         class="p-2 hover:bg-gray-200 cursor-pointer"
+        [ngClass]="itemClass(option)"
         (click)="selectItem(option)"
       >
         {{ option.text }}

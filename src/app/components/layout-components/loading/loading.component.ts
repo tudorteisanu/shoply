@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 
 @Component({
-  selector: 'app-loading',
+  selector: 'Loading',
   templateUrl: './loading.component.html',
   styles: [],
 })
