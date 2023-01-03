@@ -9,9 +9,9 @@ const routes: Routes = [
       import('@/layouts/auth/auth.component').then((m) => m.AuthComponent),
     children: [
       {
-        path: 'login',
-        loadComponent: () =>
-          import('@/pages/login/login.component').then((m) => m.LoginComponent),
+        path: '',
+        loadChildren: () =>
+          import('@/pages/auth/auth.module').then((m) => m.AuthModule),
       },
     ],
   },

@@ -1,29 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BaseModule } from '@/components/base/base.module';
-import { FormInputComponent } from '@/components/base/form-input/form-input.component';
-import { RouterLinkWithHref } from '@angular/router';
 import { PageRoutes } from '@/ts/enum';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginInterface } from '@/ts/interfaces';
 import { Store } from '@ngxs/store';
 import { Login } from '@/app/store/auth/auth.action';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [
-    CommonModule,
-    BaseModule,
-    FormInputComponent,
-    RouterLinkWithHref,
-    ReactiveFormsModule,
-  ],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

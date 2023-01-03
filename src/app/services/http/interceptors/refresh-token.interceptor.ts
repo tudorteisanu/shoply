@@ -54,7 +54,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (
-      err.status === HttpStatusCode.Unauthorized &&
+      err?.status === HttpStatusCode.Unauthorized &&
       request.url !== ApiRoutes.Login &&
       !this.isRefreshing
     ) {

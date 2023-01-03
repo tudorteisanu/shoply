@@ -42,7 +42,7 @@ export class TokenInterceptor implements HttpInterceptor {
         .pipe(
           catchError((err: HttpErrorResponse) => {
             if (
-              err.status === HttpStatusCode.Unauthorized &&
+              err?.status === HttpStatusCode.Unauthorized &&
               request.url !== ApiRoutes.Login
             ) {
               this.store.dispatch(new SetUser(null));
