@@ -17,6 +17,7 @@ import { LayoutComponentsModule } from '@/components/layout-components/layout-co
 import { StoreModule } from '@/app/store/store.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { Locales } from '@/ts/enum';
+import { X_LOCALE_INTERCEPTOR } from '@/services/http/interceptors/x-locale.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +41,7 @@ import { Locales } from '@/ts/enum';
     BASE_URL_INTERCEPTOR_PROVIDER,
     APP_INITIALIZER_PROVIDER,
     REFRESH_TOKEN_INTERCEPTOR_PROVIDER,
+    X_LOCALE_INTERCEPTOR,
   ],
   bootstrap: [AppComponent],
 })
