@@ -15,10 +15,15 @@ import { REFRESH_TOKEN_INTERCEPTOR_PROVIDER } from '@/services/http/interceptors
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutComponentsModule } from '@/components/layout-components/layout-components.module';
 import { StoreModule } from '@/app/store/store.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { Locales } from '@/ts/enum';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    TranslateModule.forRoot({
+      defaultLanguage: Locales.En,
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     BaseRoutingModule,

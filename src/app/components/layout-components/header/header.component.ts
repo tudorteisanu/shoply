@@ -13,15 +13,15 @@ export class HeaderComponent {
   readonly links: LinkInterface[] = [
     {
       to: PageRoutes.Home,
-      text: 'Home',
+      text: 'base.links.home',
     },
     {
       to: PageRoutes.Products,
-      text: 'Products',
+      text: 'base.links.products',
     },
     {
       to: PageRoutes.About,
-      text: 'About',
+      text: 'base.links.aboutUs',
     },
   ];
 

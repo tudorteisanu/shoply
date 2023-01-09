@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginInterface } from '@/ts/interfaces';
 import { Store } from '@ngxs/store';
 import { Login } from '@/app/store/auth/auth.action';
+import { ShowAlert } from '@/app/store/alert/alert.action';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,13 @@ export class LoginComponent {
           window.location.href = '/';
         },
         error: (err: any) => {
-          console.log(err);
+          this.store.dispatch(
+            new ShowAlert({
+              type: 'error',
+              title: 'Error',
+              message: err?.message,
+            })
+          );
         },
       });
   }

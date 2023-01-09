@@ -22,7 +22,7 @@
           [routerLinkActiveOptions]="{ exact: true }"
         >
           <span>
-            {{ link.text }}
+            {{ link.text | translate }}
           </span>
         </div>
       </ng-container>
@@ -33,5 +33,6 @@
     </div>
     <ToggleMenuButton></ToggleMenuButton>
     <MobileMenu [items]="links"></MobileMenu>
+    <LanguageSwitcher></LanguageSwitcher>
   </div>
 </div>

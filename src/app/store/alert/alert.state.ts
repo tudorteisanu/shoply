@@ -32,30 +32,34 @@ export class AlertState {
 
   @Action(ShowAlert)
   show(
-    { getState, patchState, setState }: StateContext<AlertStateModel>,
+    { getState, patchState }: StateContext<AlertStateModel>,
     { payload }: ShowAlert
   ): void {
     const state = getState();
     const id = randomInteger(999, 9999);
-    const alert: AlertInterface = { ...DEFAULT_ALERT_CONFIG, ...payload, id };
+    const message =
+      payload?.message || 'Unknown error, please, contact an administrator!';
+    const alert: AlertInterface = {
+      ...DEFAULT_ALERT_CONFIG,
+      ...payload,
+      id,
+      message,
+    };
 
-    if (state?.items) {
-      patchState({
-        items: [...state.items, alert],
-      });
-    } else {
-      setState({
-        items: [alert],
-      });
-    }
+    patchState({
+      items: [...state.items, alert],
+    });
 
     if (payload.withoutClosing) {
       return;
     }
 
     timer(alert.timeout).subscribe(() => {
-      setState({
-        items: state.items.filter((u) => u.id !== payload.id),
+      const state = getState();
+      const items = state.items.filter((item) => item.id !== alert.id);
+
+      patchState({
+        items,
       });
     });
   }
@@ -67,7 +71,7 @@ export class AlertState {
   ): void {
     const state = getState();
     setState({
-      items: state.items.filter((u) => u.id !== alert.id),
+      items: state.items.filter((item) => item.id !== alert.id),
     });
   }
 }

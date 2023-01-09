@@ -8,6 +8,7 @@ import { ToggleMenuButtonComponent } from './toggle-menu-button/toggle-menu-butt
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { ClickOutsideModule } from '@/app/directives/click-outside/click-outside.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,13 @@ import { ClickOutsideModule } from '@/app/directives/click-outside/click-outside
     PaginationComponent,
     FormSelectComponent,
   ],
-  imports: [CommonModule, RouterLink, RouterLinkActive, ClickOutsideModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    ClickOutsideModule,
+    TranslateModule,
+  ],
   exports: [
     BreadcrumbComponent,
     AuthButtonsComponent,

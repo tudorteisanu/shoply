@@ -1,0 +1,10 @@
+<div>
+  <button
+    class="p-2 mx-1 border border-primary-900 rounded-md"
+    [ngClass]="languageClass(language)"
+    *ngFor="let language of languages"
+    (click)="changeLanguage(language)"
+  >
+    {{ language.toUpperCase() }}
+  </button>
+</div>
