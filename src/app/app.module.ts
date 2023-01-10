@@ -12,18 +12,28 @@ import { TOKEN_INTERCEPTOR_PROVIDER } from '@/services/http/interceptors/token.i
 import { BASE_URL_INTERCEPTOR_PROVIDER } from '@/services/http/interceptors/base-url.interceptor';
 import { APP_INITIALIZER_PROVIDER } from '@/app/app.initializer';
 import { REFRESH_TOKEN_INTERCEPTOR_PROVIDER } from '@/services/http/interceptors/refresh-token.interceptor';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LayoutComponentsModule } from '@/components/layout-components/layout-components.module';
 import { StoreModule } from '@/app/store/store.module';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Locales } from '@/ts/enum';
-import { X_LOCALE_INTERCEPTOR } from '@/services/http/interceptors/x-locale.interceptor';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, `./assets/locales/`);
+}
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: Locales.En,
+      useDefaultLang: true,
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
     }),
     BrowserModule,
     BrowserAnimationsModule,
@@ -41,7 +51,6 @@ import { X_LOCALE_INTERCEPTOR } from '@/services/http/interceptors/x-locale.inte
     BASE_URL_INTERCEPTOR_PROVIDER,
     APP_INITIALIZER_PROVIDER,
     REFRESH_TOKEN_INTERCEPTOR_PROVIDER,
-    X_LOCALE_INTERCEPTOR,
   ],
   bootstrap: [AppComponent],
 })

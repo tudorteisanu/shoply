@@ -18,7 +18,7 @@ export class BaseUrlInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     let req = request;
 
-    if (!req.url.startsWith('http')) {
+    if (!req.url.startsWith('http') && !req.url.includes('assets/locales')) {
       req = request.clone({
         url: `${environment.apiUrl}${request.url}`,
       });

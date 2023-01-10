@@ -11,7 +11,7 @@ export class LanguageSwitcherComponent {
   constructor(private i18n: I18nService) {}
 
   get languages(): Array<Locales> {
-    return Object.values(Locales);
+    return this.i18n.allowedLocales;
   }
 
   isActive(locale: Locales): boolean {

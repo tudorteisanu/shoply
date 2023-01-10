@@ -1,0 +1,14 @@
+{
+  "pages": {
+    "login": {
+      "loginBtnText": "Войти"
+    }
+  },
+  "base": {
+    "links": {
+      "home": "Главная",
+      "products": "Товары",
+      "aboutUs": "О нас"
+    }
+  }
+}

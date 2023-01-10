@@ -6,25 +6,20 @@ import { Locales, LocalstorageKeys } from '@/ts/enum';
   providedIn: 'root',
 })
 export class I18nService {
-  _translations: Record<string, any> = {};
-
-  constructor(private translate: TranslateService) {
-    this.checkDefaultLocale();
-    this.loadTranslations();
-  }
+  constructor(private translate: TranslateService) {}
 
   get currentLang(): Locales {
     return this.translate.currentLang as Locales;
   }
 
-  get defaultLang(): Locales {
-    return this.translate.defaultLang as Locales;
+  get allowedLocales(): Array<Locales> {
+    return Object.values(Locales);
   }
 
   get browserLanguage(): Locales | undefined {
     const locale = this.translate.getBrowserLang() as Locales;
 
-    if (Object.values(Locales).includes(locale)) {
+    if (this.allowedLocales.includes(locale)) {
       return locale;
     }
 
@@ -36,7 +31,7 @@ export class I18nService {
       LocalstorageKeys.Locale
     ) as Locales;
 
-    if (Object.values(Locales).includes(localStorageLocale)) {
+    if (this.allowedLocales.includes(localStorageLocale)) {
       return localStorage.getItem(LocalstorageKeys.Locale) as Locales;
     }
 
@@ -44,51 +39,27 @@ export class I18nService {
   }
 
   changeLanguage(locale: Locales): void {
-    try {
-      this.translate.use(locale);
-      this.translate.currentLang = locale;
-      localStorage.setItem(LocalstorageKeys.Locale, locale);
-      this.loadTranslations();
-    } catch (e) {
-      this.loadDefaultTranslations();
-    }
-  }
-
-  loadDefaultTranslations(): void {
-    this.setTranslations(this.defaultLang);
-  }
-
-  loadTranslations(): void {
-    if (this._translations.hasOwnProperty(this.currentLang)) {
-      this.translate.setTranslation(
-        this.currentLang,
-        this._translations[this.currentLang]
-      );
-
+    if (locale === this.currentLang) {
       return;
     }
 
-    this.setTranslations(this.currentLang);
-  }
-
-  setTranslations(locale: Locales): void {
-    import(`src/app/locales/${locale}`).then((translations) => {
-      this.translate.setTranslation(locale, translations.default);
-      this._translations[locale] = translations.default;
-    });
+    this.translate.use(locale);
+    localStorage.setItem(LocalstorageKeys.Locale, locale);
   }
 
   checkDefaultLocale(): void {
     if (this.localStorageLocale) {
-      this.translate.currentLang = this.localStorageLocale;
+      this.translate.use(this.localStorageLocale);
       return;
     }
 
     if (this.browserLanguage) {
-      this.translate.currentLang = this.browserLanguage;
+      this.translate.use(this.browserLanguage);
       return;
     }
+  }
 
-    this.translate.currentLang = Locales.En;
+  t(rawKey: string): string {
+    return this.translate.instant(rawKey);
   }
 }

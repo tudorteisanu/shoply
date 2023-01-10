@@ -30,9 +30,9 @@
     <div class="flex items-center hidden md:flex">
       <CartBtn *ngIf="loggedIn$ | async"></CartBtn>
       <AuthButtons></AuthButtons>
+      <LanguageSwitcher></LanguageSwitcher>
     </div>
     <ToggleMenuButton></ToggleMenuButton>
     <MobileMenu [items]="links"></MobileMenu>
-    <LanguageSwitcher></LanguageSwitcher>
   </div>
 </div>
