@@ -18,6 +18,7 @@ import { StoreModule } from '@/app/store/store.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Locales } from '@/ts/enum';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LOADING_INTERCEPTOR_PROVIDER } from '@/services/http/interceptors/loading.interceptor';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, `./assets/locales/`);
@@ -51,6 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
     BASE_URL_INTERCEPTOR_PROVIDER,
     APP_INITIALIZER_PROVIDER,
     REFRESH_TOKEN_INTERCEPTOR_PROVIDER,
+    LOADING_INTERCEPTOR_PROVIDER,
   ],
   bootstrap: [AppComponent],
 })

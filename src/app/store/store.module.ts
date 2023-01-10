@@ -9,6 +9,7 @@ import { CategoryState } from '@/app/store/category/category.state';
 import { MenuState } from '@/app/store/menu/menu.state';
 import { LoadingState } from '@/app/store/loading/loading.state';
 import { CartState } from '@/app/store/cart/cart.state';
+import { RequestLoadingState } from '@/app/store/request-loading/request-loading.state';
 
 @NgModule({
   declarations: [],
@@ -22,6 +23,7 @@ import { CartState } from '@/app/store/cart/cart.state';
       MenuState,
       LoadingState,
       CartState,
+      RequestLoadingState,
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
   ],

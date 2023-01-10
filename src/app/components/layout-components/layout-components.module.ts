@@ -8,6 +8,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { BaseModule } from '@/components/base/base.module';
 import { LanguageSwitcherComponent } from './language-switcher/language-switcher.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { RequestLoaderComponent } from './request-loader/request-loader.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MobileMenuComponent,
     LoadingComponent,
     LanguageSwitcherComponent,
+    RequestLoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FooterComponent,
     LoadingComponent,
     LanguageSwitcherComponent,
+    RequestLoaderComponent,
   ],
 })
 export class LayoutComponentsModule {}
