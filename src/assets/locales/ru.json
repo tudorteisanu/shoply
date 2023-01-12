@@ -1,7 +1,11 @@
 {
   "pages": {
     "login": {
-      "loginBtnText": "Войти"
+      "title": "Вход в систему",
+      "loginBtnText": "Войти",
+      "forgotPassword": "Забыли пароль?",
+      "newUser": "Новый пользователь?",
+      "registerNow": "Зарегестрируйтесь сейчас"
     }
   },
   "base": {

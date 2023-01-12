@@ -1,7 +1,11 @@
 {
   "pages": {
     "login": {
-      "loginBtnText": "Login"
+      "title": "Login",
+      "loginBtnText": "Login",
+      "forgotPassword": "forgot password",
+      "newUser": "New user?",
+      "registerNow": "Register now"
     }
   },
   "base": {
