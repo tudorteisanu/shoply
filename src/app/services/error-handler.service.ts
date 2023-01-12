@@ -23,7 +23,7 @@ export class ErrorHandlerService implements ErrorHandler {
   handleHttpError(error: HttpErrorResponse) {
     this.store.dispatch(
       new ShowAlert({
-        message: error.message,
+        message: error?.message || 'Internal server error!',
         title: 'Error',
         type: 'error',
       })
@@ -37,7 +37,9 @@ export class ErrorHandlerService implements ErrorHandler {
 
     this.store.dispatch(
       new ShowAlert({
-        message: error.message,
+        message:
+          error?.message ||
+          'An error occurred, please contact an administrator.',
         type: 'error',
         title: 'Error',
       })

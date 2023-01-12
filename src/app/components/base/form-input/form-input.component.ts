@@ -22,7 +22,6 @@ export class FormInputComponent implements ControlValueAccessor {
   }
 
   get areMessageShown(): boolean {
-    console.log(this.control.touched);
     return !!this.control.touched || !!this.control.dirty;
   }
 
