@@ -4,6 +4,7 @@
   </div>
   <div class="relative max-w-2xl w-full" (clickOutside)="hideItems()">
     <input
+      (focus)="onTouched()"
       type="text"
       class="w-full border-b border-b-gray-200 p-2 focus:outline-none cursor-pointer"
       readonly
@@ -14,7 +15,7 @@
       (keyup.enter)="selectCurrentItem()"
     />
     <div
-      class="absolute mt-2 shadow-md border border-gray-100 w-full max-h-60 overflow-y-auto"
+      class="absolute mt-2 shadow-md border border-gray-100 w-full max-h-60 overflow-y-auto bg-white"
       *ngIf="areItemsVisible"
     >
       <div

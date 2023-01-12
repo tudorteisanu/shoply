@@ -1,19 +1,23 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'FormSelect',
   templateUrl: './form-select.component.html',
   styleUrls: ['./form-select.component.css'],
 })
-export class FormSelectComponent {
-  @Input() control: FormControl = new FormControl('');
+export class FormSelectComponent implements ControlValueAccessor {
+  @Input() disabled: boolean = false;
   @Input() items: any[] = [];
   @Input() label: string = '';
 
   areItemsVisible: boolean = false;
 
   selectedItem: any = null;
+
+  constructor(@Self() @Optional() private control: NgControl) {
+    this.control.valueAccessor = this;
+  }
 
   get value() {
     return this.control.value;
@@ -38,7 +42,8 @@ export class FormSelectComponent {
   }
 
   selectItem(item: any): void {
-    this.control.setValue(item.value);
+    this.writeValue(item.value);
+    this.selectedItem = item;
     this.hideItems();
   }
 
@@ -114,5 +119,25 @@ export class FormSelectComponent {
         block: 'center',
       });
     }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onChange = (value: any) => {};
+
+  onTouched = () => {};
+  writeValue(value: any): void {
+    this.onChange(value);
+  }
+
+  registerOnChange(fn: (rating: number) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 }
