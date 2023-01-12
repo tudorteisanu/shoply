@@ -8,7 +8,9 @@
     <div class="w-full ml-2 h-full">
       <input
         [type]="type"
-        [formControl]="control"
+        #formInput
+        (input)="onChange(formInput.value)"
+        (focus)="onTouched()"
         class="w-full h-full bg-[#F3F6FF] outline-none"
       />
     </div>

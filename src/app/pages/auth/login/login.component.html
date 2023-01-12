@@ -15,11 +15,11 @@
       <div class="w-full text-center text-3xl text-[#334756]">LOGIN</div>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <FormInput
-          [control]="loginForm.controls['email']"
+          formControlName="email"
           icon="assets/icons/user.svg"
         ></FormInput>
         <FormInput
-          [control]="loginForm.controls['password']"
+          formControlName="password"
           type="password"
           icon="assets/icons/lock.svg"
         ></FormInput>

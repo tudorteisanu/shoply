@@ -1,6 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Optional, Self } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NgControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'FormInput',
@@ -8,12 +12,19 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './form-input.component.html',
 })
-export class FormInputComponent {
+export class FormInputComponent implements ControlValueAccessor {
   @Input() icon: string | undefined = undefined;
   @Input() type: string = 'text';
-  @Input() control: FormControl = new FormControl('');
+  @Input() disabled: boolean = false;
 
-  constructor() {}
+  constructor(@Self() @Optional() private control: NgControl) {
+    this.control.valueAccessor = this;
+  }
+
+  get areMessageShown(): boolean {
+    console.log(this.control.touched);
+    return !!this.control.touched || !!this.control.dirty;
+  }
 
   get errors(): any {
     return this.control.errors;
@@ -49,7 +60,23 @@ export class FormInputComponent {
     return messages.join(', ');
   }
 
-  get areMessageShown(): boolean {
-    return this.control.touched || this.control.dirty;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onChange = (value: any) => {};
+
+  onTouched = () => {};
+  writeValue(value: any): void {
+    this.onChange(value);
+  }
+
+  registerOnChange(fn: (rating: number) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 }

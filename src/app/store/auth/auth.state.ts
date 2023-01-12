@@ -111,18 +111,15 @@ export class AuthState {
 
   @Action(Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    return this.authService.logout().pipe(
-      tap(() => {
-        ctx.setState({
-          accessToken: null,
-          refreshToken: null,
-          user: null,
-        });
+    ctx.setState({
+      accessToken: null,
+      refreshToken: null,
+      user: null,
+    });
 
-        localStorage.removeItem(LocalstorageKeys.AccessToken);
-        localStorage.removeItem(LocalstorageKeys.RefreshToken);
-      })
-    );
+    localStorage.removeItem(LocalstorageKeys.AccessToken);
+    localStorage.removeItem(LocalstorageKeys.RefreshToken);
+    return this.authService.logout();
   }
 
   @Action(FetchUser)
