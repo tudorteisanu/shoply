@@ -267,7 +267,11 @@ class HomeComponent {
   }
 
   loadData(): void {
-    forkJoin([this.http.get("<urlOne>"), this.http.get("<urlTwo>"), ,]).subscribe({
+    forkJoin([
+      this.http.get("<urlOne>"),
+      this.http.get("<urlTwo>"),
+      ,
+    ]).subscribe({
       next: ([responseOne, responseTwo]) => {
         console.log(responseOne, responseTwo);
       },
@@ -275,6 +279,31 @@ class HomeComponent {
         console.log(error);
       },
     });
+  }
+}
+```
+
+### Localization
+
+- html
+
+```angular2html
+<div>
+  {{ 'pages.login.title' | translate}}
+</div>
+```
+
+. ts
+
+```typescript
+@Component({
+  selector: "ExampleComponent",
+})
+export class ExampleClass {
+  constructor(private i18n: I18nService) {}
+
+  someMethod(): void {
+    const message = this.i18n.t("pages.login.successMessage");
   }
 }
 ```
