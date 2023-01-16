@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseModule } from '@/components/base/base.module';
 import { CartInterface, LinkInterface } from '@/ts/interfaces';
-import { PageRoutes } from '@/ts/enum';
+import { AlertTypes, PageRoutes } from '@/ts/enum';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
@@ -80,7 +80,7 @@ export class CartComponent implements OnInit {
     this.store.dispatch(new RemoveProductFromCart(cartId)).subscribe(() => {
       this.store.dispatch(
         new ShowAlert({
-          type: 'success',
+          type: AlertTypes.Success,
         })
       );
     });

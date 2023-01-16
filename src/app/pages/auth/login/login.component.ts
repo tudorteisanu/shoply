@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageRoutes } from '@/ts/enum';
+import { AlertTypes, PageRoutes } from '@/ts/enum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginInterface } from '@/ts/interfaces';
 import { Store } from '@ngxs/store';
@@ -39,7 +39,7 @@ export class LoginComponent {
         error: (err: any) => {
           this.store.dispatch(
             new ShowAlert({
-              type: 'error',
+              type: AlertTypes.Error,
               title: 'Error',
               message: err?.message,
             })

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { ApiRoutes, PageRoutes } from '@/ts/enum';
+import { AlertTypes, ApiRoutes, PageRoutes } from '@/ts/enum';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ShowAlert } from '@/app/store/alert/alert.action';
+import { I18nService } from '@/app/plugins/i18n.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -21,7 +22,8 @@ export class ForgotPasswordComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private i18n: I18nService
   ) {}
 
   get loginUrl(): string {
@@ -38,8 +40,8 @@ export class ForgotPasswordComponent {
       next: () => {
         this.store.dispatch(
           new ShowAlert({
-            type: 'success',
-            message: 'Password successful rested!',
+            type: AlertTypes.Success,
+            message: this.i18n.t('pages.login.successMessage'),
           })
         );
         this.router.navigateByUrl(PageRoutes.Login);
@@ -47,7 +49,7 @@ export class ForgotPasswordComponent {
       error: (err: any) => {
         this.store.dispatch(
           new ShowAlert({
-            type: 'error',
+            type: AlertTypes.Error,
             message: err.message,
           })
         );

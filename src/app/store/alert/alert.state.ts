@@ -4,6 +4,7 @@ import { ShowAlert, HideAlert } from './alert.action';
 import { AlertInterface } from '@/ts/interfaces';
 import { timer } from 'rxjs';
 import { randomInteger } from '@/app/utils';
+import { AlertTypes } from '@/ts/enum';
 
 export class AlertStateModel {
   items!: AlertInterface[];
@@ -13,7 +14,7 @@ const DEFAULT_ALERT_CONFIG: AlertInterface = {
   withoutClosing: false,
   message: 'Operation successful',
   title: 'Success',
-  type: 'success',
+  type: AlertTypes.Success,
   timeout: 3000,
 };
 

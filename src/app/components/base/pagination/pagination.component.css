@@ -17,5 +17,5 @@
 
 .pagination--active {
   @apply bg-black text-white;
-  @apply hover:bg-gray-700
+  @apply hover:bg-gray-700;
 }

@@ -5,7 +5,8 @@
       "loginBtnText": "Login",
       "forgotPassword": "forgot password",
       "newUser": "New user?",
-      "registerNow": "Register now"
+      "registerNow": "Register now",
+      "successMessage": "Password successful rested!"
     }
   },
   "base": {

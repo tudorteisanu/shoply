@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { Store } from '@ngxs/store';
 import { ShowAlert } from '@/app/store/alert/alert.action';
+import { AlertTypes } from '@/ts/enum';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class ErrorHandlerService implements ErrorHandler {
       new ShowAlert({
         message: error?.message || 'Internal server error!',
         title: 'Error',
-        type: 'error',
+        type: AlertTypes.Error,
       })
     );
   }
@@ -40,7 +41,7 @@ export class ErrorHandlerService implements ErrorHandler {
         message:
           error?.message ||
           'An error occurred, please contact an administrator.',
-        type: 'error',
+        type: AlertTypes.Error,
         title: 'Error',
       })
     );

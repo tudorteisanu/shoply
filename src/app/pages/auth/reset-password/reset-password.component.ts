@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { ApiRoutes, PageRoutes } from '@/ts/enum';
+import { AlertTypes, ApiRoutes, PageRoutes } from '@/ts/enum';
 import { ShowAlert } from '@/app/store/alert/alert.action';
 
 @Component({
@@ -58,7 +58,7 @@ export class ResetPasswordComponent implements OnInit {
     this.http.post(ApiRoutes.CheckResetToken, body).subscribe({
       error: (err: any) => {
         this.store.dispatch(
-          new ShowAlert({ type: 'error', message: err.message })
+          new ShowAlert({ type: AlertTypes.Error, message: err.message })
         );
         this.router.navigateByUrl(PageRoutes.Login);
       },
@@ -77,7 +77,7 @@ export class ResetPasswordComponent implements OnInit {
         next: () => {
           this.store.dispatch(
             new ShowAlert({
-              type: 'success',
+              type: AlertTypes.Success,
               message: 'Password successful rested!',
             })
           );
@@ -86,7 +86,7 @@ export class ResetPasswordComponent implements OnInit {
         error: (err: any) => {
           this.store.dispatch(
             new ShowAlert({
-              type: 'error',
+              type: AlertTypes.Error,
               message: err.message,
             })
           );
