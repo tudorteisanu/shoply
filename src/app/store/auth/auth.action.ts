@@ -28,3 +28,7 @@ export class Logout {
 export class FetchUser {
   static readonly type = '[Auth] FetchUser';
 }
+
+export class RemoveToken {
+  static readonly type = '[Auth] RemoveToken';
+}

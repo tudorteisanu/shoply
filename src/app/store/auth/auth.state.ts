@@ -7,6 +7,7 @@ import {
   Login,
   Logout,
   FetchUser,
+  RemoveToken,
 } from './auth.action';
 import { CredentialsInterface, UserInterface } from '@/ts/interfaces';
 import { LocalstorageKeys } from '@/ts/enum';
@@ -38,7 +39,7 @@ export class AuthState {
 
   @Selector()
   static loggedIn(state: AuthStateModel): boolean {
-    return !!state.accessToken;
+    return !!state.user;
   }
 
   @Selector()
@@ -111,6 +112,11 @@ export class AuthState {
 
   @Action(Logout)
   logout(ctx: StateContext<AuthStateModel>) {
+    this.removeTokens(ctx);
+    return this.authService.logout();
+  }
+
+  private removeTokens(ctx: StateContext<AuthStateModel>) {
     ctx.setState({
       accessToken: null,
       refreshToken: null,
@@ -119,7 +125,6 @@ export class AuthState {
 
     localStorage.removeItem(LocalstorageKeys.AccessToken);
     localStorage.removeItem(LocalstorageKeys.RefreshToken);
-    return this.authService.logout();
   }
 
   @Action(FetchUser)
@@ -133,5 +138,10 @@ export class AuthState {
         return user;
       })
     );
+  }
+
+  @Action(RemoveToken)
+  removeToken(ctx: StateContext<AuthStateModel>) {
+    this.removeTokens(ctx);
   }
 }
