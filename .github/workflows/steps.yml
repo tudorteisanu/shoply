@@ -2,11 +2,19 @@ name: Debug
 
 on:
   push:
-    branches: "*"
-    
+    branches:
+      - master
+
 jobs:
-  log:
+  call-workflow:
     uses: tudorteisanu/shoply/.github/workflows/debug.yml@master
+
+  call-workflow-passing-data:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: octo-org/example-repo/.github/workflows/workflow-B.yml@main
     with:
       config-path: .github/labeler.yml
-    secrets: inherit
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
