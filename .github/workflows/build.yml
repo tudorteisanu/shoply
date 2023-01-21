@@ -9,21 +9,22 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
         
-      - name: Download a single artifact
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
           name: node_modules
           
-      - name: Extract node_modules
-        run: tar -xf node_modules.tar.gz
+      - name: Extract artifacts
+        run: tar -xf deploy.tar.gz
           
       - name: Build
         run: npm run build
         
-      - name: Artifact dist
-        run: tar -czf dist.tar.gz dist
-      - name: 'Upload Artifact'
+      - name: Artifact files
+        run: tar -czf dist.tar.gz dist codedeploy
+        
+      - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: dist
-          path: dist.tar.gz
+          name: deploy
+          path: deploy.tar.gz
