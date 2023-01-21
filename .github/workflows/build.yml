@@ -1,4 +1,4 @@
-
+name: Build dev
 on:
   workflow_call: 
 
@@ -19,3 +19,11 @@ jobs:
           
       - name: Build
         run: npm run build
+        
+      - name: Artifact dist
+        run: tar -czf dist.tar.gz dist
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist.tar.gz
