@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debug
-      - run: echo "He heheeh"
+        run: echo "He heheeh"
