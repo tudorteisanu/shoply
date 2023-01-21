@@ -6,5 +6,5 @@ on:
       - master
 
 jobs:
-  call-workflow:
+  build:
     uses: tudorteisanu/shoply/.github/workflows/debug.yml@master
