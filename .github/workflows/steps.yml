@@ -6,5 +6,7 @@ on:
       - master
 
 jobs:
-  build:
-    uses: ./.github/workflows/deploy.yml
+  install:
+    uses: ./.github/workflows/install.yml
+  lint:
+    uses: ./.github/workflows/lint.yml
