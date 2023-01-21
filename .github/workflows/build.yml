@@ -1,0 +1,21 @@
+
+on:
+  workflow_call: 
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Check out
+        uses: actions/checkout@v2
+        
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: node_modules
+          
+      - name: Extract node_modules
+        run: tar -xf node_modules.tar.gz
+          
+      - name: Build
+        run: npm run build
