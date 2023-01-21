@@ -9,5 +9,13 @@ jobs:
     steps: 
       - name: Check out
         uses: actions/checkout@v2
+        
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: node_modules
+      - name: Extract node_modules
+        run: tar -xf node_modules.tar.gz
+          
       - name: Run linter
         run: npm run lint
