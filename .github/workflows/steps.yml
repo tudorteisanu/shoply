@@ -7,4 +7,4 @@ on:
 
 jobs:
   build:
-    uses: tudorteisanu/shoply/.github/workflows/debug.yml@master
+    uses: ./.github/workflows/debug.yml
