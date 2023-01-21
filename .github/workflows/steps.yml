@@ -17,9 +17,5 @@ jobs:
   deploy-dev:
     needs: build-dev
     uses: ./.github/workflows/deploy-dev.yml
-    secrets:
-      USER: ${{ secrets.user }}
-      HOST: ${{ secrets.host }}
-      DIST: ${{ secrets.dist }}
-      KEY: ${{ secrets.key }}
-      DOCKER_AUTH_TOKEN: ${{ secrets.DOCKER_AUTH_TOKEN }}
+    secrets: inherit
+
