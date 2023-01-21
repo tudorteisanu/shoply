@@ -1,0 +1,11 @@
+name: Lint
+
+on:
+  workflow_call: 
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run linter
+        run: npm run lint
