@@ -12,9 +12,9 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Create archive
-        run: tar -cvf node_modules.tar node_modules
+        run: tar -czf node_modules.tar.gz node_modules
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
           name: node_modules
-          path: node_modules.tar
+          path: node_modules.tar.gz
