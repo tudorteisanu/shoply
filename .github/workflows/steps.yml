@@ -11,3 +11,6 @@ jobs:
   lint:
     needs: install
     uses: ./.github/workflows/lint.yml
+  build:
+    needs: lint
+    uses: ./.github/workflows/build.yml
