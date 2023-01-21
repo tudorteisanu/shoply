@@ -1,4 +1,4 @@
-name: Debug
+name: Dev deploy steps
 
 on:
   push:
@@ -11,6 +11,9 @@ jobs:
   lint:
     needs: install
     uses: ./.github/workflows/lint.yml
-  build:
+  build-dev:
     needs: lint
     uses: ./.github/workflows/build.yml
+  deploy-dev:
+    needs: build-dev
+    uses: ./.github/workflows/deploy-dev.yml
