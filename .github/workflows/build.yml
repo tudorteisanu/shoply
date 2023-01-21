@@ -15,7 +15,7 @@ jobs:
           name: node_modules
           
       - name: Extract artifacts
-        run: tar -xf deploy.tar.gz
+        run: tar -xf node_modules.tar.gz
           
       - name: Build
         run: npm run build
