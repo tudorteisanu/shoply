@@ -1,0 +1,11 @@
+name: Install
+
+on:
+  workflow_call: 
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: npm i
