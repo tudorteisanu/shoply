@@ -24,8 +24,9 @@ jobs:
           echo "RELEASE_TYPE=$RELEASE_TYPE" >> $GITHUB_ENV
       - run: rm RELEASE_TYPE
       - run: npm version ${{ env.RELEASE_TYPE }} -m "${{ env.RELEASE_VERSION }} [skip ci]"
-      - run: git add .
-      - run: git commit -m "Update files for new ${{ env.RELEASE_TYPE }} release '${{ env.RELEASE_VERSION }}'"
+      - run: |
+          git add .
+          git commit -m "Update files for new ${{ env.RELEASE_TYPE }} release '${{ env.RELEASE_VERSION }}' [skip ci]"
       - run: git push
       - run: git push --tags
 
