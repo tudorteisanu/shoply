@@ -14,18 +14,8 @@ jobs:
 
       - run: git config user.name 'Release BOT'
       - run: git config user.email 'noreply.release@github.com'
-      - run: npm run release
 
-      - name: Set release version
-        run: |
-          RELEASE_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
-          RELEASE_TYPE=$(cat RELEASE_TYPE)
-          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
-          echo "RELEASE_TYPE=$RELEASE_TYPE" >> $GITHUB_ENV
-      - run: rm RELEASE_TYPE
-      - run: git add .
-      - run: git commit -m "Update files for new ${{ env.RELEASE_TYPE }} release '${{ env.RELEASE_VERSION }}' [skip ci]"
-      - run: npm version ${{ env.RELEASE_TYPE }} -m "${{ env.RELEASE_VERSION }}"
+      - run: npm version patch  -m "[skip ci]"
       - run: git push
       - run: git push --tags
 
