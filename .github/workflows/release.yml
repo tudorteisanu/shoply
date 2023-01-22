@@ -17,9 +17,10 @@ jobs:
         uses: dutscher/read-package-json-endpoint-actions@v1.33.7
         id: package-json-endpoint
 
-      - name: Push tags
-        run: |
-          git tag {{ steps.package-json-endpoint.outputs.endpoint }}
-          git push --tags
+      - uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: ${{ steps.package-json-endpoint.outputs.endpoint }}
+          message: '${{ steps.package-json-endpoint.outputs.endpoint }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+
 #
 #
