@@ -9,13 +9,15 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
         
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
+      - uses: actions/cache@v3
+        id: cache
         with:
-          name: node_modules
-          
-      - name: Extract artifacts
-        run: tar -xf node_modules.tar.gz
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm i
           
       - name: Build
         run: npm run build
