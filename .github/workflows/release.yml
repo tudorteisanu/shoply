@@ -16,7 +16,7 @@ jobs:
       - run: git push -o ci.skip
 
       - run: export PROJECT_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
-      - run: git tag $PROJECT_VERSION -a "Release ${{ env.PROJECT_VERSION }}"
-      - run: git push --tags
+      - run: git tag $PROJECT_VERSION
+      - run: git push origin $PROJECT_VERSION
 #
 #
