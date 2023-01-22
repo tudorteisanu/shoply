@@ -1,5 +1,25 @@
 [
 	{
+		"type": "major",
+		"description": "3 "
+	},
+	{
+		"type": "major",
+		"description": "3 "
+	},
+	{
+		"type": "minor",
+		"description": "3 "
+	},
+	{
+		"type": "patch",
+		"description": "3 "
+	},
+	{
+		"type": "patch",
+		"description": "3 "
+	},
+	{
 		"type": "patch",
 		"description": "3 "
 	}

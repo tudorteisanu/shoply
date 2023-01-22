@@ -65,7 +65,7 @@ const commitChanges = (changes) => {
   execSync(`git commit -m "Update files for new version '${version}'"`);
   const type = getReleaseType(changes);
   const command = `npm version ${type} -m "${version} [skip ci]"`;
-  execSync(`npm version ${type} -m [skip ci]]`);
+  execSync(command);
 };
 
 const writeReleaseFile = (changes) => {
@@ -97,7 +97,7 @@ const changes = fileNames.map((item) => {
 });
 const releaseChanges = getChanges(changes);
 
-// writeChanges(releaseChanges);
-// writeReleaseFile(changes);/
-// removeFiles(fileNames);
+writeChanges(releaseChanges);
+writeReleaseFile(changes);
+removeFiles(fileNames);
 commitChanges(changes);
