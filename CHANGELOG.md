@@ -33,3 +33,9 @@
 ## 1.1.0
 
 - type: major: lea lea lea 
+
+
+## 2.0.0
+
+- type: major: lea lea lea 
+- type: major: 3 
