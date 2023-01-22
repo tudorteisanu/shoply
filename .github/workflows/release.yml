@@ -9,14 +9,10 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.DOCKER_AUTH_TOKEN }}
-#
+
       - run: git config user.name 'Release BOT'
       - run: git config user.email 'teisanutudort@gmail.com'
-      - run: npm version patch
       - run: |
-          export RELEASE_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
-          git tag -a $RELEASE_VERSION -m $RELEASE_VERSION
+          npm version patch
           git push --tags
 
