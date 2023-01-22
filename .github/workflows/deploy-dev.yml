@@ -1,20 +1,20 @@
 name: Deploy-dev
 
 on:
-  workflow_call: 
+  workflow_call:
 
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v2
-        
+        uses: actions/checkout@v3
+
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
           name: deploy
-          
+
       - name: Extract artifacts
         run: tar -xf deploy.tar.gz
 
@@ -24,7 +24,7 @@ jobs:
           registry: docker.pkg.github.com
           username: $GITHUB_ACTOR
           password: ${{ secrets.DOCKER_AUTH_TOKEN }}
-          
+
       - name: Build image and push to GitHub Packages
         uses: docker/build-push-action@v2
         with:

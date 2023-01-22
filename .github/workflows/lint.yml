@@ -1,15 +1,15 @@
 name: Lint
 
 on:
-  workflow_call: 
+  workflow_call:
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Check out
-        uses: actions/checkout@v2
-        
+        uses: actions/checkout@v3
+
       - uses: actions/cache@v3
         id: cache
         with:
@@ -19,6 +19,6 @@ jobs:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm i
-          
+
       - name: Run linter
         run: npm run lint
