@@ -15,6 +15,8 @@ jobs:
       - run: git config user.name 'Release BOT'
       - run: git config user.email 'noreply.release@github.com'
 
+      - run: npm run release
+
       - run: git push
       - run: git push --tags
 
