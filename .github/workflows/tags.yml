@@ -8,6 +8,7 @@ on:
 jobs:
   lint:
     uses: ./.github/workflows/lint.yml
+
   release:
     needs: lint
     uses: ./.github/workflows/deploy-prod.yml

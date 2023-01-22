@@ -8,9 +8,11 @@ on:
 jobs:
   lint:
     uses: ./.github/workflows/lint.yml
+
   build-dev:
     needs: lint
     uses: ./.github/workflows/build.yml
+
   deploy-dev:
     needs: build-dev
     uses: ./.github/workflows/deploy-dev.yml
