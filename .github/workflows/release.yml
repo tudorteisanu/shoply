@@ -13,10 +13,10 @@ jobs:
       - run: git config --global user.name 'Release BOT'
       - run: git config --global user.email 'teisanutudort@gmail.com'
       - run: npm version patch
+
       - name: Read package.json
-        uses: dutscher/read-package-json-endpoint-actions@v1.33.7
-        id: package-json-endpoint
-      - run: git tag ${{ steps.package-json-endpoint.outputs.endpoint }}
+      - run: export PROJECT_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
+      - run: git tag $PROJECT_VERSION
       - run: git push --tags
 #
 #
