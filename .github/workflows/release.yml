@@ -14,6 +14,6 @@ jobs:
       - run: git config user.email 'teisanutudort@gmail.com'
       - run: |
           npm version patch
-          git push -o ci.skip
+          git push
           git push --tags
 
