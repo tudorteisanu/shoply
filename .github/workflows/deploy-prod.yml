@@ -19,7 +19,9 @@ jobs:
         run: tar -xf deploy.tar.gz
 
       - name: Set release version
-        run: echo "RELEASE_VERSION=${$(grep '\"version\"' package.json | cut -d '\"' -f 4 | head -n 1)}" >> $GITHUB_ENV
+        run: |
+          RELEASE_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
+          echo "RELEASE_VERSION=${$RELEASE_VERSION}" >> $GITHUB_ENV
 
       - name: Login to Github Packages
         uses: docker/login-action@v1
@@ -28,7 +30,7 @@ jobs:
           username: $GITHUB_ACTOR
           password: ${{ secrets.DOCKER_AUTH_TOKEN }}
 
-      - name: Build image and push to GitHub Packages
+      - name: Build and push package
         uses: docker/build-push-action@v2
         with:
           context: .
