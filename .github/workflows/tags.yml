@@ -3,13 +3,13 @@ name: Tags
 on:
   push:
     tags:
-      - '*.*.*'
+      - '*'
 
 jobs:
   lint:
     uses: ./.github/workflows/lint.yml
 
-  release:
+  deploy-prod:
     needs: lint
     uses: ./.github/workflows/deploy-prod.yml
     secrets: inherit
