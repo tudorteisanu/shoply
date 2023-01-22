@@ -1,10 +1,10 @@
-name: Build docker
+name: Deploy-dev
 
 on:
   workflow_call:
 
 jobs:
-  build-docker:
+  deploy-dev:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -18,9 +18,8 @@ jobs:
       - name: Extract artifacts
         run: tar -xf deploy.tar.gz
 
-
-      - name: Set version
-        run: export PROJECT_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
+      - name: Get release version
+        run: export RELEASE_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
 
       - name: Login to Github Packages
         uses: docker/login-action@v1
@@ -33,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags: "docker.pkg.github.com/tudorteisanu/shoply/release:${{ $PROJECT_VERSION }}"
+          tags: "docker.pkg.github.com/tudorteisanu/shoply/release:${{ env.RELEASE_VERSION }}"
           push: true
           file: "codedeploy/Dockerfile"
 

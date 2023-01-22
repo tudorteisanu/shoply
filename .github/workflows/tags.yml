@@ -2,14 +2,14 @@ name: Deploy PROD
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*'
 
 jobs:
   lint:
     uses: ./.github/workflows/lint.yml
   release:
     needs: lint
-    uses: ./.github/workflows/release.yml
+    uses: ./.github/workflows/deploy-prod.yml
     secrets: inherit
 
