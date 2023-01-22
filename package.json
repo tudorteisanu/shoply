@@ -9,7 +9,11 @@
     "test": "ng test",
     "prepare": "husky install",
     "lint": "ng lint",
-    "lint:styles": "stylelint \"**/*.css\""
+    "lint:styles": "stylelint \"**/*.css\"",
+    "patch": "node commands/changes.js patch",
+    "minor": "node commands/changes.js minor",
+    "major": "node commands/changes.js major",
+    "release": "node commands/release.js"
   },
   "private": true,
   "dependencies": {
