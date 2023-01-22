@@ -6,11 +6,11 @@ on:
       - master
 
 jobs:
-  lint:
-    uses: ./.github/workflows/lint.yml
+  check:
+    uses: ./.github/workflows/check.yml
 
   release:
-    needs: lint
+    needs: check
     uses: ./.github/workflows/release.yml
     secrets: inherit
 

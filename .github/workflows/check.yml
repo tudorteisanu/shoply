@@ -1,10 +1,10 @@
-name: Lint
+name: Check
 
 on:
   workflow_call:
 
 jobs:
-  lint:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -20,5 +20,5 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm i
 
-      - name: Run linter
-        run: npm run lint
+      - name: Check
+        run: npm run check

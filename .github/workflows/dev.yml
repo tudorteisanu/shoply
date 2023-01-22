@@ -6,11 +6,11 @@ on:
       - dev
 
 jobs:
-  lint:
-    uses: ./.github/workflows/lint.yml
+  check:
+    uses: ./.github/workflows/check.yml
 
   build-dev:
-    needs: lint
+    needs: check
     uses: ./.github/workflows/build.yml
 
   deploy-dev:

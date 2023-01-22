@@ -6,15 +6,15 @@ on:
       - '*'
 
 jobs:
-  lint:
-    uses: ./.github/workflows/lint.yml
+  check:
+    uses: ./.github/workflows/check.yml
 
   build:
-    needs: lint
+    needs: check
     uses: ./.github/workflows/build.yml
 
-  deploy-prod:
-    needs: lint
+  deploy:
+    needs: build
     uses: ./.github/workflows/deploy-prod.yml
     secrets: inherit
 
