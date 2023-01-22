@@ -10,17 +10,13 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
 
-      - name: Update version
-        run: npm version patch
-
+      - run: git config --global user.name 'Release BOT'
+      - run: git config --global user.email 'teisanutudort@gmail.com'
+      - run: npm version patch
       - name: Read package.json
         uses: dutscher/read-package-json-endpoint-actions@v1.33.7
         id: package-json-endpoint
-
-      - uses: actions-ecosystem/action-push-tag@v1
-        with:
-          tag: ${{ steps.package-json-endpoint.outputs.endpoint }}
-          message: '${{ steps.package-json-endpoint.outputs.endpoint }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
-
+      - run: git tag ${{ steps.package-json-endpoint.outputs.endpoint }}
+      - run: git push --tags
 #
 #
