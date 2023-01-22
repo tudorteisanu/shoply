@@ -16,15 +16,11 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-      - run: |
-         git tag ${{github.run_id}}
-         git push origin ${{github.run_id}}
+          token: ${{ secrets.DOCKER_AUTH_TOKEN }}
 
-#      - run: git config user.name 'Release BOT'
-#      - run: git config user.email 'teisanutudort@gmail.com'
-#      - run: |
-#          npm version patch
-#          git push
-#          git push --tags
+      - run: git config user.name 'Release BOT'
+      - run: git config user.email 'teisanutudort@gmail.com'
+      - run: npm version patch
+      - run: git push --tags
+      - run: git push -o ci.skip
 
