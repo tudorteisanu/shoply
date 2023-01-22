@@ -9,6 +9,10 @@ jobs:
   lint:
     uses: ./.github/workflows/lint.yml
 
+  build:
+    needs: lint
+    uses: ./.github/workflows/build.yml
+
   deploy-prod:
     needs: lint
     uses: ./.github/workflows/deploy-prod.yml
