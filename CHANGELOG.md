@@ -13,3 +13,8 @@
 - type: patch: 3 
 - type: patch: 3 
 - type: patch: 3 
+
+
+## 1.0.0
+
+- type: major: 3 
