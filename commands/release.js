@@ -64,7 +64,7 @@ const commitChanges = (changes) => {
   execSync("git add .");
   execSync(`git commit -m "Update files for new version '${version}'"`);
   const type = getReleaseType(changes);
-  const command = `npm version ${type} -m "[skip ci]"`;
+  const command = `npm version ${type} -m "${version} [skip ci]"`;
   execSync(`npm version ${type} -m [skip ci]]`);
 };
 
