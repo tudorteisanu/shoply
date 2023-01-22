@@ -22,6 +22,7 @@ jobs:
       - run: git config user.email 'noreply.release@github.com'
 
       - run: npm version patch
-      - run: git push skip ci
+      - run: git commit -m "[skip ci]"
+      - run: git push
       - run: git push --tags
 
