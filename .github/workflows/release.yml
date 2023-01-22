@@ -9,9 +9,11 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-
-      - run: git config --global user.name 'Release BOT'
-      - run: git config --global user.email 'teisanutudort@gmail.com'
+        with:
+          GITHUB_TOKEN: ${{ secrets.DOCKER_AUTH_TOKEN }}
+#
+#      - run: git config --global user.name 'Release BOT'
+#      - run: git config --global user.email 'teisanutudort@gmail.com'
       - run: npm version patch
       - run: |
           export RELEASE_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
