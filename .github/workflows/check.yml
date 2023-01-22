@@ -21,4 +21,4 @@ jobs:
         run: npm i
 
       - name: Check
-        run: npm run check
+        run: npm run lint
