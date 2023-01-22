@@ -68,6 +68,7 @@ const commitChanges = (changes) => {
   const type = getReleaseType(changes);
   const command = `npm version ${type} -m "v${version} [skip ci]"`;
   execSync(command);
+  execSync(`export RELEASE_TYPE=${type}`);
 };
 
 const writeReleaseFile = (changes) => {

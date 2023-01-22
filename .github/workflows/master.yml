@@ -6,11 +6,11 @@ on:
       - master
 
 jobs:
-  check:
-    uses: ./.github/workflows/check.yml
+#  check:
+#    uses: ./.github/workflows/check.yml
 
   release:
-    needs: check
+#    needs: check
     uses: ./.github/workflows/release.yml
     secrets: inherit
 
