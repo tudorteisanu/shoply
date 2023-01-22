@@ -16,6 +16,11 @@ jobs:
       - run: git push -o ci.skip
 
       - run: export PROJECT_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
+
+      - name: Release new tag
+      - uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: ${{ env.$PROJECT_VERSION }}
       - run: git tag $PROJECT_VERSION
       - run: git push --tags
 #
