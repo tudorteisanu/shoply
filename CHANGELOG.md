@@ -44,3 +44,9 @@
 ## 4.0.0
 
 - type: major: 3 
+
+
+## 6.0.0
+
+- type: major: lea lea lea 
+- type: major: 3 
