@@ -1,0 +1,16 @@
+name: Lint
+
+on:
+  workflow_call:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Update version
+        run: echo "Release"
+#
+#

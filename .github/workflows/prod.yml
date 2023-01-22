@@ -1,0 +1,15 @@
+name: Deploy PROD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    uses: ./.github/workflows/steps/lint.yml
+  release:
+    needs: lint
+    uses: ./.github/workflows/steps/release.yml
+    secrets: inherit
+

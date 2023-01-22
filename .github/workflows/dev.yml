@@ -1,0 +1,18 @@
+name: Deploy DEV
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  lint:
+    uses: ./.github/workflows/steps/lint.yml
+  build-dev:
+    needs: lint
+    uses: ./.github/workflows/steps/build.yml
+  deploy-dev:
+    needs: build-dev
+    uses: ./.github/workflows/steps/deploy-dev.yml
+    secrets: inherit
+
