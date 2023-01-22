@@ -28,3 +28,8 @@
 ## 1.0.0
 
 - type: minor: Some minor change
+
+
+## 1.1.0
+
+- type: major: lea lea lea 
