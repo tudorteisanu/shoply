@@ -8,8 +8,8 @@ const changesDir = ".changes";
 const nextReleaseDir = `${changesDir}/next-release`;
 
 const MAJOR_TYPE = "major";
-const MINOR_TYPE = "major";
-const PATCH_TYPE = "major";
+const MINOR_TYPE = "minor";
+const PATCH_TYPE = "patch";
 
 if (!fs.existsSync(changesDir) || !fs.existsSync(nextReleaseDir)) {
   console.log("Nothing to release.");
@@ -64,6 +64,8 @@ const commitChanges = (changes) => {
   execSync("git add .");
   execSync(`git commit -m "Update files for new version '${version}'"`);
   const type = getReleaseType(changes);
+  const command = `npm version ${type} -m "[skip ci]"`;
+  console.log(command);
   execSync(`npm version ${type} -m [skip ci]]`);
 };
 
@@ -96,7 +98,7 @@ const changes = fileNames.map((item) => {
 });
 const releaseChanges = getChanges(changes);
 
-writeChanges(releaseChanges);
-writeReleaseFile(changes);
-removeFiles(fileNames);
+// writeChanges(releaseChanges);
+// writeReleaseFile(changes);/
+// removeFiles(fileNames);
 commitChanges(changes);
