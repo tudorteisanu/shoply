@@ -20,6 +20,6 @@ jobs:
       - name: Release new tag
         uses: actions-ecosystem/action-push-tag@v1
         with:
-          tag: ${{ env.$PROJECT_VERSION }}
+          tag: ${{ env.PROJECT_VERSION }}
 #
 #
