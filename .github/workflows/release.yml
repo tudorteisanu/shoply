@@ -21,7 +21,5 @@ jobs:
       - uses: actions-ecosystem/action-push-tag@v1
         with:
           tag: ${{ env.$PROJECT_VERSION }}
-      - run: git tag $PROJECT_VERSION
-      - run: git push --tags
 #
 #
