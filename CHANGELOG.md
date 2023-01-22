@@ -50,3 +50,8 @@
 
 - type: major: lea lea lea 
 - type: major: 3 
+
+
+## 7.0.0
+
+- type: major: lea lea lea 
