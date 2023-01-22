@@ -13,7 +13,9 @@ jobs:
       - run: git config --global user.name 'Release BOT'
       - run: git config --global user.email 'teisanutudort@gmail.com'
       - run: npm version patch
-      - run: export RELEASE_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
-      - run: git push origin refs/tags/v${{env.RELEASE_VERSION}}
+      - run: |
+          RELEASE=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
+          export RELEASE_VERSION=echo("v${RELEASE})
+      - run: git push origin refs/tags/${{ env.RELEASE_VERSION }}
 
 
