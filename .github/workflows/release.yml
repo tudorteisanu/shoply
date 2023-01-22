@@ -14,6 +14,6 @@ jobs:
       - run: git config --global user.email 'teisanutudort@gmail.com'
       - run: npm version patch
       - run: export RELEASE_VERSION=$(grep '"version"' package.json | cut -d '"' -f 4 | head -n 1)
-      - run: git tag -a $RELEASE_VERSION
+      - run: git tag -a $RELEASE_VERSION -m $RELEASE_VERSION
       - run: git push --tags
 
