@@ -25,7 +25,7 @@ jobs:
       - run: rm RELEASE_TYPE
       - run: git add .
       - run: git commit -m "Update files for new ${{ env.RELEASE_TYPE }} release '${{ env.RELEASE_VERSION }}' [skip ci]"
-      - run: npm version ${{ env.RELEASE_TYPE }} -m "${{ env.RELEASE_VERSION }} [skip ci]"
+      - run: npm version ${{ env.RELEASE_TYPE }} -m "${{ env.RELEASE_VERSION }}"
       - run: git push
       - run: git push --tags
 
