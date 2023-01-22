@@ -1,9 +1,9 @@
-name: Deploy PROD
+name: Tags
 
 on:
   push:
     tags:
-      - '*'
+      - '*.*.*'
 
 jobs:
   lint:

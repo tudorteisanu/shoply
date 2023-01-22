@@ -1,14 +1,14 @@
 name: Build dev
 on:
-  workflow_call: 
+  workflow_call:
 
 jobs:
-  triage:
+  build:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Check out
         uses: actions/checkout@v2
-        
+
       - uses: actions/cache@v3
         id: cache
         with:
@@ -18,13 +18,13 @@ jobs:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm i
-          
+
       - name: Build
         run: npm run build
-        
+
       - name: Artifact files
         run: tar -czf deploy.tar.gz dist codedeploy
-        
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
