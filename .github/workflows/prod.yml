@@ -7,9 +7,9 @@ on:
 
 jobs:
   lint:
-    uses: ./.github/workflows/steps/lint.yml
+    uses: ./.github/workflows/lint.yml
   release:
     needs: lint
-    uses: ./.github/workflows/steps/release.yml
+    uses: ./.github/workflows/release.yml
     secrets: inherit
 

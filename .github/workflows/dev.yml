@@ -7,12 +7,12 @@ on:
 
 jobs:
   lint:
-    uses: ./.github/workflows/steps/lint.yml
+    uses: ./.github/workflows/lint.yml
   build-dev:
     needs: lint
-    uses: ./.github/workflows/steps/build.yml
+    uses: ./.github/workflows/build.yml
   deploy-dev:
     needs: build-dev
-    uses: ./.github/workflows/steps/deploy-dev.yml
+    uses: ./.github/workflows/deploy-dev.yml
     secrets: inherit
 
