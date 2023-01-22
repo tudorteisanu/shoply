@@ -23,3 +23,8 @@
 ## 0.0.35
 
 - type: major: 3 
+
+
+## 1.0.0
+
+- type: minor: Some minor change
