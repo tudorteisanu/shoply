@@ -29,9 +29,10 @@ const checkReleaseDir = () => {
 const generateChangesFile = (type, description) => {
   const timestamp = getTimeStamp();
   const fileName = `${nextReleaseDir}/${type}-${timestamp}.json`;
-
   const content = getContent(type, description);
+
   checkReleaseDir();
+
   if (!fs.existsSync(fileName)) {
     fs.appendFileSync(fileName, "");
   }

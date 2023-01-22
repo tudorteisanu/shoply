@@ -36,13 +36,13 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
     - **pipes** - Contain custom pipes _(create folder if not exists)_.
     - **layouts** - Contain different page layouts.
     - **mixins** - Vue reusable mixins if they are used across multiple components _(create folder if not exists)_.
-    - **pages** - Contain pages with angular router integration. Each component/module added to this folder will used
+    - **pages** - Contain pages with angular router integration. Each component/module added to this folder will use
       for router.
       - for simple routes like `/login`, `/about` - we should create a standalone component (only if we use angular 13+)
       - for nested routes like `/products`, `/products/create`, `/products/:id/edit` we should create a module and group
         them into this module routes
     - **services** - Tools that do not depend on components or pages and can be used in any of the component or outside
-      of them. Should provide an external API which if possible not tied to a specific technology or library.
+      of them. Should provide an external API which is possible not tied to a specific technology or library.
     - **ts** - Typescript assets, such as an interfaces, types, enums etc.
     - **utils** - Contains helper functions whose task is to take a value, perform some kind of action with it and
       return a new value. At the same time, without producing any side effects.
