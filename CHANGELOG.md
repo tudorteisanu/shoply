@@ -1,62 +1,49 @@
+# Changelog
+Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 9.0.0
 
-## 0.0.34
-
-- type: patch: 3 
-
-
-## 0.0.34
-
-- type: major: 3 
-- type: major: 3 
-- type: minor: 3 
-- type: patch: 3 
-- type: patch: 3 
-- type: patch: 3 
-
-
-## 1.0.0
-
-- type: major: 3 
-
-
-## 0.0.35
-
-- type: major: 3 
-
-
-## 1.0.0
-
-- type: minor: Some minor change
-
-
-## 1.1.0
-
-- type: major: lea lea lea 
-
-
-## 2.0.0
-
-- type: major: lea lea lea 
-- type: major: 3 
-
-
-## 4.0.0
-
-- type: major: 3 
-
-
-## 6.0.0
-
-- type: major: lea lea lea 
-- type: major: 3 
-
-
-## 7.0.0
-
-- type: major: lea lea lea 
-
+- major: 3 
 
 ## 8.0.3
 
-- type: major: 3 
+- major: 3 
+
+## 7.0.0
+
+- major: lea lea lea 
+
+## 6.0.0
+
+- major: 3 
+- major: lea lea lea 
+
+## 4.0.0
+
+- major: 3 
+
+## 2.0.0
+
+- major: 3 
+- major: lea lea lea 
+
+## 1.1.0
+
+- major: lea lea lea 
+
+## 1.0.0
+
+- minor: Some minor change
+
+## 0.0.35
+
+- major: 3 
+
+## 0.0.34
+
+- major: 3 
+- major: 3 
+- minor: 3 
+- patch: 3 
+- patch: 3 
+- patch: 3 
