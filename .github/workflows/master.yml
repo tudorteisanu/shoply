@@ -12,4 +12,5 @@ jobs:
   release:
 #    needs: check
     uses: Nano-IT/workflows/.github/workflows/release.yml@main
-    secrets: inherit
+    secrets:
+      token: ${{ secrets.DOCKER_AUTH_TOKEN }}
