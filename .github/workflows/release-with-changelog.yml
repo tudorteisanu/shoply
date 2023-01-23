@@ -20,6 +20,7 @@ jobs:
 
       - name: Release
         run: |
+          semversioner next-version
           semversioner release
           semversioner changelog > CHANGELOG.md
 
