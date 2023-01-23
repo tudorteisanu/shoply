@@ -6,10 +6,9 @@ on:
       - master
       
   workflow_call:
-    inputs:
-      token:
+    secrets:
+      authToken:
         required: true
-        type: string
 
 jobs:
   check:
