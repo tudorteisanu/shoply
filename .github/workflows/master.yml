@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - master
+      
+  workflow_call:
+    inputs:
+      token:
+        required: true
+        type: string
 
 jobs:
   check:
