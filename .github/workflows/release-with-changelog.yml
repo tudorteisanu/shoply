@@ -27,9 +27,12 @@ jobs:
       - name: Export version
         run: |
           export VERSION=$(semversioner current-version)
-          echo $VERSION
+          echo "VERSION=VERSION" >> $GITHUB_ENV
 
       - name: Get version
+        run: echo ${{ env.VERSION }}
+
+      - name: Get version 2
         run: echo $VERSION
 
 #      - name: Commit changes
