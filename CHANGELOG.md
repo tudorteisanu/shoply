@@ -55,3 +55,8 @@
 ## 7.0.0
 
 - type: major: lea lea lea 
+
+
+## 8.0.3
+
+- type: major: 3 
