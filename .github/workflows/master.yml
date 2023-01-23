@@ -11,6 +11,6 @@ jobs:
 
   release:
 #    needs: check
-    uses: ./.github/workflows/release-with-changelog.yml
+    uses: Nano-IT/workflows/.github/workflows/release.yml
     secrets: inherit
 
