@@ -18,33 +18,26 @@ jobs:
       - name: Install Semversioner
         run: pip install semversioner
 
-#      - name: Release
-#        run: semversioner release
-#
-#      - name: Update changelog
-#        run: semversioner changelog > CHANGELOG.md
+      - name: Release
+        run: |
+          semversioner release
+          semversioner changelog > CHANGELOG.md
 
-      - name: Export version
+      - name: Set version
         run: |
           export VERSION=$(semversioner current-version)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Get version
-        run: echo ${{ env.VERSION }}
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Update files for new version '${{ env.VERSION }}' [skip ci]"
+          git push origin master
 
-      - name: Get version 2
-        run: echo $VERSION
-
-#      - name: Commit changes
-#        run: |
-#          git add .
-#          git commit -m "Update files for new version '${{ env.VERSION }}' [skip ci]"
-#          git push origin master
-
-#      - name: Create new tag
-#        run: |
-#          git tag -a -m "Tagging for release ${{ env.VERSION }}" "${{ env.VERSION }}"
-#          git push origin ${{ env.VERSION }}
-#          git push --tags
+      - name: Create new tag
+        run: |
+          git tag -a -m "Tagging for release ${{ env.VERSION }}" "${{ env.VERSION }}"
+          git push origin ${{ env.VERSION }}
+          git push --tags
 
 
