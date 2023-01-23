@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 11.0.0
+
+- major: lea lea lea 
+
 ## 10.0.0
 
 - major: 3 
