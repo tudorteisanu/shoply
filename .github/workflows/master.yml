@@ -18,6 +18,6 @@ jobs:
   release:
     needs: check
     uses: Nano-IT/workflows/.github/workflows/release.yml@main
-    with: 
+    secrets: 
       authToken:  ${{ secrets.DOCKER_AUTH_TOKEN }}
 
