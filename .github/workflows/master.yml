@@ -13,6 +13,6 @@ jobs:
 #    needs: check
     uses: Nano-IT/workflows/.github/workflows/release.yml@v1
     with:
-      environment: 'development'
+      environment: development
     secrets: inherit
 
